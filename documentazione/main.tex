@@ -1,13 +1,26 @@
-\documentclass[a4paper,titlepage]{report}
+\documentclass[a4paper, 12pt, openright]{report}
+
 \usepackage[italian]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage{float}
 \usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
 \graphicspath{{./images/}}
 
-\begin{document}
-\chapter*{Capitolo 1 - Iterazione 0}
+\newcommand{\emptypage}{
+  \clearpage
+  \pagenumbering{gobble}
+  \mbox{}
+}
 
+\begin{document}
+
+\input{titlepage.tex}
+
+\emptypage
+
+\chapter{Iterazione 0}
+\pagenumbering{arabic}
 \input{iterations/iterazione0.tex}
 
 \end{document}
