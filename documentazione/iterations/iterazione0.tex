@@ -1,13 +1,14 @@
-\section{Requisiti (...)}
+\section{Requisiti}
+
 Si vuole realizzare un sistema software che offra un servizio di sharing musicale, unito
 alle funzionalità tipiche di un social network. Alla registrazione, l'utente dovrà
 inserire una lista di generi musicali preferiti. L'algoritmo proporrà quindi all'utente i
 brani più popolari basati sulle sue preferenze e gli permetterà di esplorare le sue
 affinità musicali. Gli attori in gioco sono i seguenti:
 \begin{itemize}
-    \item utenti che vogliono ascoltare musica, conoscere e condividere le proprie
-          attività musicali con gli amici;
-    \item artisti indipendenti e non per pubblicare e gestire la propria musica.
+      \item utenti che vogliono ascoltare musica, conoscere e condividere le proprie
+            attività musicali con gli amici;
+      \item artisti indipendenti e non per pubblicare e gestire la propria musica.
 \end{itemize}
 
 L'utente, per poter usufruire dei servizi forniti, deve registrarsi e creare un proprio
@@ -50,7 +51,7 @@ dell'utente così da permettergli di scoprire sempre nuove canzoni.
 L'artista, a differenza dell'utente ascoltatore, può caricare brani singoli e album
 inserendo i dati relativi alla propria produzione artistica.
 
-\section{Studio di fattibilità (...)}
+\section{Studio di fattibilità}
 Procedendo con una valutazione dei costi e dei benefici della possibile realizzazione del
 presente sistema, è possibile concludere che i costi principali sono relativi alla
 funzionalità di Discover e brani consigliati. Per realizzare questa funzionalità è
@@ -63,83 +64,92 @@ fattibilità in termini di tecnologie e strumenti per la realizzazione del siste
 Di seguito vengono riportati i casi d'uso raggruppati in base all'attore coinvolto. Come
 anticipato gli attori in gioco sono i seguenti:
 \begin{itemize}
-    \item Utente ascoltatore;
-    \item Artista (indipendente/non);
+      \item Utente ascoltatore;
+      \item Artista;
 \end{itemize}
 
 \subsection{Casi d'uso utente}
 \begin{itemize}
-    \item \textbf{UC1}: Sign in L'utente può registrarsi inserendo le sue informazioni
-          personali.
-    \item \textbf{UC2}: Log in L'utente può accedere al proprio profilo personale
-          inserendo nome utente e password.
-    \item \textbf{UC3}: Log out L'utente può disconnettere il proprio profilo personale
-          dal sistema.
-    \item \textbf{UC4}: Consulta home-page L'utente può navigare nelle varie sezioni
-          della home page.
-    \item \textbf{UC5}: Cerca brano L'utente può digitare nella barra di ricerca per
-          cercare un brano dal titolo.
-    \item \textbf{UC6}: Scarica brano L'utente può scaricare il brano.
-    \item \textbf{UC7}: Like al brano L'utente può esprimere il proprio interesse per un
-          brano mettendo like.
-    \item \textbf{UC8}: Aggiungi brano a playlist L'utente può aggiungere alla lista di
-          brani della playlist un brano selezionato.
-    \item \textbf{UC9}: Cerca Utente L'utente può cercare un utente per nome dalla barra
-          di ricerca apposita (cerca album/artista).
-    \item \textbf{UC10}: Aggiungi Utente L'utente può aggiungere alla propria lista amici
-          un utente selezionato.
-    \item \textbf{UC11}: Visualizza informazioni profilo L'utente può consultare le
-          proprie informazioni personali inserite in fase di registrazione.
-    \item \textbf{UC12}: Modifica profilo L'utente può modificare le proprie informazioni
-          personali inserite in fase di registrazione.
-    \item \textbf{UC13}: Elimina profilo L'utente può eliminare il proprio profilo dal
-          sistema.
-    \item \textbf{UC14}: Visualizza playlist L'utente può consultare tutte le proprie
-          playlist.
-    \item \textbf{UC15}: Crea nuova playlist L'utente può creare una nuova playlist nella
-          quale aggiungere brani.
-    \item \textbf{UC16}: Elimina playlist L'utente può eliminare una delle proprie
-          playlist.
-    \item \textbf{UC17}: Modifica playlist L'utente può modificare una delle proprie
-          playlist, per esempio modificando il nome o rimuovendo brani.
-    \item \textbf{UC18}: “Discover” e classifiche L'utente può consultare classifiche e
-          brani scelti per lui dal sistema.
+      \item \textbf{UC1}: Sign in L'utente può registrarsi inserendo le sue informazioni
+            personali.
+      \item \textbf{UC2}: Log in L'utente può accedere al proprio profilo personale
+            inserendo nome utente e password.
+      \item \textbf{UC3}: Log out L'utente può disconnettere il proprio profilo personale
+            dal sistema.
+      \item \textbf{UC4}: Consulta home-page L'utente può navigare nelle varie sezioni
+            della home page.
+      \item \textbf{UC5}: Cerca brano L'utente può digitare nella barra di ricerca per
+            cercare un brano dal titolo.
+      \item \textbf{UC6}: Scarica brano L'utente può scaricare il brano.
+      \item \textbf{UC7}: Like al brano L'utente può esprimere il proprio interesse per un
+            brano mettendo like.
+      \item \textbf{UC8}: Aggiungi brano a playlist L'utente può aggiungere alla lista di
+            brani della playlist un brano selezionato.
+      \item \textbf{UC9}: Cerca Utente L'utente può cercare un utente per nome dalla barra
+            di ricerca apposita (cerca album/artista).
+      \item \textbf{UC10}: Aggiungi Utente L'utente può aggiungere alla propria lista amici
+            un utente selezionato.
+      \item \textbf{UC11}: Visualizza informazioni profilo L'utente può consultare le
+            proprie informazioni personali inserite in fase di registrazione.
+      \item \textbf{UC12}: Modifica profilo L'utente può modificare le proprie informazioni
+            personali inserite in fase di registrazione.
+      \item \textbf{UC13}: Elimina profilo L'utente può eliminare il proprio profilo dal
+            sistema.
+      \item \textbf{UC14}: Visualizza playlist L'utente può consultare tutte le proprie
+            playlist.
+      \item \textbf{UC15}: Crea nuova playlist L'utente può creare una nuova playlist nella
+            quale aggiungere brani.
+      \item \textbf{UC16}: Elimina playlist L'utente può eliminare una delle proprie
+            playlist.
+      \item \textbf{UC17}: Modifica playlist L'utente può modificare una delle proprie
+            playlist, per esempio modificando il nome o rimuovendo brani.
+      \item \textbf{UC18}: ``Discover'' e classifiche L'utente può consultare classifiche e
+            brani scelti per lui dal sistema.
 
 \end{itemize}
 
 \subsection{Casi d'uso artista}
 \begin{itemize}
-    \item \textbf{UC19}: Crea pagina artista L'artista per poter pubblicare musica deve
-          creare una pagina artista inserendo le proprie informazioni personali.
-    \item  \textbf{UC20}: Visualizza pagina artista L'artista può consultare la propria
-          pagina artista, dove vengono visualizzati i propri brani/album pubblicati.
-    \item  \textbf{UC21}: Aggiungi brano L'artista può pubblicare un nuovo brano
-          inserendo le informazioni relative.
-    \item  \textbf{UC22}: Aggiungi album L'artista può pubblicare un nuovo album contente
-          i brani scelti.
-    \item  \textbf{UC23}: Personalizza pagina artista L'artista può decidere quali brani
-          e album mettere in evidenza nella propria pagina artista.
-    \item  \textbf{UC24}: Consulta anagrafica L'artista può consultare l'anagrafica
-          relativa agli ascolti e ai like dei brani e album pubblicati.
+      \item \textbf{UC19}: Crea pagina artista L'artista per poter pubblicare musica deve
+            creare una pagina artista inserendo le proprie informazioni personali.
+      \item  \textbf{UC20}: Visualizza pagina artista L'artista può consultare la propria
+            pagina artista, dove vengono visualizzati i propri brani/album pubblicati.
+      \item  \textbf{UC21}: Aggiungi brano L'artista può pubblicare un nuovo brano
+            inserendo le informazioni relative.
+      \item  \textbf{UC22}: Aggiungi album L'artista può pubblicare un nuovo album contente
+            i brani scelti.
+      \item  \textbf{UC23}: Personalizza pagina artista L'artista può decidere quali brani
+            e album mettere in evidenza nella propria pagina artista.
+      \item  \textbf{UC24}: Consulta anagrafica L'artista può consultare l'anagrafica
+            relativa agli ascolti e ai like dei brani e album pubblicati.
 
 \end{itemize}
 
-\subsection{Dettaglio casi d'uso (...)}
+\subsection{Dettaglio casi d'uso}
 
 \subsection{Diagramma dei casi d'uso}
+
 In figura \ref{fig-uml-use-cases} è stato riportato il diagramma dei casi d'uso, dove sono stati inseriti quelli
 già precedentemente descritti mettendoli in correlazione con il corrispettivo attore.
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.50]{UseCaseDiagramver1.jpg}
-    \caption{UML use cases diagram}
-    \label{fig-uml-use-cases}
+
+\begin{figure}[H]
+      \centering
+      \includegraphics[scale=0.50]{UseCaseDiagramver1.jpg}
+      \caption{UML use cases diagram}
+      \label{fig-uml-use-cases}
 \end{figure}
 
-\section{Architettura del sistema(...)}
+\section{Architettura del sistema}
+
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth]{architettura.png}
+      \caption{Architettura}
+      \label{architettura}
+\end{figure}
 
 \subsection{Deployment diagram -- Informal}
 
 \subsection{Deployment diagram -- UML}
 
-\section{Toolchain e tecnologie utilizzate (...)}
+\section{Toolchain e tecnologie utilizzate}
