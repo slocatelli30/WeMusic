@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Playlists</h1>
+  <div style="display:flex; flex-direction: row;">
+    <div style="border: 1px solid black; padding: 10px;">
+      {% for p in playlists %}
+        <div>{{p.name}}</div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

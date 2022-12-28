@@ -49,3 +49,26 @@ def liked_songs(request):
         return render(request, 'liked_songs.html', context)
     else:
         return redirect('index')
+
+
+def playlists(request):
+    """View function for playlists."""
+
+    if not request.user.is_authenticated:
+        return redirect('index')
+
+    # If admin without account, dont crash
+    if not Account.objects.filter(user=request.user).exists():
+        return redirect('index')
+
+    account = Account.objects.get(user=request.user)
+
+    if OrdinaryUser.objects.filter(account=account).exists():
+        ordinary_user = OrdinaryUser.objects.get(account=account)
+
+        context = {
+            'playlists': Playlist.objects.filter(creator=ordinary_user).order_by('name'),
+        }
+        return render(request, 'playlists.html', context)
+    else:
+        return redirect('index')
