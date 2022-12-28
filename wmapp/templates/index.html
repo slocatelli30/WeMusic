@@ -3,4 +3,14 @@
 {% block content %}
   <h1>We Music</h1>
   <p>Benvenuto</p>
+
+  {% if user.is_authenticated %}
+    {% for s in liked_songs %}
+      <div>{{s.title}}</div>
+    {% endfor %}
+    {% for p in playlists %}
+      <div>{{p.name}}</div>
+    {% endfor %}
+  {% endif %}
+
 {% endblock %}
