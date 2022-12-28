@@ -2,15 +2,24 @@
 
 {% block content %}
   <h1>We Music</h1>
-  <p>Benvenuto</p>
-
+  
   {% if user.is_authenticated %}
-    {% for s in liked_songs %}
-      <div>{{s.title}}</div>
-    {% endfor %}
-    {% for p in playlists %}
-      <div>{{p.name}}</div>
-    {% endfor %}
+    <p>Benvenuto {{ user.get_username }}!</p>
+    <div style="display:flex; flex-direction: row;">
+      <div style="margin-right: 40px">
+        {% for s in liked_songs %}
+          <div>{{s.title}}</div>
+        {% endfor %}
+      </div>
+      <div>
+        {% for p in playlists %}
+          <div>{{p.name}}</div>
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+  <p>Benvenuto!</p>
   {% endif %}
+
 
 {% endblock %}
