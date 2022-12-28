@@ -1,6 +1,26 @@
 import random
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import Playlist, OrdinaryUser, Account
+
+
+def require_ordinary_user(fun):
+
+    def wrapper(request):
+        # If admin without account, dont crash
+        if not Account.objects.filter(user=request.user).exists():
+            return redirect('index')
+
+        account = Account.objects.get(user=request.user)
+
+        if OrdinaryUser.objects.filter(account=account).exists():
+            ordinary_user = OrdinaryUser.objects.get(account=account)
+
+            return fun(request, ordinary_user)
+        else:
+            return redirect('index')
+
+    return wrapper
 
 
 def index(request):
@@ -28,47 +48,22 @@ def index(request):
         return render(request, 'index.html')
 
 
-def liked_songs(request):
+@login_required
+@require_ordinary_user
+def liked_songs(request, ordinary_user):
     """View function for liked songs."""
-
-    if not request.user.is_authenticated:
-        return redirect('index')
-
-    # If admin without account, dont crash
-    if not Account.objects.filter(user=request.user).exists():
-        return redirect('index')
-
-    account = Account.objects.get(user=request.user)
-
-    if OrdinaryUser.objects.filter(account=account).exists():
-        ordinary_user = OrdinaryUser.objects.get(account=account)
-
-        context = {
-            'liked_songs': ordinary_user.liked_songs.order_by('title').all(),
-        }
-        return render(request, 'liked_songs.html', context)
-    else:
-        return redirect('index')
+    context = {
+        'liked_songs': ordinary_user.liked_songs.order_by('title').all(),
+    }
+    return render(request, 'liked_songs.html', context)
 
 
-def playlists(request):
+@login_required
+@require_ordinary_user
+def playlists(request, ordinary_user):
     """View function for playlists."""
 
-    if not request.user.is_authenticated:
-        return redirect('index')
-
-    # If admin without account, dont crash
-    if not Account.objects.filter(user=request.user).exists():
-        return redirect('index')
-
-    account = Account.objects.get(user=request.user)
-
-    if OrdinaryUser.objects.filter(account=account).exists():
-        ordinary_user = OrdinaryUser.objects.get(account=account)
-
-        context = {
-            'playlists': Playlist.objects.filter(creator=ordinary_user).order_by('name'),
-        }
-        return render(request, 'playlists.html', context)
-    else:
-        return redirect('index')
+    context = {
+        'playlists': Playlist.objects.filter(creator=ordinary_user).order_by('name'),
+    }
+    return render(request, 'playlists.html', context)
