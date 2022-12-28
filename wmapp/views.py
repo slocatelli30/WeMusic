@@ -1,6 +1,6 @@
+import random
 from django.shortcuts import render
-from django.http import HttpRequest, HttpResponse
-from .models import Song, Playlist, OrdinaryUser, Account
+from .models import Playlist, OrdinaryUser, Account
 
 
 def index(request):
@@ -9,14 +9,18 @@ def index(request):
     if not request.user.is_authenticated:
         return render(request, 'index.html')
 
+    # If admin without account, dont crash
+    if not Account.objects.filter(user=request.user).exists():
+        return render(request, 'index.html')
+
     account = Account.objects.get(user=request.user)
 
     if OrdinaryUser.objects.filter(account=account).exists():
         ordinary_user = OrdinaryUser.objects.get(account=account)
 
         context = {
-            'liked_songs': ordinary_user.liked_songs.all(),
-            'playlists': Playlist.objects.filter(creator=ordinary_user),
+            'liked_songs': ordinary_user.liked_songs.order_by('?').all()[:10],
+            'playlists': Playlist.objects.filter(creator=ordinary_user).order_by('-creation_date')[:10],
             # 'playlists': ordinary_user.playlist_set.all(),
         }
         return render(request, 'index.html', context)
