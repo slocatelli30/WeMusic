@@ -2,5 +2,7 @@
 
 {% block content %}
   <h1>{{playlist.name}}</h1>
-
+  {% for s in playlist.songs.all %}
+    <div>{{s.title}}</div>
+    {% endfor %}
 {% endblock %}
