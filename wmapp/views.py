@@ -5,38 +5,51 @@ from .models import Playlist, OrdinaryUser, Account
 
 
 def require_ordinary_user(fun):
-
     def wrapper(request):
-        # If admin without account, dont crash
-        if not Account.objects.filter(user=request.user).exists():
-            return redirect('index')
-
-        account = Account.objects.get(user=request.user)
-
-        if OrdinaryUser.objects.filter(account=account).exists():
-            ordinary_user = OrdinaryUser.objects.get(account=account)
-
-            return fun(request, ordinary_user)
-        else:
-            return redirect('index')
-
+        if request.user_type == 'ordinary':
+            return fun(request)
+        return redirect('index')
     return wrapper
 
 
+def derive_user_type(fun):
+    def wrapper(request):
+
+        if not request.user.is_authenticated:
+            request.user_type = None
+            return fun(request)
+
+        if not Account.objects.filter(user=request.user).exists():
+            request.user_type = 'admin'
+            return fun(request)
+
+        request.account = Account.objects.get(user=request.user)
+
+        if OrdinaryUser.objects.filter(account=request.account).exists():
+
+            request.user_type = 'ordinary'
+        else:
+            request.user_type = 'artist'
+
+        return fun(request)
+    return wrapper
+
+
+@derive_user_type
 def index(request):
     """View function for home page of site."""
 
-    if not request.user.is_authenticated:
+    print(request.user_type)
+
+    if request.user_type is None:
         return render(request, 'index.html')
 
     # If admin without account, dont crash
-    if not Account.objects.filter(user=request.user).exists():
+    if request.user_type == 'admin':
         return render(request, 'index.html')
 
-    account = Account.objects.get(user=request.user)
-
-    if OrdinaryUser.objects.filter(account=account).exists():
-        ordinary_user = OrdinaryUser.objects.get(account=account)
+    if request.user_type == 'ordinary':
+        ordinary_user = OrdinaryUser.objects.get(account=request.account)
 
         context = {
             'liked_songs': ordinary_user.liked_songs.order_by('?').all()[:10],
@@ -45,13 +58,20 @@ def index(request):
         }
         return render(request, 'index.html', context)
     else:
+        context = {
+            'liked_songs': [],
+            'playlists': [], }
         return render(request, 'index.html')
 
 
 @login_required
+@derive_user_type
 @require_ordinary_user
-def liked_songs(request, ordinary_user):
+def liked_songs(request):
     """View function for liked songs."""
+
+    ordinary_user = OrdinaryUser.objects.get(account=request.account)
+
     context = {
         'liked_songs': ordinary_user.liked_songs.order_by('title').all(),
     }
@@ -59,9 +79,12 @@ def liked_songs(request, ordinary_user):
 
 
 @login_required
+@derive_user_type
 @require_ordinary_user
-def playlists(request, ordinary_user):
+def playlists(request):
     """View function for playlists."""
+
+    ordinary_user = OrdinaryUser.objects.get(account=request.account)
 
     context = {
         'playlists': Playlist.objects.filter(creator=ordinary_user).order_by('name'),

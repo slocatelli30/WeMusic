@@ -5,20 +5,22 @@
   
   {% if user.is_authenticated %}
     <p>Benvenuto {{ user.get_username }}!</p>
-    <div style="display:flex; flex-direction: row;">
-      <div style="margin-right: 40px; border: 1px solid black; padding: 10px;">
-        {% for s in liked_songs %}
-          <div>{{s.title}}</div>
-        {% endfor %}
+    {% if request.user_type == 'ordinary' %}
+      <div style="display:flex; flex-direction: row;">
+        <div style="margin-right: 40px; border: 1px solid black; padding: 10px;">
+          {% for s in liked_songs %}
+            <div>{{s.title}}</div>
+          {% endfor %}
+        </div>
+        <div style="border: 1px solid black; padding: 10px;">
+          {% for p in playlists %}
+            <div>{{p.name}}</div>
+          {% endfor %}
+        </div>
       </div>
-      <div style="border: 1px solid black; padding: 10px;">
-        {% for p in playlists %}
-          <div>{{p.name}}</div>
-        {% endfor %}
-      </div>
-    </div>
+    {% endif %}
   {% else %}
-  <p>Benvenuto!</p>
+    <p>Benvenuto!</p>
   {% endif %}
 
 
