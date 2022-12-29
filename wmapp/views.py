@@ -103,3 +103,15 @@ def song_detail(request, song_id):
         'song': song
     }
     return render(request, 'song_detail.html', context)
+
+
+@derive_user_type
+def album_detail(request, album_id):
+    """View function for album detail."""
+
+    album = get_object_or_404(Album, pk=album_id)
+
+    context = {
+        'album': album
+    }
+    return render(request, 'album_detail.html', context)

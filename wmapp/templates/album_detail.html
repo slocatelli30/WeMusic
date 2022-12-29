@@ -1,0 +1,8 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>{{album.name}}</h1>
+    {% for s in album.song_set.all %}
+    <div><a href="{% url 'song_detail' s.id %}">{{ s.title }}</a></div>
+    {% endfor %}
+{% endblock %}
