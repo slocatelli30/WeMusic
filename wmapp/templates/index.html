@@ -19,6 +19,17 @@
         </div>
       </div>
     {% endif %}
+    {% if request.user_type == 'artist' %}
+      <div style="display:flex; flex-direction: row;">
+        <div style="margin-right: 40px; border: 1px solid black; padding: 10px;">
+          {% for s in songs %}
+            <div><a href="{% url 'song_detail' s.id %}">{{ s.title }}</a></div>
+          {% endfor %}
+        </div>
+        <div style="border: 1px solid black; padding: 10px;">
+        </div>
+      </div>
+    {% endif %}
   {% else %}
     <p>Benvenuto!</p>
   {% endif %}

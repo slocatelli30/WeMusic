@@ -1,7 +1,7 @@
 from .decorators import require_ordinary_user, derive_user_type
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
-from .models import Playlist, OrdinaryUser, Song
+from .models import Playlist, OrdinaryUser, Song, Artist
 
 
 @derive_user_type
@@ -13,7 +13,7 @@ def index(request):
     if request.user_type is None:
         return render(request, 'index.html')
 
-    # If admin without account, dont crash
+    # Admin does not have an account
     if request.user_type == 'admin':
         return render(request, 'index.html')
 
@@ -26,6 +26,15 @@ def index(request):
             # 'playlists': ordinary_user.playlist_set.all(),
         }
         return render(request, 'index.html', context)
+
+    if request.user_type == 'artist':
+        artist = Artist.objects.get(account=request.account)
+
+        context = {
+            'songs': artist.song_set.all()
+        }
+        return render(request, 'index.html', context)
+
     else:
         context = {
             'liked_songs': [],
