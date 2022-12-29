@@ -14,7 +14,7 @@
         </div>
         <div style="border: 1px solid black; padding: 10px;">
           {% for p in playlists %}
-            <div>{{p.name}}</div>
+            <div><a href="{% url 'playlist_detail' p.id %}">{{ p.name }}</a></div>
           {% endfor %}
         </div>
       </div>
