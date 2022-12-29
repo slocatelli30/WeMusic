@@ -1,7 +1,8 @@
 from .decorators import require_ordinary_user, derive_user_type
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
-from .models import Playlist, OrdinaryUser, Song, Artist
+from .models import Playlist, OrdinaryUser, Song, Artist, Album
+import collections
 
 
 @derive_user_type
@@ -29,9 +30,17 @@ def index(request):
 
     if request.user_type == 'artist':
         artist = Artist.objects.get(account=request.account)
+        songs = artist.song_set.all()
+
+        seen = collections.OrderedDict()
+        for s in songs:
+            if s.album.id not in seen:
+                seen[s.album.id] = s.album
+        albums = list(seen.values())
 
         context = {
-            'songs': artist.song_set.all()
+            'songs': songs,
+            'albums': albums
         }
         return render(request, 'index.html', context)
 
