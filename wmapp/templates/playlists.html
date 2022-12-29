@@ -2,11 +2,8 @@
 
 {% block content %}
   <h1>Playlists</h1>
-  <div style="display:flex; flex-direction: row;">
-    <div style="border: 1px solid black; padding: 10px;">
-      {% for p in playlists %}
-        <div>{{p.name}}</div>
-      {% endfor %}
-    </div>
-  </div>
+    {% for p in playlists %}
+      <div><a href="{% url 'playlist_detail' p.id %}">{{ p.name }}</a></div>
+      <!-- <div>{{p.name}}</div> -->
+    {% endfor %}
 {% endblock %}
