@@ -1,8 +1,7 @@
-import random
 from .decorators import require_ordinary_user, derive_user_type
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from .models import Playlist, OrdinaryUser, Account
+from django.shortcuts import render, get_object_or_404
+from .models import Playlist, OrdinaryUser
 
 
 @derive_user_type
@@ -60,3 +59,16 @@ def playlists(request):
         'playlists': Playlist.objects.filter(creator=ordinary_user).order_by('name'),
     }
     return render(request, 'playlists.html', context)
+
+
+@login_required
+@derive_user_type
+@require_ordinary_user
+def playlist_detail(request, playlist_id):
+
+    playlist = get_object_or_404(Playlist, pk=playlist_id)
+
+    context = {
+        'playlist': playlist
+    }
+    return render(request, 'playlist_detail.html', context)

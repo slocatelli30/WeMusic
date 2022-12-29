@@ -3,23 +3,22 @@ from .models import OrdinaryUser, Account
 
 
 def require_ordinary_user(fun):
-    def wrapper(request):
+    def wrapper(request, *args, **kwargs):
         if request.user_type == 'ordinary':
-            return fun(request)
+            return fun(request, *args, **kwargs)
         return redirect('index')
     return wrapper
 
 
 def derive_user_type(fun):
-    def wrapper(request):
-
+    def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated:
             request.user_type = None
-            return fun(request)
+            return fun(request, *args, **kwargs)
 
         if not Account.objects.filter(user=request.user).exists():
             request.user_type = 'admin'
-            return fun(request)
+            return fun(request, *args, **kwargs)
 
         request.account = Account.objects.get(user=request.user)
 
@@ -29,5 +28,5 @@ def derive_user_type(fun):
         else:
             request.user_type = 'artist'
 
-        return fun(request)
+        return fun(request, *args, **kwargs)
     return wrapper
