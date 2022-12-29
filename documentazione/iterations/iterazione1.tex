@@ -27,26 +27,74 @@ componenti su nodi computazionali basati su uno sviluppo fisico del sistema.
 
 \newpage
 \section{Casi d'uso}
-I casi d'uso vengono raggruppati in quattro macro categorie in base a un criterio di affinità
+I casi d'uso vengono raggruppati in tre macro categorie in base a un criterio di affinità:
+i primi sono relativi all'autenticazione dell'utente, i secondi sono relativi a tutto
+ciò che riguarda l'ambito musicale, ed infine quelli relativi all'account personale e lato social. 
+Di seguito un elenco dettagliato dei casi d'uso suddivisi come anticipato.
+
+\subsection{\textbf{Autenticazione}}
+    \begin{itemize}
+        \item \textbf{UC1:} Sign up 
+        \item \textbf{UC2:} Log in
+        \item \textbf{UC3:} Log out 
+    \end{itemize}
+
+
+
+\subsection{\textbf{Musica}}
 \begin{itemize}
-    \item Account
+    \item \textbf{Canzone:} in questa sezione rientrano tutti i casi d'uso relativi alle canzoni.
     \begin{itemize}
-        \item Personale: UC 12-13-14
-        \item Amici: UC 10-11
+        \item \textbf{UC4:} Cerca brano
+        \item \textbf{UC5:} Cerca album
+        \item \textbf{UC6:} Cerca Artista
+        \item \textbf{UC7:} Scarica brano
+        \item \textbf{UC8:} Like al brano
+        \item \textbf{UC19:} ``Discover'' e classifiche
+    \end{itemize} 
+    
+    \item \textbf{Playlist:} in questa sezione rientrano tutti i casi d'uso relativi alla creazione e gestione delle playlist.
+    \begin{itemize}
+        \item \textbf{UC9:} Aggiungi brano a playlist
+        \item \textbf{UC15:} Visualizza playlist 
+        \item \textbf{UC16:} Crea nuova playlist 
+        \item \textbf{UC17:} Elimina playlist
+        \item \textbf{UC18:} Modifica playlist
     \end{itemize}
-    \item Musica
+    
+    \item \textbf{Artista:} in questa sezione rientrano tutti i casi d'uso relativi alla gestione del profilo artista.
     \begin{itemize}
-        \item Canzone: UC 4-5-6-7-8-19
-        \item Playlist: UC 9-15-16-17-18
-        \item Artista: UC 20-21-22-23-24-25
+        \item  \textbf{UC20:} Crea pagina artista 
+        \item  \textbf{UC21:} Visualizza pagina artista 
+        \item  \textbf{UC22:} Aggiungi brano 
+        \item  \textbf{UC23:} Aggiungi album 
+        \item  \textbf{UC24:} Personalizza pagina artista 
+        \item  \textbf{UC25:} Consulta anagrafica
+    \end{itemize} 
+\end{itemize}
+
+\subsection{\textbf{Account}}
+\begin{itemize}
+    \item \textbf{Personale:} in questa sezione rientrano tutti i casi d'uso relativi alla gestione delle informazioni nel proprio profilo personale.
+    \begin{itemize}
+        \item \textbf{UC12:} Visualizza informazioni profilo 
+        \item \textbf{UC13:} Modifica profilo 
+        \item \textbf{UC14:} Elimina profilo 
     \end{itemize}
-    \item Autenticazione
+    
+    \item \textbf{Amici:} in questa sezione rientrano tutti i casi d'uso relativi alla parte social.
     \begin{itemize}
-        \item UC 1-2-3
+        \item \textbf{UC10:} Cerca Utente 
+        \item \textbf{UC11:} Aggiungi Utente 
     \end{itemize}
 \end{itemize}
 
 
+\newpage
+\section{System Diagram}
+In figura sono rappresentate tutte le interfacce richieste ed esposte dal nostro sistema. Inoltre,
+i casi d'uso sono stati raggruppati, indicando il nome dell'interfaccia che permetterà di implementare
+il particolare caso d'uso.
 
 
 \newpage
@@ -82,3 +130,8 @@ Autenticazione, sono descritte in maniera più approfondita.
     \label{fig-uml-class-diag}
 \end{figure}
 
+
+\newpage
+\section{Interface e Package Diagram}
+In figura è rappresentato il diagramma delle interfacce e dei package che riassume la struttura
+logica dell'applicazione e delle interfacce che verranno implementate nelle successive iterazioni.
