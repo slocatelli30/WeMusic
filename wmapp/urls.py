@@ -8,4 +8,5 @@ urlpatterns = [
     path('playlists', views.playlists, name='playlists'),
     path('playlists/<int:playlist_id>',
          views.playlist_detail, name='playlist_detail'),
+    path('songs/<int:song_id>', views.song_detail, name='song_detail'),
 ]

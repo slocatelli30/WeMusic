@@ -1,7 +1,7 @@
 from .decorators import require_ordinary_user, derive_user_type
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
-from .models import Playlist, OrdinaryUser
+from .models import Playlist, OrdinaryUser, Song
 
 
 @derive_user_type
@@ -65,6 +65,7 @@ def playlists(request):
 @derive_user_type
 @require_ordinary_user
 def playlist_detail(request, playlist_id):
+    """View function for playlist detail."""
 
     playlist = get_object_or_404(Playlist, pk=playlist_id)
 
@@ -72,3 +73,15 @@ def playlist_detail(request, playlist_id):
         'playlist': playlist
     }
     return render(request, 'playlist_detail.html', context)
+
+
+@derive_user_type
+def song_detail(request, song_id):
+    """View function for song detail."""
+
+    song = get_object_or_404(Song, pk=song_id)
+
+    context = {
+        'song': song
+    }
+    return render(request, 'song_detail.html', context)
