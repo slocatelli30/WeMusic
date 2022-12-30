@@ -1,8 +1,10 @@
 from .decorators import require_ordinary_user, require_artist, derive_user_type
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from django.shortcuts import render, get_object_or_404
-from .models import Playlist, OrdinaryUser, Song, Artist, Album
+from .models import Playlist, OrdinaryUser, Song, Artist, Album, Account
 import collections
+import json
 
 
 @derive_user_type
@@ -151,3 +153,17 @@ def uploaded_albums(request):
         'albums': albums
     }
     return render(request, 'uploaded_albums.html', context)
+
+
+@login_required
+@derive_user_type
+def account_detail(request):
+    account = request.account
+
+    context = {
+        'name': account.name,
+        'surname': account.surname,
+        'email': account.email,
+
+    }
+    return render(request, 'account_detail.html', context)
