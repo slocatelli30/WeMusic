@@ -130,3 +130,24 @@ def uploaded_songs(request):
         'uploaded_songs': uploaded_songs,
     }
     return render(request, 'uploaded_songs.html', context)
+
+
+@login_required
+@derive_user_type
+@require_artist
+def uploaded_albums(request):
+    """View function for uploaded albums."""
+
+    artist = Artist.objects.get(account=request.account)
+    songs = artist.song_set.all()
+
+    seen = collections.OrderedDict()
+    for s in songs:
+        if s.album.id not in seen:
+            seen[s.album.id] = s.album
+    albums = list(seen.values())
+
+    context = {
+        'albums': albums
+    }
+    return render(request, 'uploaded_albums.html', context)

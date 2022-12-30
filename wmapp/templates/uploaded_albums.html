@@ -1,0 +1,8 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Uploaded Albums</h1>
+    {% for a in albums %}
+      <div><a href="{% url 'album_detail' a.id %}">{{ a.name }}</a></div>
+    {% endfor %}
+{% endblock %}
