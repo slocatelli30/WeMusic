@@ -5,7 +5,9 @@ from django.db import models
 
 class Account(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.CharField(max_length=72)
+    email = models.CharField(max_length=72, null=True)
+    name = models.CharField(max_length=255, null=True)
+    surname = models.CharField(max_length=255, null=True)
 
     def __str__(self):
         return f'account: {self.user.username}'
