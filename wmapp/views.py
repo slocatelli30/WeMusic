@@ -62,7 +62,7 @@ def liked_songs(request):
     ordinary_user = OrdinaryUser.objects.get(account=request.account)
 
     context = {
-        'liked_songs': ordinary_user.liked_songs.order_by('title').all(),
+        'liked_songs_json': json.dumps(list(ordinary_user.liked_songs.order_by('title').all().values())),
     }
     return render(request, 'liked_songs.html', context)
 
