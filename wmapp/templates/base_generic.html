@@ -21,6 +21,9 @@
               <li><a href="{% url 'liked_songs' %}">Liked</a></li>
               <li><a href="{% url 'playlists' %}">Playlists</a></li>
             {% endif %}
+            {% if request.user_type == 'artist' %}
+              <li><a href="{% url 'uploaded_songs' %}">Songs</a></li>
+            {% endif %}
               <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
           {% else %}
             <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>

@@ -1,4 +1,4 @@
-from .decorators import require_ordinary_user, derive_user_type
+from .decorators import require_ordinary_user, require_artist, derive_user_type
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from .models import Playlist, OrdinaryUser, Song, Artist, Album
@@ -115,3 +115,18 @@ def album_detail(request, album_id):
         'album': album
     }
     return render(request, 'album_detail.html', context)
+
+
+@login_required
+@derive_user_type
+@require_artist
+def uploaded_songs(request):
+    """View function for uploaded songs."""
+
+    artist = Artist.objects.get(account=request.account)
+    uploaded_songs = artist.song_set.all()
+
+    context = {
+        'uploaded_songs': uploaded_songs,
+    }
+    return render(request, 'uploaded_songs.html', context)

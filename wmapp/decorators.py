@@ -10,6 +10,14 @@ def require_ordinary_user(fun):
     return wrapper
 
 
+def require_artist(fun):
+    def wrapper(request, *args, **kwargs):
+        if request.user_type == 'artist':
+            return fun(request, *args, **kwargs)
+        return redirect('index')
+    return wrapper
+
+
 def derive_user_type(fun):
     def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated:
