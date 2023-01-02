@@ -208,12 +208,20 @@ già precedentemente descritti mettendoli in correlazione con il corrispettivo a
 
 \newpage
 \section{Architettura del sistema}
-L'architettura del sistema è stata formalizzata attraverso due deployment diagram differenti: 
+L'architettura del sistema è stata formalizzata attraverso la rappresentazione tramite Deployment Diagram, diagramma di tipo statico 
+sviluppato al fine di modellizzare e descrivere un sistema in termini di risorse hardware e di relazioni fra di esse.
+Vengono sviluppatidue Deployment Diagram differenti:
+
 il primo, riportato in figura \ref{architettura}, rappresenta il sistema
-attraverso una notazione a stile libero, mentre il secondo, riportato in fig (...), rappresenta
-il sistema tramite lo stile UML. (...)
+attraverso una notazione a stile libero, mentre il secondo, riportato in figura \ref{dep_diagram}, rappresenta
+la topologia del sistema tramite lo stile UML. 
+
+\vspace{2cm}
 
 \subsection{Deployment diagram -- Informal}
+In figura \ref{architettura} viene evidenziata la componente principale del sistema, il sistema gestore (WeMusic)
+il Web Server (sviluppato tramite il framework Django) che, tramite una connessione ad internet, permette 
+agli utenti di poter consultare il sito.
 \begin{figure}[H]
       \centering
       \includegraphics[width=\textwidth]{architettura.png}
@@ -222,13 +230,16 @@ il sistema tramite lo stile UML. (...)
 \end{figure}
 
 
-
+\newpage
 \subsection{Deployment diagram -- UML}
+In figura \ref{dep_diagram} vengono evidenziati due nodi principali: 
+un lato client che gestirà il front-end del sistema WeMusic, e un lato server relativo 
+al back-end e alla gestione del DataBase, in modo da velocizzare e semplificare l'interazione tra logica e dati. 
 \begin{figure}[H]
-    %  \centering
-    %  \includegraphics[width=\textwidth]{}
-    %  \caption{Component Diagram}
-    %  \label{deployment diagram}
+    \centering
+    \includegraphics[width=\textwidth]{DeploymentDiagram_ver0.jpg}
+    \caption{Deployment Diagram}
+    \label{dep_diagram}
 \end{figure}
 
 
