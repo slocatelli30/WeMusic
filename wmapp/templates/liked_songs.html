@@ -19,6 +19,7 @@
 
         animateRows: true, // have rows animate to new positions when sorted
 
+        onRowDoubleClicked: onRowDoubleClicked
     };
 
     // get div to host the grid
@@ -31,6 +32,11 @@
 
     function onSearchTextChange(){
         gridOptions.api.setQuickFilter(document.getElementById('searchText').value)
+    }
+
+    function onRowDoubleClicked(e){
+
+        window.location.href = "{% url 'song_detail' 0 %}".replace(/0/, e.data.id.toString())
     }
 </script>
 {% endblock %}
