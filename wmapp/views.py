@@ -115,7 +115,7 @@ def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
 
     context = {
-        'album': album
+        'album_songs_json': json.dumps(list(album.song_set.all().order_by('title').all().values())),
     }
     return render(request, 'album_detail.html', context)
 
