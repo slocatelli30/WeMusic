@@ -90,7 +90,8 @@ def playlist_detail(request, playlist_id):
     playlist = get_object_or_404(Playlist, pk=playlist_id)
 
     context = {
-        'playlist': playlist
+        'playlist_songs_json': json.dumps(list(playlist.songs.order_by('title').all().values())),
+
     }
     return render(request, 'playlist_detail.html', context)
 
