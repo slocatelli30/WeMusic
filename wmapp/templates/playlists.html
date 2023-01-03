@@ -1,8 +1,45 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Playlists</h1>
-    {% for p in playlists %}
-      <div><a href="{% url 'playlist_detail' p.id %}">{{ p.name }}</a></div>
-    {% endfor %}
+<input id="searchText" type ="text" oninput="onSearchTextChange()"/>
+<div id="myGrid" class="ag-theme-alpine" style="height: 500px"></div>
+<script type="text/javascript">
+    // Grid Options are properties passed to the grid
+    const gridOptions = {
+
+        // each entry here represents one column
+        columnDefs: [
+            { field: "name" },
+            { 
+              field: "creation_date",
+              headerName: "Creation Date",
+              valueFormatter: (params) => (new Date(params.value)).toLocaleDateString()
+            },
+            { headerName: "Number of Songs", valueGetter: (params) => params.data.songs.length }
+        ],
+
+        // default col def properties get applied to all columns
+        defaultColDef: {sortable: true, filter: true},
+
+        animateRows: true, // have rows animate to new positions when sorted
+
+        onRowDoubleClicked: onRowDoubleClicked
+    };
+
+    // get div to host the grid
+    const eGridDiv = document.getElementById("myGrid");
+    // new grid instance, passing in the hosting DIV and Grid Options
+    new agGrid.Grid(eGridDiv, gridOptions);
+    const data = JSON.parse('{{playlists_json|escapejs}}')
+    console.log(data)
+    gridOptions.api.setRowData(data);
+
+    function onSearchTextChange(){
+        gridOptions.api.setQuickFilter(document.getElementById('searchText').value)
+    }
+
+    function onRowDoubleClicked(e){
+        window.location.href = "{% url 'playlist_detail' 0 %}".replace(/0/, e.data.id.toString())
+    }
+</script>
 {% endblock %}

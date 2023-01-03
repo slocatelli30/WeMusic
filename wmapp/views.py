@@ -74,9 +74,12 @@ def playlists(request):
     """View function for playlists."""
 
     ordinary_user = OrdinaryUser.objects.get(account=request.account)
-
+    serialized = serializers.serialize(
+        'json', Playlist.objects.filter(creator=ordinary_user))
+    print(serialized)
     context = {
-        'playlists': Playlist.objects.filter(creator=ordinary_user).order_by('name'),
+        'playlists_json': json.dumps([{'id': o['pk'], **o['fields']}
+                                      for o in json.loads(serialized)]),
     }
     return render(request, 'playlists.html', context)
 
