@@ -133,7 +133,7 @@ def uploaded_songs(request):
     uploaded_songs = artist.song_set.all()
 
     context = {
-        'uploaded_songs': uploaded_songs,
+        'uploaded_songs_json': json.dumps(list(uploaded_songs.order_by('title').all().values())),
     }
     return render(request, 'uploaded_songs.html', context)
 
