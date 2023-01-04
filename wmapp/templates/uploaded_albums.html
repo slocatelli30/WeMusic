@@ -18,11 +18,13 @@
         ],
 
         // default col def properties get applied to all columns
-        defaultColDef: {sortable: true, filter: true},
+        defaultColDef: {sortable: true, filter: true, resizable: true},
 
         animateRows: true, // have rows animate to new positions when sorted
 
-        onRowDoubleClicked: onRowDoubleClicked
+        onRowDoubleClicked: onRowDoubleClicked,
+
+        onFirstDataRendered: autoSizeAll,
     };
 
     // get div to host the grid
@@ -39,6 +41,15 @@
 
     function onRowDoubleClicked(e){
         window.location.href = "{% url 'album_detail' 0 %}".replace(/0/, e.data.id.toString())
+    }
+
+    function autoSizeAll() {
+      const allColumnIds = [];
+      gridOptions.columnApi.getColumns().forEach((column) => {
+        allColumnIds.push(column.getId());
+      });
+
+      gridOptions.columnApi.autoSizeColumns(allColumnIds);
     }
 </script>
 {% endblock %}
