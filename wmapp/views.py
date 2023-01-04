@@ -153,8 +153,12 @@ def uploaded_albums(request):
             seen[s.album.id] = s.album
     albums = list(seen.values())
 
+    serialized = serializers.serialize(
+        'json', albums)
+    print(serialized)
     context = {
-        'albums': albums
+        'albums_json': json.dumps([{'id': o['pk'], **o['fields']}
+                                   for o in json.loads(serialized)]),
     }
     return render(request, 'uploaded_albums.html', context)
 
