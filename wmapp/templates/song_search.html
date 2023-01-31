@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<form action="{% url 'song_search' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+
+<ol>
+    {% for s in songs %}
+        <li><a href="{% url 'song_detail' s.id %}">{{ s.title }}</a></li>
+    {% endfor %}
+</ol>
+
+{% endblock %}

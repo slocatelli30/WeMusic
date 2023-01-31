@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.shortcuts import render, get_object_or_404
 from .models import Playlist, OrdinaryUser, Song, Artist, Album, Account
+from .forms import SongSearchForm
 import collections
 import json
 
@@ -175,3 +176,20 @@ def account_detail(request):
 
     }
     return render(request, 'account_detail.html', context)
+
+
+@login_required
+@derive_user_type
+def song_search(request):
+    if request.method == 'GET':
+        songs = []
+        form = SongSearchForm()
+    else:
+        form = SongSearchForm(request.POST)
+        songs = Song.objects.filter(title__icontains=form.data['q'])
+
+    context = {
+        'form': form,
+        'songs': songs,
+    }
+    return render(request, 'song_search.html', context)
