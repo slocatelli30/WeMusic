@@ -231,7 +231,7 @@ tramite precise parole chiave, al fine di scaricarlo per poi riprodurlo in local
 \newpage
 \section{System Diagram}
 In figura sono rappresentate tutte le interfacce richieste ed esposte dal nostro sistema. Inoltre,
-i casi d'uso sono stati raggruppati, indicando il nome dell'interfaccia che permetterà di implementare
+i casi d'uso sono stati raggruppati indicando il nome dell'interfaccia che permetterà di implementare
 il particolare caso d'uso.
 
 
@@ -257,10 +257,18 @@ una componente centrale, il server del sistema, alla quale si collegano il datab
 \section{UML Class Diagram}
 Il Class Diagram in UML ha come obiettivo quello di descrivere il sistema 
 visualizzando i diversi tipi di oggetti all'interno di esso e le relazioni 
-statiche che esistono fra loro. Vengono anche illustrate le operazioni e 
-gli attributi delle classi. 
-Le tre componenti già precedentemente analizzate, ovvero Account, Musica e 
-Autenticazione, sono descritte in maniera più approfondita.
+statiche che esistono fra loro: sono descritte in maniera più approfondita 
+le tre componenti già precedentemente analizzate, ovvero Account, Musica e 
+Autenticazione.
+In questo caso vengono rappresentati in unico diagramma il Data Class Diagram 
+e l'interface/Package Diagram.
+Il primo descrive le classi che compongono la struttura dell'applicazione 
+delle entità presenti al suo interno; il secondo rappresenta il diagramma
+ dei package che riassumono la struttura logica dell’applicazione 
+e delle interfacce che verranno implementate nelle successive iterazioni.
+Vengono anche illustrate le operazioni e gli attributi delle classi. 
+
+
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.45]{class_diagram_v0.jpeg}
@@ -269,7 +277,3 @@ Autenticazione, sono descritte in maniera più approfondita.
 \end{figure}
 
 
-\newpage
-\section{Interface e Package Diagram}
-In figura è rappresentato il diagramma delle interfacce e dei package che riassume la struttura
-logica dell'applicazione e delle interfacce che verranno implementate nelle successive iterazioni.
