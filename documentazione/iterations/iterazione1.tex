@@ -1,27 +1,34 @@
 \section{Introduzione}
 
-L'iterazione 1 ha come scopo quello di identificare le componenti dal modello dei casi d'uso, applicando le euristiche di early design: 
-verra perfezionata la specifica dei componenti progettati durante l'iterazione 0 in modo da definire meglio l'architettura software. 
-È stato costruito lo scheletro dell'applicazione tramite la specifica delle differenti classi popolate nelle seguenti iterazioni.
+L'iterazione 1 ha come scopo quello di identificare le componenti dal modello dei casi d'uso, 
+applicando le euristiche di early design: verrà perfezionata la specifica dei componenti 
+progettati durante l'iterazione 0 al fine di da definire meglio l'architettura software. 
+È stato costruito lo scheletro dell'applicazione tramite la specifica delle differenti classi 
+popolate nelle seguenti iterazioni.
 
+Inizialmente, durante lo sviluppo dell'iterazione 0, il sistema nella sua totalità è stato 
+visualizzato come una unica componente e sono stati 
+introdotti gli attori, ognuno dei quali definito come un'entità esterna. In seguito sono stati 
+sviluppati tutti i casi d'uso che riassumono il funzionamento del sistema, i quali verranno, 
+nell'Iterazione 1, raccolti e raggruppati secondo un preciso criterio e affinità. 
 
-Inizialmente il sistema intero è stato visualizzato come una unica componente e sono stati introdotti gli attori, ognuno dei quali 
-definisce un'entità esterna. In seguito vengono sviluppati tutti i casi d'uso relativi al funzionamento del sistema, i quali verranno 
-adesso, nell'iterazione 1, raccolti e raggruppati secondo un preciso criterio e affinità. 
+Vengono inoltre introdotti componenti e sottocomponenti di controllo di ciascun gruppo, o 
+alternativamente componenti di dati; per ognuna di esse nascono parallelamente le classi 
+candidate e le relazioni che le legano. 
 
-Inoltre vengono introdotti componenti e sottocomponenti di controllo di ciascun gruppo, o alternativamente componenti di dati; 
-per ognuna di esse, parallelamente nascono le classi candidate e le relazioni che le legano. 
+Per ogni caso d'uso che ha una interazione diretta con un attore esterno viene introdotta 
+un'interfaccia per le operazioni visibili esternamente, ovvero le API, offerte o richieste 
+dal componente o sottocomponente corrispondente, in base alla direzione dell'interazione. 
 
-Per ogni caso d'uso che ha una interazione diretta con un attore esterno viene introdotta un'interfaccia per le operazioni visibili 
-esternamente, ovvero le API, offerte o richieste dal componente o sottocomponente corrispondente, in base alla direzione dell'interazione. 
+Ogni variabile input da un attore, specificata nella descrizione di un caso d'uso, 
+definisce un parametro di input dell'operazione dell'interfaccia corrispondente. 
+Ogni variabile output per un attore specificata nella descrizione di un caso d'uso 
+definisce un parametro di ritorno dell'operazione dell'interfaccia corrispondente 
+(se modalità sincrona) o un input di un'operazione dell'interfaccia di callback (se modalità asincrona) dell'attore. 
 
-Ogni variabile input da un attore facente parte dell'enviroment specificata nella descrizione di un caso d'uso definisce un parametro 
-dell'operazione dell'interfaccia corrispondente. Ogni variabile output per un attore specificata nella descrizione di un caso d'uso 
-definisce un parametro di ritorno dell'operazione dell'interfaccia corrispondente (se modalità sincrona) o un input di un'operazione 
-di un'interfaccia di callback (se modalità asincrona) dell'attore. 
-
-Viene inoltre scomposto il sistema in sottosistemi e componenti, applicando pattern e stili architetturali, per poi distribuire le 
-componenti su nodi computazionali basati su uno sviluppo fisico del sistema.
+Viene scomposto il sistema in sottosistemi e componenti, applicando pattern e 
+stili architetturali, per poi distribuire le componenti su nodi computazionali basati su 
+uno sviluppo fisico del sistema.
 
 
 
