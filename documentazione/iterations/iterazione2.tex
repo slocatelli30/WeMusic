@@ -1,0 +1,267 @@
+\section{Introduzione}
+Nella secconda iterazione sono stati implementati la maggior parte dei casi d'uso: viene proposta 
+un'analisi dettagliata di ognuno al fine di specificare gli attori coinvolti nel caso d'uso, l'esecuzione
+standard dello stesso, le eventuali precondizioni e le postcondizioni, le eccezioni.
+In seguito si procede al testing, quindi analisi statica e dinamica tramite(...)
+
+
+\newpage
+\section{Implementazione}
+Di seguito sono elencati i casi d'uso implementati nel sistema WeMusic. Si offre, per ognuno, una breve descrizione dello stesso 
+al fine di riassumere la sua funzionalità; inoltre è evidenziato il flow di esecuzione del sito e le varie alterntive che si propongono nel modello.
+Infine, vengono specificate eventuali informazioni relative a precondizioni, post condizioni e trigger dello stesso, e le possibili eccezioni nel 
+caso avvenga una esecuzione scorretta. 
+Seguendo la modellazione proposta in seguito, i casi d'uso relativi all'Autenticazione sono stati completamente implementati, come anche 
+la maggior parte di quelli facenti parte del gruppo Musica e Amici. 
+
+\vspace{1cm}
+\subsection{\textbf{UC1 -- Sign up}}
+L'operazione di Sign up consente all'utente di registrare al sito 
+e di poter usufruire dei servizi offerti dallo stesso. 
+\begin{itemize}
+    \item \textbf{Actor:} Utente base, Artista.
+    \item \textbf{Precondition:} Nessuna.
+    \item \textbf{Postcondition:} L'utente è registrato al sito, le sue informazioni vengono salvate nel database.
+    \item \textbf{Base Sequence:} 
+        \begin{itemize}
+            \item \textbf{1.} L'utente inserisce nome utente e password.
+            \item \textbf{2.} L'utente inserisce i generi preferiti.
+            \item \textbf{3.} L'utente ha completato la registrazione.
+        \end{itemize}
+    \item \textbf{Branch Sequence:} Nessuna.
+    \item \textbf{Exception Sequence:} Il nome utente scelto non è valido o è già in uso.
+    
+\end{itemize}
+
+\vspace{1cm}
+
+\subsection{\textbf{UC2 -- Log in}}
+L'operazione di Log in permette ad un utente già registrato nel sistema di accedere e di poter 
+usufruire dei servizi offerti dallo stesso.
+\begin{itemize}
+    \item \textbf{Actor:} Utente base, Artista.
+    \item \textbf{Precondition:} L'utente deve essere già registrato.
+    \item \textbf{Postcondition:} L'utente ha effettuato il log in perciò puo navigare la Home page del sito.
+    \item \textbf{Base Sequence:}
+    \begin{itemize}
+        \item \textbf{1.} L'utente inserisce nome utente e password.
+        \item \textbf{2.} L'utente clicca sul pulsante di log in.
+        \item \textbf{3.} L'utente ha effettuato correttamente l'accesso.
+    \end{itemize}
+    \item \textbf{Branch Sequence:} Nessuna.
+    \item \textbf{Exception Sequence:} La password inserita è errata.
+    
+
+\end{itemize}
+
+\vspace{0.5cm}
+
+\subsection{\textbf{UC3 -- Log out}}
+L'operazione di Log out permette all'utente di disconnettere il 
+proprio profilo personale dal sistema.
+\begin{itemize}
+    \item \textbf{Actor:} Utente base, Artista.
+    \item \textbf{Precondition:} L'utente deve essere registrato e deve aver 
+        effettuato il log in.
+    \item \textbf{Postcondition:} L'utente ha effettuato il log out, perciò non ha più accesso al sistema fino al log in.
+    \item \textbf{Base Sequence:}
+    \begin{itemize}
+        \item \textbf{1.} L'utente clicca il pulsante di Log out nell'interfaccia.
+        \item \textbf{2.} L'utente è disconnesso.
+    \end{itemize}
+    \item \textbf{Branch Sequence:} Nessuna.
+    \item \textbf{Exception Sequence:} Nessuna.
+
+\end{itemize}
+
+
+\vspace{1cm}
+
+\subsection{\textbf{UC4 -- Cerca brano}}
+Il presente caso d'uso permette di cercare un brano specifico dalla barra di ricerca
+tramite precise parole chiave, al fine di scaricarlo per poi riprodurlo in locale.
+\begin{itemize}
+    \item \textbf{Actor:} Utente base.
+    \item \textbf{Precondition:} L'utente deve aver effettuato il log in.
+    \item \textbf{Postcondition:} L'utente ha cercato il brano, può dunque mettere like, aggiungerlo ad una playlist personale o scaricarlo.
+    \item \textbf{Base Sequence:}
+    \begin{itemize}
+        \item \textbf{1.} L'utente clicca sulla barra di ricerca apposita nell'interfaccia.
+        \item \textbf{2.} L'utente digita delle parole chiave per cercare il brano: titolo del brano, album, artista.
+        \item \textbf{3.} L'utente naviga fra i risultati della ricerca e seleziona il brano desiderato.
+    \end{itemize}
+    \item \textbf{Branch Sequence:} L'utente può scaricare il brano \textbf{(UC7)}, mettere like al brano \textbf{(UC8)}, aggiungerlo ad una playlist \textbf{(UC9)}.
+    \item \textbf{Exception Sequence:} Non esiste un brano che corrisponde ai criteri di ricerca.
+\end{itemize}
+
+\vspace{0.5cm}
+
+\subsection{\textbf{UC5 -- Cerca album}}
+\begin{itemize}
+    \item \textbf{Actor:} Utente base
+    \item \textbf{Precondition:} L'utente deve aver effettuato il log in.
+    \item \textbf{Postcondition:} L'utente ha cercato l'album, può dunque navigare fra i brani che include lo stesso.
+    \item \textbf{Base Sequence:}
+    \begin{itemize}
+        \item \textbf{1.} L'utente clicca sulla barra di ricerca apposita nell'interfaccia.
+        \item \textbf{2.} L'utente digita delle parole chiave per cercare l'album: titolo dell'album, artista.
+        \item \textbf{3.} L'utente naviga fra i risultati della ricerca e seleziona l'album desiderato.
+    \end{itemize}
+    \item \textbf{Branch Sequence:} L'utente può navigare fra i brani e scaricarli \textbf{(UC7)}, mettere like \textbf{(UC8)}, aggiungerli ad una playlist \textbf{(UC9)}.
+    \item \textbf{Exception Sequence:} Non esiste un album che corrisponde ai criteri di ricerca.
+
+\end{itemize}
+
+\subsection{\textbf{UC6 -- Cerca artista}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
+
+\subsection{\textbf{UC7 -- Scarica brano}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
+
+\subsection{\textbf{UC8 -- Like al brano}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
+
+\subsection{\textbf{UC9 -- Aggiungi brano a playlist}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
+
+\subsection{\textbf{UC15 -- Visualizza playlist}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
+
+\subsection{\textbf{UC16 -- Crea nuova playlist}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
+
+\subsection{\textbf{UC17 -- Elimina playlist}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
+
+\subsection{\textbf{UC18 -- Modifica playlist}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
+
+\subsection{\textbf{UC10 -- Cerca Utente}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
+
+\subsection{\textbf{UC11 -- Aggiungi Utente}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
+
+\subsection{\textbf{UC12 -- Visualizza informazioni profilo}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
+
+\subsection{\textbf{UC13 -- Modifica profilo}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
+
+\subsection{\textbf{UC14 -- Elimina profilo}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
+
+\subsection{\textbf{UC19 -- ``Discover'' e classifiche}}
+\begin{itemize}
+    \item \textbf{Actor:}
+    \item \textbf{Precondition:}
+    \item \textbf{Postcondition:}
+    \item \textbf{Base Sequence:}
+    \item \textbf{Branch Sequence:}
+    \item \textbf{Exception Sequence:}
+    \item \textbf{Sub UseCase:}
+\end{itemize}
