@@ -29,6 +29,10 @@ e di poter usufruire dei servizi offerti dallo stesso.
             \item \textbf{3.} L'utente ha completato la registrazione.
         \end{itemize}
     \item \textbf{Exception Sequence:} Il nome utente scelto non è valido o è già in uso, o connessione fallita.
+        \begin{itemize}
+            \item Nel caso di nome utente non valido o già in uso si ritorna al passo 1 della Base Sequence del presente caso d'uso.
+            \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del presente caso d'uso. 
+        \end{itemize}
     
 \end{itemize}
 \vspace{1cm}
@@ -46,8 +50,12 @@ usufruire dei servizi offerti dallo stesso.
         \item \textbf{2.} L'utente clicca sul pulsante di log in.
         \item \textbf{3.} L'utente ha effettuato correttamente l'accesso.
     \end{itemize}
-        \item \textbf{Exception Sequence:} La password inserita è errata o connessione fallita.
+    \item \textbf{Exception Sequence:} La password inserita è errata o connessione fallita.
+    \begin{itemize}
+        \item Nel caso di password errata si ritorna al passo 1 della Base Sequence del presente caso d'uso.
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
     \end{itemize}
+\end{itemize}
 
 \vspace{1cm}
 
@@ -65,7 +73,9 @@ proprio profilo personale dal sistema.
         \item \textbf{2.} L'utente è disconnesso.
     \end{itemize}
     \item \textbf{Exception Sequence:} Connessione fallita.
-
+    \begin{itemize}
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
@@ -85,13 +95,16 @@ tramite precise parole chiave, al fine di scaricarlo per poi riprodurlo in local
         \item \textbf{3.} L'utente ha correttamente eseguito la ricerca: può navigare fra i risultati e selezionare il brano desiderato.
     \end{itemize}
     \item \textbf{Exception Sequence:} Non esiste un brano che corrisponde ai criteri di ricerca o connessione fallita.
+    \begin{itemize}
+        \item Nel caso di ricerca fallita si ritorna al caso 2 della Base Sequence del presente caso d'uso.
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
 \subsection{\textbf{UC5 -- Cerca album}}
 Il caso d'uso di Cerca album consiste nel cercare un album specifico dalla barra di ricerca
 tramite precise parole chiave, al fine di selezionare un brano al suo interno e scaricarlo per poi riprodurlo in locale.
-
 \begin{itemize}
     \item \textbf{Actor:} Utente base.
     \item \textbf{Precondition:} L'utente deve aver effettuato il log in.
@@ -105,13 +118,16 @@ tramite precise parole chiave, al fine di selezionare un brano al suo interno e 
         \item \textbf{3.} L'utente ha correttamente eseguito la ricerca: può navigare fra i risultati e selezionare l'album desiderato.
     \end{itemize}
     \item \textbf{Exception Sequence:} Non esiste un album che corrisponde ai criteri di ricerca o connessione fallita.
+    \begin{itemize}
+        \item Nel caso di ricerca fallita si ritorna al caso 2 della Base Sequence del presente caso d'uso.
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
 \subsection{\textbf{UC6 -- Cerca artista}}
 Il presente caso d'uso consiste nel cercare un artista specifico dalla barra di ricerca
 tramite precise parole chiave, al fine di selezionare un brano da lui pubblicato e scaricarlo per poi riprodurlo in locale.
-
 \begin{itemize}
     \item \textbf{Actor:} Utente base.
     \item \textbf{Precondition:} L'utente deve aver effettuato il log in. 
@@ -126,12 +142,15 @@ tramite precise parole chiave, al fine di selezionare un brano da lui pubblicato
         \item \textbf{3.} L'utente ha correttamente eseguito la ricerca: può navigare fra i risultati e selezionare l'artista desiderato.
     \end{itemize}
     \item \textbf{Exception Sequence:} Non esiste un artista che corrisponde ai criteri di ricerca o connessione fallita.
+    \begin{itemize}
+        \item Nel caso di ricerca fallita si ritorna al caso 2 della Base Sequence del presente caso d'uso.
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
 \subsection{\textbf{UC7 -- Scarica brano}}
 Il presente caso d'uso consiste nello scaricare un brano al fine di poterlo riprodure in locale.
-
 \begin{itemize}
     \item \textbf{Actor:} Utente base.
     \item \textbf{Precondition:} L'utente deve aver effettuato il log in e individuato il brano desiderato. 
@@ -141,16 +160,18 @@ Il presente caso d'uso consiste nello scaricare un brano al fine di poterlo ripr
         \item \textbf{1.} L'utente seleziona il brano desiderato (da una playlist, dalla ricerca, ecc).
         \item \textbf{2.} L'utente clicca sul pulsante di download.
         \item \textbf{3.} L'utente attende il completamento del download.
-        \item \textbf{4.} L'utente ha scaricato correttamente il brano.
+        \item \textbf{4.} L'utente ha correttamente scaricato il brano.
     \end{itemize}
     \item \textbf{Exception Sequence:} Connessione fallita.
+    \begin{itemize}
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
 \subsection{\textbf{UC8 -- Like al brano}}
 Il presente caso d'uso consiste nel mettere like ad un brano; in questo modo 
 è visibile nell'elenco dei propri brani preferiti.
-
 \begin{itemize}
     \item \textbf{Actor:} Utente base.
     \item \textbf{Precondition:} L'utente deve aver effettuato il log in e individuato il brano desiderato.
@@ -159,9 +180,12 @@ Il presente caso d'uso consiste nel mettere like ad un brano; in questo modo
     \begin{itemize}
         \item \textbf{1.} L'utente seleziona il brano desiderato (da una playlist, dalla ricerca, ecc).
         \item \textbf{2.} L'utente clicca sul pulsante di like.
-        \item \textbf{3.} Il brano sarà visibile fra i brani preferiti, quindi l'utente ha completato correttamente l'operazione.
+        \item \textbf{3.} L'utente ha completato correttamente l'operazione: il brano sarà visibile fra i brani preferiti.
     \end{itemize}
     \item \textbf{Exception Sequence:} Connessione fallita.
+    \begin{itemize}
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
@@ -179,6 +203,10 @@ Il presente caso d'uso consiste nell'aggiungere un brano ad una playlist già es
         \item \textbf{4.} L'utente ha correttamente inserito il brano nella playlist.
     \end{itemize}
     \item \textbf{Exception Sequence:} Non è stata creata alcuna playlist dall'utente o connessione fallita.
+    \begin{itemize}
+        \item Nel caso non sia stata creata ancora nessuna playlist si ritorna al passo 3 del presente caso d'uso. 
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
@@ -187,15 +215,20 @@ Il presente caso d'uso consiste nel visualizzare i brano contenuti in una delle 
 \begin{itemize}
     \item \textbf{Actor:} Utente base.
     \item \textbf{Precondition:} L'utente deve aver effettuato il log in e deve aver creato almeno una playlist.
-    \item \textbf{Postcondition:} L'utente può consultare il contenuto della playlist, perciò potrà navigare nell'elenco 
+    \item \textbf{Postcondition:} L'utente può consultare il contenuto della playlist, 
+    perciò potrà navigare nell'elenco 
     e decidere di scaricare un brano \textbf{(UC7)} o mettere like \textbf{(UC8)}.
     \item \textbf{Base Sequence:}
     \begin{itemize}
         \item \textbf{1.} L'utente seleziona la playlist desiderata (dall'elenco delle proprie playlist).
         \item \textbf{2.} L'utente clicca sulla playlist.
-        \item \textbf{3.} L'utente può navigare fra i brani contenuti nella playlist, quindi ha correttamente eseguito l'operazione.
+        \item \textbf{3.} L'utente ha correttamente eseguito l'operazione: può navigare fra i brani contenuti nella playlist.
     \end{itemize}
     \item \textbf{Exception Sequence:} Non è stata creata alcuna playlist dall'utente o connessione fallita.
+    \begin{itemize}
+        \item Nel caso non sia stata creata ancora nessuna playlist si ritorna al passo 1 del presente caso d'uso.
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
@@ -209,9 +242,12 @@ Il presente caso d'uso consiste nel creare una nuova playlist al fine di inserir
     \begin{itemize}
         \item \textbf{1.} L'utente seleziona la playlist desiderata (dall'elenco delle proprie playlist).
         \item \textbf{2.} L'utente clicca sulla playlist.
-        \item \textbf{3.} L'utente può navigare fra i brani contenuti nella playlisT, quindi ha correttamente eseguito l'operazione.
+        \item \textbf{3.} L'utente ha correttamente eseguito l'operazione: può navigare fra i brani contenuti nella playlist.
     \end{itemize}
     \item \textbf{Exception Sequence:} Connessione fallita.
+    \begin{itemize}
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
@@ -225,9 +261,13 @@ Il presente caso d'uso consiste nell'eliminare una delle proprie playlist.
     \begin{itemize}
         \item \textbf{1.} L'utente seleziona la playlist desiderata dall'elenco delle proprie playlist.
         \item \textbf{2.} L'utente clicca su elimina playlist.
-        \item \textbf{3.} L'utente ha correttamente eliminato la playlist, che non sarà più visibile nell'elenco.
+        \item \textbf{3.} L'utente ha correttamente eliminato la playlist: essa non sarà più visibile nell'elenco.
     \end{itemize}
-    \item \textbf{Exception Sequence:}
+    \item \textbf{Exception Sequence:} Non è stata creata alcuna playlist dall'utente o connessione fallita.
+    \begin{itemize}
+        \item Nel caso non sia stata creata ancora nessuna playlist si ritorna al passo 1 del presente caso d'uso.
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
@@ -244,73 +284,110 @@ Il presente caso d'uso consiste nel poter modificare delle proprie playlist: pu�
         \item \textbf{3.} L'utente modifica il nome/elimina i brani desiderati.
         \item \textbf{4.} L'utente ha modificato con successo la playlist.
     \end{itemize}
-    \item \textbf{Exception Sequence:}
+    \item \textbf{Exception Sequence:} Non è stata creata alcuna playlist dall'utente o connessione fallita.
+    \begin{itemize}
+        \item Nel caso non sia stata creata ancora nessuna playlist si ritorna al passo 1 del presente caso d'uso.
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
 \subsection{\textbf{UC10 -- Cerca Utente}}
 \begin{itemize}
-    \item \textbf{Actor:}
-    \item \textbf{Precondition:}
-    \item \textbf{Postcondition:}
+    \item \textbf{Actor:} Utente base.
+    \item \textbf{Precondition:} L'utente deve aver effettuato il log in.
+    \item \textbf{Postcondition:} L'utente ha effettuato con successo la ricerca: può aggiungere l'utente fra i propri amici \textbf{(UC11)}
     \item \textbf{Base Sequence:}
-    \item \textbf{Branch Sequence:}
-    \item \textbf{Exception Sequence:}
-    \item \textbf{Sub UseCase:}
+    \begin{itemize}
+        \item \textbf{1.} L'utente clicca sulla barra di ricerca apposita nell'interfaccia.
+        \item \textbf{2.} L'utente digita delle parole chiave per cercare l'utente, ovvero il suo nome e cognome.
+        artista.
+        \item \textbf{3.} L'utente ha correttamente eseguito la ricerca: può navigare fra i risultati e selezionare l'utente desiderato.
+    \end{itemize}
+    \item \textbf{Exception Sequence:} Non esiste un utente che corrisponde ai criteri di ricerca o connessione fallita.
+    \begin{itemize}
+        \item Nel caso di ricerca fallita si ritorna al caso 2 della Base Sequence del presente caso d'uso.
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
 \subsection{\textbf{UC11 -- Aggiungi Utente}}
 \begin{itemize}
-    \item \textbf{Actor:}
-    \item \textbf{Precondition:}
-    \item \textbf{Postcondition:}
+    \item \textbf{Actor:} Utene base.
+    \item \textbf{Precondition:} L'utente deve aver effettuato il log in e aver effettuato correttamente la ricerca.
+    \item \textbf{Postcondition:} L'utente ha aggiunto correttamente l'utente desiderato che sarà visibile nella propria lista di amici.
     \item \textbf{Base Sequence:}
-    \item \textbf{Branch Sequence:}
-    \item \textbf{Exception Sequence:}
-    \item \textbf{Sub UseCase:}
+    \begin{itemize}
+        \item \textbf{1.} L'utente, dopo aver effettuato la ricerca, clicca sull'utente desiderato.
+        \item \textbf{2.} L'utente clicca su Aggiungi
+        \item \textbf{3.} L'utente ha correttamente aggiunto l'amico.
+    \end{itemize}
+    \item \textbf{Exception Sequence:} Connessione fallita.
+    \begin{itemize}
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
 \subsection{\textbf{UC12 -- Visualizza informazioni profilo}}
 \begin{itemize}
-    \item \textbf{Actor:}
-    \item \textbf{Precondition:}
-    \item \textbf{Postcondition:}
+    \item \textbf{Actor:} Utente base.
+    \item \textbf{Precondition:} L'utente deve aver effettuato il log in.
+    \item \textbf{Postcondition:} L'utente ha correttamente eseguito l'operazione: può modificare le proprie informazioni personali \textbf{(UC13)}.
     \item \textbf{Base Sequence:}
-    \item \textbf{Branch Sequence:}
-    \item \textbf{Exception Sequence:}
-    \item \textbf{Sub UseCase:}
+    \begin{itemize}
+        \item \textbf{1.} L'utente clicca sulle info del proprio profilo.
+        \item \textbf{2.} L'utente ha correttamente eseguito l'operazione.
+    \end{itemize}
+    
+    \item \textbf{Exception Sequence:} Connessione fallita.
+    \begin{itemize}
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
 \subsection{\textbf{UC13 -- Modifica profilo}}
 \begin{itemize}
-    \item \textbf{Actor:}
-    \item \textbf{Precondition:}
-    \item \textbf{Postcondition:}
+    \item \textbf{Actor:} Utente base.
+    \item \textbf{Precondition:} L'utente deve aver effettuato il log in e visitare la pagina relativa alle informazioni personali.
+    \item \textbf{Postcondition:} L'utente ha correttamente modificato il proprio profilo: saranno visualizzate le informazioni personali aggiornate.
     \item \textbf{Base Sequence:}
-    \item \textbf{Branch Sequence:}
-    \item \textbf{Exception Sequence:}
-    \item \textbf{Sub UseCase:}
+    \begin{itemize}
+        \item \textbf{1.} L'utente, dopo aver visualizzato le info del proprio profilo, clicca su modifica.
+        \item \textbf{2.} L'utente effettua le modifiche desiderate.
+        \item \textbf{3.} L'utente clicca su Salva modifiche.
+        \item \textbf{4.} L'utente ha correttamente eseguito l'operazione.
+    \end{itemize}
+    \item \textbf{Exception Sequence:} Connessione fallita.
+    \begin{itemize}
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
 \subsection{\textbf{UC14 -- Elimina profilo}}
 \begin{itemize}
-    \item \textbf{Actor:}
-    \item \textbf{Precondition:}
-    \item \textbf{Postcondition:}
+    \item \textbf{Actor:} Utente base, Artista.
+    \item \textbf{Precondition:} L'utente deve aver effettuato il log in.
+    \item \textbf{Postcondition:} L'utente ha correttamente eliminato il proprio profilo, può registrarsi nuovamente \textbf{(UC1)} per usufruire dei servizi offerti al sistema. 
     \item \textbf{Base Sequence:}
-    \item \textbf{Branch Sequence:}
-    \item \textbf{Exception Sequence:}
-    \item \textbf{Sub UseCase:}
+    \begin{itemize}
+        \item \textbf{1.} L'utente, dopo aver visualizzato le info del proprio profilo, clicca su elimina profilo.
+        \item \textbf{2.} L'utente conferma la decidione.
+        \item \textbf{3.} L'utente ha correttamente eseguito l'operazione.
+    \end{itemize}
+    \item \textbf{Exception Sequence:} Connessione fallita.
+    \begin{itemize}
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
 \subsection{\textbf{UC19 -- ``Discover'' e classifiche}}
 \begin{itemize}
-    \item \textbf{Actor:}
+    \item \textbf{Actor:} Utente base.
     \item \textbf{Precondition:}
     \item \textbf{Postcondition:}
     \item \textbf{Base Sequence:}
