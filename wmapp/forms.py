@@ -1,4 +1,5 @@
 from django import forms
+from .models import Playlist
 
 
 class AllSearchForm(forms.Form):
@@ -7,3 +8,8 @@ class AllSearchForm(forms.Form):
 
 class CreatePlaylistForm(forms.Form):
     playlist_name = forms.CharField(label='Crea nuova playlist:')
+
+
+class AddSongToPlaylistForm(forms.Form):
+    playlist = forms.ModelChoiceField(
+        queryset=Playlist.objects.all(), empty_label="---")

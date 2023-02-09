@@ -2,4 +2,11 @@
 
 {% block content %}
   <h1>{{song.title}}</h1>
+  {% if request.user_type == 'ordinary' %}
+    <form action="{% url 'add_song_to_playlist' song.id %}" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" value="Submit">
+    </form>
+  {% endif %}
 {% endblock %}

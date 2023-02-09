@@ -4,7 +4,7 @@ from django.core import serializers
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.edit import CreateView
 from .models import Playlist, OrdinaryUser, Song, Artist, Album, Account
-from .forms import AllSearchForm, CreatePlaylistForm
+from .forms import AllSearchForm, CreatePlaylistForm, AddSongToPlaylistForm
 import collections
 import json
 import datetime
@@ -105,6 +105,7 @@ def playlist_detail(request, playlist_id):
     return render(request, 'playlist_detail.html', context)
 
 
+@login_required
 @derive_user_type
 def song_detail(request, song_id):
     """View function for song detail."""
@@ -112,8 +113,15 @@ def song_detail(request, song_id):
     song = get_object_or_404(Song, pk=song_id)
 
     context = {
-        'song': song
+        'song': song,
+        'form': None
     }
+
+    if request.user_type == 'ordinary':
+        ordinary_user = OrdinaryUser.objects.get(account=request.account)
+        context['form'] = AddSongToPlaylistForm()
+        context['form'].fields['playlist'].queryset = Playlist.objects.filter(
+            creator=ordinary_user)
     return render(request, 'song_detail.html', context)
 
 
@@ -212,3 +220,15 @@ def playlist_create(request):
     p = Playlist(creator=ordinary_user, name=form.data['playlist_name'])
     p.save()
     return redirect('playlist_detail', playlist_id=p.id)
+
+
+@login_required
+@derive_user_type
+@require_ordinary_user
+def add_song_to_playlist(request, song_id):
+    form = AddSongToPlaylistForm(request.POST)
+    song = get_object_or_404(Song, pk=song_id)
+    playlist = get_object_or_404(Playlist, pk=form.data['playlist'])
+    playlist.songs.add(song)
+    playlist.save()
+    return redirect('song_detail', song_id=song_id)
