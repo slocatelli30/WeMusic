@@ -41,4 +41,11 @@
         window.location.href = "{% url 'playlist_detail' 0 %}".replace(/0/, e.data.id.toString())
     }
 </script>
+
+
+<form action="{% url 'playlist_create' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
 {% endblock %}

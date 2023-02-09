@@ -1,11 +1,13 @@
 from .decorators import require_ordinary_user, require_artist, derive_user_type
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic.edit import CreateView
 from .models import Playlist, OrdinaryUser, Song, Artist, Album, Account
-from .forms import AllSearchForm
+from .forms import AllSearchForm, CreatePlaylistForm
 import collections
 import json
+import datetime
 
 
 @derive_user_type
@@ -81,6 +83,8 @@ def playlists(request):
     context = {
         'playlists_json': json.dumps([{'id': o['pk'], **o['fields']}
                                       for o in json.loads(serialized)]),
+        'form': CreatePlaylistForm(),
+
     }
     return render(request, 'playlists.html', context)
 
@@ -95,6 +99,7 @@ def playlist_detail(request, playlist_id):
 
     context = {
         'playlist_songs_json': json.dumps(list(playlist.songs.order_by('title').all().values())),
+        'name': playlist.name
 
     }
     return render(request, 'playlist_detail.html', context)
@@ -196,3 +201,14 @@ def search_results(request):
         'albums': albums,
     }
     return render(request, 'search_results.html', context)
+
+
+@login_required
+@derive_user_type
+@require_ordinary_user
+def playlist_create(request):
+    form = CreatePlaylistForm(request.POST)
+    ordinary_user = OrdinaryUser.objects.get(account=request.account)
+    p = Playlist(creator=ordinary_user, name=form.data['playlist_name'])
+    p.save()
+    return redirect('playlist_detail', playlist_id=p.id)
