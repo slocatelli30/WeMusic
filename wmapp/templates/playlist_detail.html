@@ -2,41 +2,22 @@
 
 {% block content %}
 <h1>{{name}}</h1>
-<div id="myGrid" class="ag-theme-alpine" style="height: 500px"></div>
-<script type="text/javascript">
-    // Grid Options are properties passed to the grid
-    const gridOptions = {
-
-        // each entry here represents one column
-        columnDefs: [
-            { field: "title" },
-            { field: "genre" },
-            { field: "year" },
-        ],
-
-        // default col def properties get applied to all columns
-        defaultColDef: {sortable: true, filter: true},
-
-        animateRows: true, // have rows animate to new positions when sorted
-
-        onRowDoubleClicked: onRowDoubleClicked
-    };
-
-    // get div to host the grid
-    const eGridDiv = document.getElementById("myGrid");
-    // new grid instance, passing in the hosting DIV and Grid Options
-    new agGrid.Grid(eGridDiv, gridOptions);
-    const data = JSON.parse('{{playlist_songs_json|escapejs}}')
-    console.log(data)
-    gridOptions.api.setRowData(data);
-
-    function onSearchTextChange(){
-        gridOptions.api.setQuickFilter(document.getElementById('searchText').value)
-    }
-
-    function onRowDoubleClicked(e){
-
-        window.location.href = "{% url 'song_detail' 0 %}".replace(/0/, e.data.id.toString())
-    }
-</script>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Year</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in songs %}
+        <tr>
+            <td><a href="{% url 'song_detail' s.id %}">{{s.title}}</a></td>
+            <td>{{s.genre}}</td>
+            <td>{{s.year}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

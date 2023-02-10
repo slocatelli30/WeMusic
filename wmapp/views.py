@@ -65,7 +65,7 @@ def liked_songs(request):
     ordinary_user = OrdinaryUser.objects.get(account=request.account)
 
     context = {
-        'liked_songs_json': json.dumps(list(ordinary_user.liked_songs.order_by('title').all().values())),
+        'songs': ordinary_user.liked_songs.order_by('title').all(),
     }
     return render(request, 'liked_songs.html', context)
 
@@ -77,12 +77,8 @@ def playlists(request):
     """View function for playlists."""
 
     ordinary_user = OrdinaryUser.objects.get(account=request.account)
-    serialized = serializers.serialize(
-        'json', Playlist.objects.filter(creator=ordinary_user))
-    print(serialized)
     context = {
-        'playlists_json': json.dumps([{'id': o['pk'], **o['fields']}
-                                      for o in json.loads(serialized)]),
+        'playlists': Playlist.objects.filter(creator=ordinary_user),
         'form': CreatePlaylistForm(),
 
     }
@@ -98,7 +94,7 @@ def playlist_detail(request, playlist_id):
     playlist = get_object_or_404(Playlist, pk=playlist_id)
 
     context = {
-        'playlist_songs_json': json.dumps(list(playlist.songs.order_by('title').all().values())),
+        'songs': playlist.songs.order_by('title').all(),
         'name': playlist.name
 
     }
@@ -132,7 +128,7 @@ def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
 
     context = {
-        'album_songs_json': json.dumps(list(album.song_set.all().order_by('title').all().values())),
+        'songs': album.song_set.order_by('title').all(),
     }
     return render(request, 'album_detail.html', context)
 
@@ -147,7 +143,7 @@ def uploaded_songs(request):
     uploaded_songs = artist.song_set.all()
 
     context = {
-        'uploaded_songs_json': json.dumps(list(uploaded_songs.order_by('title').all().values())),
+        'songs': uploaded_songs.order_by('title').all(),
     }
     return render(request, 'uploaded_songs.html', context)
 
@@ -167,12 +163,8 @@ def uploaded_albums(request):
             seen[s.album.id] = s.album
     albums = list(seen.values())
 
-    serialized = serializers.serialize(
-        'json', albums)
-    print(serialized)
     context = {
-        'albums_json': json.dumps([{'id': o['pk'], **o['fields']}
-                                   for o in json.loads(serialized)]),
+        'albums': albums,
     }
     return render(request, 'uploaded_albums.html', context)
 
