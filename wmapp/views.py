@@ -55,6 +55,13 @@ def index(request):
             'playlists': [], }
         return render(request, 'index.html')
 
+# download song
+@login_required
+@derive_user_type
+@require_ordinary_user
+def download_song(request):
+    downloadsong = Song.objects.all()
+    return render(request, 'playlist_detail.html', {'downloadsong':downloadsong})
 
 @login_required
 @derive_user_type

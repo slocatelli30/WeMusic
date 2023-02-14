@@ -36,13 +36,14 @@ class Album(models.Model):
     def __str__(self):
         return self.name
 
-
+# Song
 class Song(models.Model):
     title = models.CharField(max_length=255)
     genre = models.CharField(max_length=255)
     year = models.IntegerField()
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
     artists = models.ManyToManyField(Artist)
+    file = models.FileField(upload_to="media")
 
     def __str__(self):
         return self.title

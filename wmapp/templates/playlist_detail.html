@@ -8,6 +8,7 @@
             <th>Title</th>
             <th>Genre</th>
             <th>Year</th>
+            <th>Download</th>
         </tr>
     </thead>
     <tbody>
@@ -16,6 +17,7 @@
             <td><a href="{% url 'song_detail' s.id %}">{{s.title}}</a></td>
             <td>{{s.genre}}</td>
             <td>{{s.year}}</td>
+            <td><a href="{{s.file.url}}" download>cLiCk HeRe To DoWnLoAd {{s.title}}</a></td>
         </tr>
         {% endfor %}
     </tbody>
