@@ -110,7 +110,8 @@ def song_detail(request, song_id):
 
     context = {
         'song': song,
-        'form': None
+        'form': None,
+        'is_liked': False
     }
 
     if request.user_type == 'ordinary':
@@ -118,6 +119,8 @@ def song_detail(request, song_id):
         context['form'] = AddSongToPlaylistForm()
         context['form'].fields['playlist'].queryset = Playlist.objects.filter(
             creator=ordinary_user)
+        if ordinary_user.liked_songs.contains(song):
+            context['is_liked'] = True
     return render(request, 'song_detail.html', context)
 
 
@@ -223,4 +226,26 @@ def add_song_to_playlist(request, song_id):
     playlist = get_object_or_404(Playlist, pk=form.data['playlist'])
     playlist.songs.add(song)
     playlist.save()
+    return redirect('song_detail', song_id=song_id)
+
+
+@login_required
+@derive_user_type
+@require_ordinary_user
+def like_song(request, song_id):
+    song = get_object_or_404(Song, pk=song_id)
+    ordinary_user = OrdinaryUser.objects.get(account=request.account)
+    ordinary_user.liked_songs.add(song)
+    ordinary_user.save()
+    return redirect('song_detail', song_id=song_id)
+
+
+@login_required
+@derive_user_type
+@require_ordinary_user
+def unlike_song(request, song_id):
+    song = get_object_or_404(Song, pk=song_id)
+    ordinary_user = OrdinaryUser.objects.get(account=request.account)
+    ordinary_user.liked_songs.remove(song)
+    ordinary_user.save()
     return redirect('song_detail', song_id=song_id)

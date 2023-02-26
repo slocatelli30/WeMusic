@@ -9,6 +9,8 @@ urlpatterns = [
     path('playlists/<int:playlist_id>',
          views.playlist_detail, name='playlist_detail'),
     path('songs/<int:song_id>', views.song_detail, name='song_detail'),
+    path('song/like/<int:song_id>', views.like_song, name='like_song'),
+    path('song/unlike/<int:song_id>', views.unlike_song, name='unlike_song'),
     path('albums/<int:album_id>', views.album_detail, name='album_detail'),
     path('uploaded_songs', views.uploaded_songs, name='uploaded_songs'),
     path('uploaded_albums', views.uploaded_albums, name='uploaded_albums'),
@@ -17,5 +19,4 @@ urlpatterns = [
     path('playlist/create', views.playlist_create, name='playlist_create'),
     path('playlist/addsong/<int:song_id>', views.add_song_to_playlist,
          name='add_song_to_playlist'),
-
 ]

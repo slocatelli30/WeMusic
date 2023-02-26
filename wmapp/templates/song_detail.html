@@ -8,5 +8,16 @@
       {{ form }}
       <input type="submit" value="Submit">
     </form>
+    {% if is_liked %}
+      <form action="{% url 'unlike_song' song.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="unlike">
+      </form>
+    {% else %}
+      <form action="{% url 'like_song' song.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="like">
+      </form>
+    {% endif %}
   {% endif %}
 {% endblock %}
