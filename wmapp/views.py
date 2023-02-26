@@ -95,7 +95,7 @@ def playlist_detail(request, playlist_id):
 
     context = {
         'songs': playlist.songs.order_by('title').all(),
-        'name': playlist.name
+        'playlist': playlist
 
     }
     return render(request, 'playlist_detail.html', context)
@@ -249,3 +249,12 @@ def unlike_song(request, song_id):
     ordinary_user.liked_songs.remove(song)
     ordinary_user.save()
     return redirect('song_detail', song_id=song_id)
+
+
+@login_required
+@derive_user_type
+@require_ordinary_user
+def delete_playlist(request, playlist_id):
+    playlist = get_object_or_404(Playlist, pk=playlist_id)
+    playlist.delete()
+    return redirect('playlists')
