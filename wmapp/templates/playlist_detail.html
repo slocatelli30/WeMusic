@@ -8,6 +8,7 @@
             <th>Title</th>
             <th>Genre</th>
             <th>Year</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -16,6 +17,12 @@
             <td><a href="{% url 'song_detail' s.id %}">{{s.title}}</a></td>
             <td>{{s.genre}}</td>
             <td>{{s.year}}</td>
+            <td>
+                <form action="{% url 'remove_song_from_playlist' playlist.id s.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="remove">
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

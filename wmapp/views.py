@@ -258,3 +258,14 @@ def delete_playlist(request, playlist_id):
     playlist = get_object_or_404(Playlist, pk=playlist_id)
     playlist.delete()
     return redirect('playlists')
+
+
+@login_required
+@derive_user_type
+@require_ordinary_user
+def remove_song_from_playlist(request, playlist_id, song_id):
+    playlist = get_object_or_404(Playlist, pk=playlist_id)
+    song = get_object_or_404(Song, pk=song_id)
+    playlist.songs.remove(song)
+    playlist.save()
+    return redirect('playlist_detail', playlist_id=playlist.id)
