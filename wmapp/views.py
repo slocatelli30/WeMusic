@@ -4,11 +4,14 @@ from django.core import serializers
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.edit import CreateView
 from .models import Playlist, OrdinaryUser, Song, Artist, Album, Account
-from .forms import AllSearchForm, CreatePlaylistForm, AddSongToPlaylistForm
+from .forms import AllSearchForm, CreatePlaylistForm, AddSongToPlaylistForm, SearchFriendsForm
 import collections
 import json
 import datetime
-
+from django.contrib.auth.models import User
+# import (machine learning)
+from pandas import read_csv
+from sklearn.tree import DecisionTreeClassifier
 
 @derive_user_type
 def index(request):
@@ -181,11 +184,27 @@ def uploaded_albums(request):
 def account_detail(request):
     account = request.account
 
+    # algoritmo di discover
+    # lettura del training set
+    utenti = read_csv('utenti.csv')
+    # colonne di input
+    # la funzione drop ci restituisce tutte le colonne tranne quella esplicitata tra apici
+    X = utenti.drop(columns=['genmusic'])
+    # colonne di putput
+    y = utenti['genmusic']
+    # istanziamo il modello
+    modello = DecisionTreeClassifier()
+    # alleniamo il modello
+    modello.fit(X.values, y.values)
+    # 0 = colonna sesso (0=femmina, 1=maschio), 31 = colonna età obiettivo 
+    # 1 = colonne sesso (0=femmina, 1=maschio), 16 = colonne età obiettivo
+    previsione = modello.predict([[0,31], [1,16]])
+
     context = {
         'name': account.name,
         'surname': account.surname,
         'email': account.email,
-
+        'previsione': previsione,
     }
     return render(request, 'account_detail.html', context)
 
@@ -209,6 +228,33 @@ def search_results(request):
     }
     return render(request, 'search_results.html', context)
 
+# view per la pagina friends (principale)
+@login_required
+@derive_user_type
+@require_ordinary_user
+def friends(request):
+    """View function for friends"""
+
+    #ordinary_user = OrdinaryUser.objects.get(account=request.account)
+
+    context = {
+        # lista utenti
+        'list_user': Account.objects.all(),
+    }
+
+    return render(request, 'friends.html', context)
+
+# view per la ricerca di utenti
+@login_required
+@derive_user_type
+@require_ordinary_user
+def friends_search(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        friends = Account.objects.filter(name__contains=searched)
+        return render(request, 'friends_results.html', {'searched': searched, 'friends': friends})
+    else:
+        return render(request, 'friends_results.html', {})
 
 @login_required
 @derive_user_type
