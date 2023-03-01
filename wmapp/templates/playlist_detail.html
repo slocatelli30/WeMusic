@@ -9,6 +9,7 @@
             <th>Genre</th>
             <th>Year</th>
             <th></th>
+            <th>Download</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,7 @@
                     <input type="submit" value="remove">
                 </form>
             </td>
+            <td><a href="{{s.file.url}}" download>cLiCk HeRe To DoWnLoAd {{s.title}}</a></td>
         </tr>
         {% endfor %}
     </tbody>

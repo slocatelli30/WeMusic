@@ -21,6 +21,7 @@ urlpatterns = [
     path('account_detail', views.account_detail, name='account_detail'),
     path('search/all', views.search_results, name='search_results'),
     path('playlist/create', views.playlist_create, name='playlist_create'),
-    path('playlist/addsong/<int:song_id>', views.add_song_to_playlist,
-         name='add_song_to_playlist'),
+    path('playlist/addsong/<int:song_id>', views.add_song_to_playlist, name='add_song_to_playlist'),
+    path('friends', views.friends, name='friends'),
+    path('friends/results', views.friends_search, name='friends_search'),
 ]
