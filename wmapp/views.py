@@ -4,7 +4,7 @@ from django.core import serializers
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.edit import CreateView
 from .models import Playlist, OrdinaryUser, Song, Artist, Album, Account
-from .forms import AllSearchForm, CreatePlaylistForm, AddSongToPlaylistForm, SearchFriendsForm
+from .forms import AllSearchForm, CreatePlaylistForm, AddSongToPlaylistForm, SearchOrdinaryUserForm
 import collections
 import json
 import datetime
@@ -235,7 +235,7 @@ def search_results(request):
 @login_required
 @derive_user_type
 @require_ordinary_user
-def friends(request):
+def people(request):
     """View function for friends"""
 
     #ordinary_user = OrdinaryUser.objects.get(account=request.account)
@@ -251,13 +251,20 @@ def friends(request):
 @login_required
 @derive_user_type
 @require_ordinary_user
-def friends_search(request):
-    if request.method == "POST":
-        searched = request.POST['searched']
-        friends = Account.objects.filter(name__contains=searched)
-        return render(request, 'friends_results.html', {'searched': searched, 'friends': friends})
+def people_results(request):
+    if request.method == 'GET':
+        ordinaryuser = []
+        form = AllSearchForm()
     else:
-        return render(request, 'friends_results.html', {})
+        form = AllSearchForm(request.POST)
+        #ordinaryuser = OrdinaryUser.account.field.filter(name__icontains=form.data['q'])
+        ordinaryuser = OrdinaryUser.objects.filter(account__name__icontains=form.data['q'])
+    
+    context = {
+        'form': form,
+        'ordinaryuser': ordinaryuser,
+    }
+    return render(request, 'people_results.html', context)
 
 @login_required
 @derive_user_type

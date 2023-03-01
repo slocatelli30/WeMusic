@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<!-- Titolo -->
+<h1>Amici</h1>
+
+<!-- lista amici -->
+
+<!-- TO DO -->
+
+<!-- fine lista amici -->
+
+<!-- cerca ordinaryuser -->
+<form action="{% url 'people_results' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Cerca persona">
+</form>
+
+<ol>
+    {% for o in ordinaryuser %}
+        <li>{{ o.account.name }} - {{ o.account.surname }}  - {{ o.account.email }}</a></li>
+    {% endfor %}
+</ol>
+
+{% endblock %}
