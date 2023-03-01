@@ -18,13 +18,15 @@
             <td><a href="{% url 'song_detail' s.id %}">{{s.title}}</a></td>
             <td>{{s.genre}}</td>
             <td>{{s.year}}</td>
+            <!-- remove -->
             <td>
                 <form action="{% url 'remove_song_from_playlist' playlist.id s.id %}" method="post">
                     {% csrf_token %}
                     <input type="submit" value="remove">
                 </form>
             </td>
-            <td><a href="{{s.file.url}}" download>cLiCk HeRe To DoWnLoAd {{s.title}}</a></td>
+            <!-- download -->
+            <td><a href="{{s.file.url}}" download>Download</a></td>
         </tr>
         {% endfor %}
     </tbody>
