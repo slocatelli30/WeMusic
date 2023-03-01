@@ -193,7 +193,7 @@ def account_detail(request):
     # colonne di input
     # la funzione drop ci restituisce tutte le colonne tranne quella esplicitata tra apici
     X = utenti.drop(columns=['genmusic'])
-    # colonne di putput
+    # colonne di output
     y = utenti['genmusic']
     # istanziamo il modello
     modello = DecisionTreeClassifier()
