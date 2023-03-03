@@ -47,10 +47,10 @@
                 <!-- add or remove friend -->
                 <!-- se l'utente res è nella lista degli amici, verrà mostrato il pulsante remove -->
                 {% if res in ordinaryuser_current_list_friends %}
-                    <td><a href="{% url 'remove_friends' res.account.id %}">remove</a></td>
+                    <td><a href="{% url 'remove_friends' res.id %}">remove</a></td>
                 {% else %}
                     <!-- altrimenti, verrà mostrato il pulsante add -->
-                    <td><a href="{% url 'add_friends' res.account.id %}">add</a></li></td>
+                    <td><a href="{% url 'add_friends' res.id %}">add</a></li></td>
                 {% endif %}
             </tr>
             {% endfor %}

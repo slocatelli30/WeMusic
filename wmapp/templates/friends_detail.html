@@ -11,10 +11,10 @@
         <li>{{ l.account.name }} - {{ l.account.surname }}  - {{ l.account.email }}  - 
             <!-- controllo in più: se sono amici tasto rimuovi -->
             {% if l in friends_list %}
-                <td><a href="{% url 'remove_friends' l.account.id %}">remove</a></li>
+                <td><a href="{% url 'remove_friends' l.id %}">remove {{l.account.id}} - {{l.id}}</a></li>
             {% else %}
-                <!-- altrimenti, verrà mostrato il pulsante add -->
-                <td><a href="{% url 'add_friends' l.account.id %}">add</a></li>
+                <!-- altrimenti, verrà mostrato il pulsante add (a rigor di logica non dovrebbe mai verificarsi) -->
+                <td><a href="{% url 'add_friends' l.id %}">add</a></li>
             {% endif %}
     {% endfor %}
 {% else %}

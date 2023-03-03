@@ -279,13 +279,16 @@ def people_results(request):
 @derive_user_type
 @require_ordinary_user
 def add_friends(request, ordinaryuser_id):
+    print(ordinaryuser_id)
     # ottengo l'id dell'utente (ordinaryuser) che voglio aggiungere come amico
     ordinaryuser = get_object_or_404(OrdinaryUser, pk=ordinaryuser_id)
     # ottengo l'utente corrente (ordinaryuser) che vuole aggiungere l'amico
     ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
     ordinaryuser_current.friends.add(ordinaryuser)
     ordinaryuser.save()
-    return redirect('friends_detail')
+    # context
+    context = { 'friends_list': ordinaryuser_current.friends.all() }
+    return render(request, 'friends_detail.html', context)
 
 # view per la visualizzazione della lista amici nella pagina friends
 @login_required
