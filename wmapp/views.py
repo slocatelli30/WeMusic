@@ -231,21 +231,24 @@ def search_results(request):
     }
     return render(request, 'search_results.html', context)
 
-# view per la pagina friends (principale)
+# view per la pagina social (principale)
 @login_required
 @derive_user_type
 @require_ordinary_user
 def people(request):
-    """View function for friends"""
+    """View function for social"""
 
-    #ordinary_user = OrdinaryUser.objects.get(account=request.account)
+    if request.method == 'GET':
+        form = AllSearchForm()
+    else:
+        form = AllSearchForm(request.POST)
 
+    # context
     context = {
-        # lista utenti
-        'list_user': Account.objects.all(),
+        'form': form
     }
 
-    return render(request, 'friends.html', context)
+    return render(request, 'people_results.html', context)
 
 # view per la ricerca di utenti
 @login_required
@@ -257,14 +260,60 @@ def people_results(request):
         form = AllSearchForm()
     else:
         form = AllSearchForm(request.POST)
-        #ordinaryuser = OrdinaryUser.account.field.filter(name__icontains=form.data['q'])
+        # filtro tutti gli utenti presenti nel db per parte del nome
         ordinaryuser = OrdinaryUser.objects.filter(account__name__icontains=form.data['q'])
     
+    # ottengo l'utente corrente (ordinaryuser)
+    ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
+
+    # context
     context = {
         'form': form,
         'ordinaryuser': ordinaryuser,
+        'ordinaryuser_current_list_friends': ordinaryuser_current.friends.all(),
     }
     return render(request, 'people_results.html', context)
+
+# view per l'aggiunta di amici
+@login_required
+@derive_user_type
+@require_ordinary_user
+def add_friends(request, ordinaryuser_id):
+    # ottengo l'id dell'utente (ordinaryuser) che voglio aggiungere come amico
+    ordinaryuser = get_object_or_404(OrdinaryUser, pk=ordinaryuser_id)
+    # ottengo l'utente corrente (ordinaryuser) che vuole aggiungere l'amico
+    ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
+    ordinaryuser_current.friends.add(ordinaryuser)
+    ordinaryuser.save()
+    return redirect('friends_detail')
+
+# view per la visualizzazione della lista amici nella pagina friends
+@login_required
+@derive_user_type
+@require_ordinary_user
+def friends_detail(request):
+    # ottengo l'utente corrente (ordinaryuser)
+    ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
+    # ottengo la lista dei soli amici
+    friends_list = ordinaryuser_current.friends.all()
+    # context
+    context = { 'friends_list': friends_list }
+    return render(request, 'friends_detail.html', context)
+
+# view per rimozione degli amici nella pagina friends
+@login_required
+@derive_user_type
+@require_ordinary_user
+def remove_friends(request, ordinaryuser_id):
+    # ottengo l'id dell'utente (ordinaryuser) che voglio rimuovere dalla lista di amici
+    ordinaryuser = get_object_or_404(OrdinaryUser, pk=ordinaryuser_id)
+    # ottengo l'utente corrente (ordinaryuser) che vuole rimuovere l'amico
+    ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
+    ordinaryuser_current.friends.remove(ordinaryuser)
+    ordinaryuser.save()
+    # context
+    context = { 'friends_list': ordinaryuser_current.friends.all() }
+    return render(request, 'friends_detail.html', context)
 
 @login_required
 @derive_user_type

@@ -12,6 +12,6 @@ class AddSongToPlaylistForm(forms.Form):
     playlist = forms.ModelChoiceField(
         queryset=Playlist.objects.all(), empty_label="---")
 
-# Ricerca utente (OrdinaryUser)
+# ricerca utente (OrdinaryUser)
 class SearchOrdinaryUserForm(forms.Form):
     q = forms.CharField(label='Cerca un utente:')

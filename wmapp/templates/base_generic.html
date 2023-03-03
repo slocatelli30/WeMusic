@@ -22,7 +22,9 @@
               <li><a href="{% url 'liked_songs' %}">Liked</a></li>
               <li><a href="{% url 'playlists' %}">Playlists</a></li>
               <!-- social -->
-              <li><a href="{% url 'people_results' %}">Social</a></li>
+              <li><a href="{% url 'people' %}">Social</a></li>
+              <!-- friends -->
+              <li><a href="{% url 'friends_detail' %}">Friends</a></li>
             {% endif %}
             {% if request.user_type == 'artist' %}
               <li><a href="{% url 'account_detail' %}">Account</a></li>

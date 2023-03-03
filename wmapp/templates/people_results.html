@@ -4,23 +4,60 @@
 <!-- Titolo -->
 <h1>Cerca persone che potresti conoscere</h1>
 
-<!-- lista amici -->
-
-<!-- TO DO -->
-
-<!-- fine lista amici -->
-
-<!-- cerca ordinaryuser -->
+<!-- form cerca ordinaryuser -->
 <form action="{% url 'people_results' %}" method="post">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Cerca persona">
 </form>
+<!-- fine form cerca ordinaryuser -->
 
-<ol>
-    {% for o in ordinaryuser %}
-        <li>{{ o.account.name }} - {{ o.account.surname }}  - {{ o.account.email }}</a></li>
-    {% endfor %}
-</ol>
+<!-- visualizza i risultati della ricerca in una tabella -->
+<!-- se la lista degli utenti ricercati contiene almeno un valore, viene mostrata la tabella, altrimenti nulla -->
+{% if ordinaryuser %}
+    <table>
+        <!-- head table -->
+        <thead>
+            <tr>
+                <!-- id user -->
+                <th>Id user</th>
+                <!-- name -->
+                <th>Name</th>
+                <!-- surname -->
+                <th>Surname</th>
+                <!-- email -->
+                <th>Email</th>
+                <!-- add o remove (funzione di aggiunta o rimozione amico) -->
+                <th>Add or remove friend</th>
+            </tr>
+        </thead>
+        <!-- fine head table -->
+        <!-- body table -->
+        <tbody>
+            {% for res in ordinaryuser %}
+            <tr>
+                <!-- id user -->
+                <td>{{res.account.id}}</td>
+                <!-- name -->
+                <td>{{res.account.name}}</td>
+                <!-- surname -->
+                <td>{{res.account.surname}}</td>
+                <!-- email -->
+                <td>{{res.account.email}}</td>
+                <!-- add or remove friend -->
+                <!-- se l'utente res è nella lista degli amici, verrà mostrato il pulsante remove -->
+                {% if res in ordinaryuser_current_list_friends %}
+                    <td><a href="{% url 'remove_friends' res.account.id %}">remove</a></td>
+                {% else %}
+                    <!-- altrimenti, verrà mostrato il pulsante add -->
+                    <td><a href="{% url 'add_friends' res.account.id %}">add</a></li></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+        <!-- fine body table -->
+    </table>
+{% endif %}
+<!-- fine tabella per i risultati degli ordinary user cercati -->
 
 {% endblock %}

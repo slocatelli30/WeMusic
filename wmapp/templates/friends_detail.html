@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<!-- Titolo -->
+<h1>Lista amici</h1>
+
+<!-- lista amici -->
+<!-- se sono presenti amici nella lista -->
+{% if friends_list %}
+    {% for l in friends_list %}
+        <li>{{ l.account.name }} - {{ l.account.surname }}  - {{ l.account.email }}  - 
+            <!-- controllo in più: se sono amici tasto rimuovi -->
+            {% if l in friends_list %}
+                <td><a href="{% url 'remove_friends' l.account.id %}">remove</a></li>
+            {% else %}
+                <!-- altrimenti, verrà mostrato il pulsante add -->
+                <td><a href="{% url 'add_friends' l.account.id %}">add</a></li>
+            {% endif %}
+    {% endfor %}
+{% else %}
+<!-- altrimenti messaggio -->
+    <h2>Non hai amici :/</h2>
+{% endif %}
+<!-- fine lista amici -->
+
+{% endblock %}

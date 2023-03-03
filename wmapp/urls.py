@@ -22,5 +22,11 @@ urlpatterns = [
     path('search/all', views.search_results, name='search_results'),
     path('playlist/create', views.playlist_create, name='playlist_create'),
     path('playlist/addsong/<int:song_id>', views.add_song_to_playlist, name='add_song_to_playlist'),
+    # people
+    path('people', views.people, name='people'),
     path('people/all', views.people_results, name='people_results'),
+    path('people/add/<int:ordinaryuser_id>', views.add_friends, name='add_friends'),
+    # amici
+    path('friends', views.friends_detail, name='friends_detail'),
+    path('friends/remove/<int:ordinaryuser_id>', views.remove_friends, name='remove_friends'),
 ]
