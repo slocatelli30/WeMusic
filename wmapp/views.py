@@ -12,6 +12,8 @@ from django.contrib.auth.models import User
 # import (machine learning)
 from pandas import read_csv
 from sklearn.tree import DecisionTreeClassifier
+# import Q
+from django.db.models import Q
 
 @derive_user_type
 def index(request):
@@ -261,7 +263,9 @@ def people_results(request):
     else:
         form = AllSearchForm(request.POST)
         # filtro tutti gli utenti presenti nel db per parte del nome
-        ordinaryuser = OrdinaryUser.objects.filter(account__name__icontains=form.data['q'])
+        #ordinaryuser = OrdinaryUser.objects.filter(account__name__icontains=form.data['q'])
+        ordinaryuser = OrdinaryUser.objects.filter( Q(account__name__icontains=form.data['q']) | 
+                                                   Q(account__surname__icontains=form.data['q']) )
     
     # ottengo l'utente corrente (ordinaryuser)
     ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
@@ -285,10 +289,12 @@ def add_friends(request, ordinaryuser_id):
     # ottengo l'utente corrente (ordinaryuser) che vuole aggiungere l'amico
     ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
     ordinaryuser_current.friends.add(ordinaryuser)
-    ordinaryuser.save()
+    ordinaryuser_current.save()
+
     # context
     context = { 'friends_list': ordinaryuser_current.friends.all() }
-    return render(request, 'friends_detail.html', context)
+    #return render(request, 'friends_detail.html', context)
+    return redirect('friends_detail')
 
 # view per la visualizzazione della lista amici nella pagina friends
 @login_required
@@ -313,10 +319,11 @@ def remove_friends(request, ordinaryuser_id):
     # ottengo l'utente corrente (ordinaryuser) che vuole rimuovere l'amico
     ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
     ordinaryuser_current.friends.remove(ordinaryuser)
-    ordinaryuser.save()
+    ordinaryuser_current.save()
     # context
     context = { 'friends_list': ordinaryuser_current.friends.all() }
-    return render(request, 'friends_detail.html', context)
+    #return render(request, 'friends_detail.html', context)
+    return redirect('friends_detail')
 
 @login_required
 @derive_user_type
