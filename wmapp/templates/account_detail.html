@@ -5,5 +5,20 @@
 <div>nome: {{name}}</div>
 <div>cognome: {{surname}}</div>
 <div>e-mail: {{email}}</div>
-<div>previsione Machine Learning: {{previsione}}</div>
+
+<!-- algoritmo suggerimento genere canzone -->
+<!-- funzionamento: in base al sesso e all'età dell'utente, 
+    l'algoritmo suggerisce dei brani ricavandoli da un dataset.
+    1) l'algoritmo filtra per sesso ed età i generi musicali
+    2) all'utente, in base a ciò che si ricava al punto precedente, viene mostrata una lista di brani -->
+<div>previsione Machine Learning: {{previsione.0}}</div>
+<div>l'algoritmo vuole suggerirti dei brani che potrebbero piacerti:</div>
+<!-- lista delle canzoni suggerite dall'algoritmo -->
+<ul>
+    {% for s in list_songs_genere_target %}
+        <!-- !?! non riesco a recuperare il nome e cognome dell'artista legato al brano in questione -->
+        <li>{{s.title}}, {{s.genre}}</li>
+    {% endfor %}
+</ul>
+
 {% endblock %}

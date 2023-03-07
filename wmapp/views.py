@@ -19,8 +19,6 @@ from django.db.models import Q
 def index(request):
     """View function for home page of site."""
 
-    print(request.user_type)
-
     if request.user_type is None:
         return render(request, 'index.html')
 
@@ -187,12 +185,17 @@ def uploaded_albums(request):
 @login_required
 @derive_user_type
 def account_detail(request):
+    # oggetto account
     account = request.account
+    # ricavo l'età (finta) dell'utente corrente
+    ordinaryuser_current_age = 23
+    # ricavo il sesso (finto) dell'utente corrente
+    ordinaryuser_current_gender = 1
 
     # algoritmo di discover
     # lettura del training set
     utenti = read_csv('utenti.csv')
-    # colonne di input
+    # colonna/e di input
     # la funzione drop ci restituisce tutte le colonne tranne quella esplicitata tra apici
     X = utenti.drop(columns=['genmusic'])
     # colonne di output
@@ -201,15 +204,26 @@ def account_detail(request):
     modello = DecisionTreeClassifier()
     # alleniamo il modello
     modello.fit(X.values, y.values)
+    # [sesso dell'utente target, età dell'utente target]
     # 0 = colonna sesso (0=femmina, 1=maschio), 31 = colonna età obiettivo 
     # 1 = colonne sesso (0=femmina, 1=maschio), 16 = colonne età obiettivo
-    previsione = modello.predict([[0,31], [1,16]])
+    # previsione dei generi musicali in base all'eta e al sesso dell'utente corrente
+    previsione = modello.predict([[ordinaryuser_current_gender,ordinaryuser_current_age]])
+    # salvo il genere musicale dedotto dall'algoritmo
+    genere_target = previsione[0]
+    # estraggo da db tutti i brani con genere lirica
+    list_songs_genere_target = Song.objects.filter( genre__icontains=genere_target )
+
+    #foreach di prova
+    for x in list_songs_genere_target:
+        print(x.title)
 
     context = {
         'name': account.name,
         'surname': account.surname,
         'email': account.email,
         'previsione': previsione,
+        'list_songs_genere_target': list_songs_genere_target,
     }
     return render(request, 'account_detail.html', context)
 
@@ -283,7 +297,6 @@ def people_results(request):
 @derive_user_type
 @require_ordinary_user
 def add_friends(request, ordinaryuser_id):
-    print(ordinaryuser_id)
     # ottengo l'id dell'utente (ordinaryuser) che voglio aggiungere come amico
     ordinaryuser = get_object_or_404(OrdinaryUser, pk=ordinaryuser_id)
     # ottengo l'utente corrente (ordinaryuser) che vuole aggiungere l'amico
