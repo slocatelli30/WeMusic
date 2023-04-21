@@ -188,7 +188,7 @@ def account_detail(request):
     # oggetto account
     account = request.account
     # ricavo l'età (finta) dell'utente corrente
-    ordinaryuser_current_age = 23
+    ordinaryuser_current_age = 34
     # ricavo il sesso (finto) dell'utente corrente
     ordinaryuser_current_gender = 1
 
@@ -211,12 +211,54 @@ def account_detail(request):
     previsione = modello.predict([[ordinaryuser_current_gender,ordinaryuser_current_age]])
     # salvo il genere musicale dedotto dall'algoritmo
     genere_target = previsione[0]
-    # estraggo da db tutti i brani con genere lirica
+    # estraggo dal db tutti i brani con il genere dedotto dall'algoritmo
     list_songs_genere_target = Song.objects.filter( genre__icontains=genere_target )
 
+    # creazione della lista contenente gli amici suggeriti dall'algoritmo
+    # criterio: se ad un utente piace almeno un brano con il medesimo genere_target, viene aggiunto alla lista
+    # inizialmente la lista degli amici suggeriti è vuota
+    list_suggested_friends = []
+
     #foreach di prova
+    print("*** foreach di prova ***")
     for x in list_songs_genere_target:
         print(x.title)
+    print("*** fine foreach di prova ***")
+
+    # inizio seconda parte algoritmo
+    print("Seconda parte")
+    # info sull'account dell'utente corrente
+    print(account.id) 
+    print(account.name)
+    print(account.surname)
+    # ottengo l'utente corrente (ordinaryuser)
+    ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
+    print(ordinaryuser_current.friends.values())
+    ordinaryuser_current_friends = ordinaryuser_current.friends.values()
+
+    list_friends_accountid = []
+    for v in ordinaryuser_current_friends:
+        print(v["account_id"])
+        list_friends_accountid.append(v["account_id"])
+
+    for x in OrdinaryUser.objects.all():
+        print("x.id:")
+        print(x.id)
+        print("x.account.id:")
+        print(x.account.id)
+        print(x.liked_songs.all())
+        for y in x.liked_songs.all().values():
+            print("*")
+            print(y)
+            print(y["genre"])
+            genere_canzone_utente_temp = y["genre"]
+            # se all'utente in questione piace una canzone con lo stesso genere_target che stiamo cercando,
+            # lo aggiunge alla lista degli amici suggeriti
+            if genere_target == genere_canzone_utente_temp and x.account.id not in list_friends_accountid:
+                list_suggested_friends.append(x)
+        print(" ---")
+
+    # fine seconda parte algoritmo
 
     context = {
         'name': account.name,
@@ -224,6 +266,7 @@ def account_detail(request):
         'email': account.email,
         'previsione': previsione,
         'list_songs_genere_target': list_songs_genere_target,
+        'list_suggested_friends': list_suggested_friends,
     }
     return render(request, 'account_detail.html', context)
 

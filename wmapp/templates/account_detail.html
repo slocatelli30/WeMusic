@@ -21,4 +21,20 @@
     {% endfor %}
 </ul>
 
+<!-- algoritmo suggerimento amici -->
+<!-- se la lista contenente gli utenti suggeriti è vuota -->
+{% if not list_suggested_friends %}
+    <div> L'algoritmo non ha trovato nessuna persona che potresti conoscere con i tuoi stessi gusti musicali! Ci dispiace.. </div>
+{% else %}
+    <!-- se la lista contenente gli utenti suggeriti non è vuota, elencali -->
+    <div>l'algoritmo vuole suggerirti delle persone che potresti conoscere in base ai tuoi generi musicali:</div>
+    <!-- lista amici suggeriti -->
+    <ul>
+        {% for u in list_suggested_friends %}
+            <!-- nome e cognome degli utenti suggeriti ma che non devono essere già presenti negli amici -->
+            <li>id: {{u.account.id}}, name: {{u.account.name}}, surname: {{u.account.surname}}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
 {% endblock %}
