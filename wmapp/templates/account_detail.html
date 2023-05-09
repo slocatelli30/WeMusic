@@ -6,35 +6,4 @@
 <div>cognome: {{surname}}</div>
 <div>e-mail: {{email}}</div>
 
-<!-- algoritmo suggerimento genere canzone -->
-<!-- funzionamento: in base al sesso e all'età dell'utente, 
-    l'algoritmo suggerisce dei brani ricavandoli da un dataset.
-    1) l'algoritmo filtra per sesso ed età i generi musicali
-    2) all'utente, in base a ciò che si ricava al punto precedente, viene mostrata una lista di brani -->
-<div>previsione Machine Learning: {{previsione.0}}</div>
-<div>l'algoritmo vuole suggerirti dei brani che potrebbero piacerti:</div>
-<!-- lista delle canzoni suggerite dall'algoritmo -->
-<ul>
-    {% for s in list_songs_genere_target %}
-        <!-- !?! non riesco a recuperare il nome e cognome dell'artista legato al brano in questione -->
-        <li>{{s.title}}, {{s.genre}}</li>
-    {% endfor %}
-</ul>
-
-<!-- algoritmo suggerimento amici -->
-<!-- se la lista contenente gli utenti suggeriti è vuota -->
-{% if not list_suggested_friends %}
-    <div> L'algoritmo non ha trovato nessuna persona che potresti conoscere con i tuoi stessi gusti musicali! Ci dispiace.. </div>
-{% else %}
-    <!-- se la lista contenente gli utenti suggeriti non è vuota, elencali -->
-    <div>l'algoritmo vuole suggerirti delle persone che potresti conoscere in base ai tuoi generi musicali:</div>
-    <!-- lista amici suggeriti -->
-    <ul>
-        {% for u in list_suggested_friends %}
-            <!-- nome e cognome degli utenti suggeriti ma che non devono essere già presenti negli amici -->
-            <li>id: {{u.account.id}}, name: {{u.account.name}}, surname: {{u.account.surname}}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
 {% endblock %}

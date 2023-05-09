@@ -29,4 +29,6 @@ urlpatterns = [
     # amici
     path('friends', views.friends_detail, name='friends_detail'),
     path('friends/remove/<int:ordinaryuser_id>', views.remove_friends, name='remove_friends'),
+    # algoritmo di Discover
+    path('discover', views.discover, name='discover'),
 ]

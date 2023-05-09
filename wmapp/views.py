@@ -187,86 +187,12 @@ def uploaded_albums(request):
 def account_detail(request):
     # oggetto account
     account = request.account
-    # ricavo l'età (finta) dell'utente corrente
-    ordinaryuser_current_age = 34
-    # ricavo il sesso (finto) dell'utente corrente
-    ordinaryuser_current_gender = 1
 
-    # algoritmo di discover
-    # lettura del training set
-    utenti = read_csv('utenti.csv')
-    # colonna/e di input
-    # la funzione drop ci restituisce tutte le colonne tranne quella esplicitata tra apici
-    X = utenti.drop(columns=['genmusic'])
-    # colonne di output
-    y = utenti['genmusic']
-    # istanziamo il modello
-    modello = DecisionTreeClassifier()
-    # alleniamo il modello
-    modello.fit(X.values, y.values)
-    # [sesso dell'utente target, età dell'utente target]
-    # 0 = colonna sesso (0=femmina, 1=maschio), 31 = colonna età obiettivo 
-    # 1 = colonne sesso (0=femmina, 1=maschio), 16 = colonne età obiettivo
-    # previsione dei generi musicali in base all'eta e al sesso dell'utente corrente
-    previsione = modello.predict([[ordinaryuser_current_gender,ordinaryuser_current_age]])
-    # salvo il genere musicale dedotto dall'algoritmo
-    genere_target = previsione[0]
-    # estraggo dal db tutti i brani con il genere dedotto dall'algoritmo
-    list_songs_genere_target = Song.objects.filter( genre__icontains=genere_target )
-
-    # creazione della lista contenente gli amici suggeriti dall'algoritmo
-    # criterio: se ad un utente piace almeno un brano con il medesimo genere_target, viene aggiunto alla lista
-    # inizialmente la lista degli amici suggeriti è vuota
-    list_suggested_friends = []
-
-    #foreach di prova
-    print("*** foreach di prova ***")
-    for x in list_songs_genere_target:
-        print(x.title)
-    print("*** fine foreach di prova ***")
-
-    # inizio seconda parte algoritmo
-    print("Seconda parte")
-    # info sull'account dell'utente corrente
-    print(account.id) 
-    print(account.name)
-    print(account.surname)
-    # ottengo l'utente corrente (ordinaryuser)
-    ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
-    print(ordinaryuser_current.friends.values())
-    ordinaryuser_current_friends = ordinaryuser_current.friends.values()
-
-    list_friends_accountid = []
-    for v in ordinaryuser_current_friends:
-        print(v["account_id"])
-        list_friends_accountid.append(v["account_id"])
-
-    for x in OrdinaryUser.objects.all():
-        print("x.id:")
-        print(x.id)
-        print("x.account.id:")
-        print(x.account.id)
-        print(x.liked_songs.all())
-        for y in x.liked_songs.all().values():
-            print("*")
-            print(y)
-            print(y["genre"])
-            genere_canzone_utente_temp = y["genre"]
-            # se all'utente in questione piace una canzone con lo stesso genere_target che stiamo cercando,
-            # lo aggiunge alla lista degli amici suggeriti
-            if genere_target == genere_canzone_utente_temp and x.account.id not in list_friends_accountid:
-                list_suggested_friends.append(x)
-        print(" ---")
-
-    # fine seconda parte algoritmo
-
+    # context
     context = {
         'name': account.name,
         'surname': account.surname,
         'email': account.email,
-        'previsione': previsione,
-        'list_songs_genere_target': list_songs_genere_target,
-        'list_suggested_friends': list_suggested_friends,
     }
     return render(request, 'account_detail.html', context)
 
@@ -444,3 +370,88 @@ def remove_song_from_playlist(request, playlist_id, song_id):
     playlist.songs.remove(song)
     playlist.save()
     return redirect('playlist_detail', playlist_id=playlist.id)
+
+# view contenente l'algoritmo di discover
+@login_required
+@derive_user_type
+def discover(request):
+    # oggetto account
+    account = request.account
+
+    # ricavo l'età (finta) dell'utente corrente
+    ordinaryuser_current_age = 34
+    # ricavo il sesso (finto) dell'utente corrente
+    # 0 = femmina, 1 = uomo, maschio
+    ordinaryuser_current_gender = 1
+
+    # algoritmo di discover
+    # lettura del training set
+    utenti = read_csv('utenti.csv')
+    # colonna/e di input
+    # la funzione drop ci restituisce tutte le colonne tranne quella esplicitata tra apici
+    X = utenti.drop(columns=['genmusic'])
+    # colonne di output
+    y = utenti['genmusic']
+    # istanziamo il modello
+    modello = DecisionTreeClassifier()
+    # alleniamo il modello
+    modello.fit(X.values, y.values)
+    # [sesso dell'utente target, età dell'utente target]
+    # 0 = colonna sesso (0=femmina, 1=maschio), 31 = colonna età obiettivo 
+    # 1 = colonne sesso (0=femmina, 1=maschio), 16 = colonne età obiettivo
+    # previsione dei generi musicali in base all'eta e al sesso dell'utente corrente
+    previsione = modello.predict([[ordinaryuser_current_gender,ordinaryuser_current_age]])
+    # salvo il genere musicale dedotto dall'algoritmo
+    genere_target = previsione[0]
+
+    # PRIMA PARTE DELL'ALGORITMO DI DISCOVER
+    # suggerimento all'utente corrente di vari brani ricavandoli da un dataset.
+    # l'algoritmo estrapola per sesso ed età dell'utente corrente i generi musicali
+    # suggerendoli mediante una lista di brani
+    # estraggo dal db tutti i brani con il genere dedotto dall'algoritmo
+    list_songs_genere_target = Song.objects.filter( genre__icontains=genere_target )
+
+    # SECONDA PARTE DELL'ALGORITMO DI DISCOVER
+    # creazione della lista vuota contenente gli amici suggeriti dall'algoritmo.
+    # criterio: se ad un utente piace almeno un brano con il medesimo genere_target, 
+    # viene aggiunto alla lista. Inizialmente la lista degli amici suggeriti è vuota
+    list_suggested_friends = []
+
+    # ottengo l'utente corrente (ordinaryuser)
+    ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
+    # ottengo gli amici dell'utente corrente
+    ordinaryuser_current_friends = ordinaryuser_current.friends.values()
+
+    # in list_friends_accountid estrapolo gli id degli amici dell'utente corrente
+    # inizialmente list_friends_accountid è vuota
+    list_friends_accountid = []
+    for v in ordinaryuser_current_friends:
+        list_friends_accountid.append(v["account_id"])
+
+    # primo foreach: sfoglio tutti gli utenti presenti nel db
+    for x in OrdinaryUser.objects.all():
+        # secondo foreach: sfoglio le canzoni preferite di tutti gli utenti nel db
+        for y in x.liked_songs.all().values():
+            # salvo il genere musicale in genere_canzone_utente_temp
+            genere_canzone_utente_temp = y["genre"]
+            
+            # condizioni per rientrare tra gli utenti suggeriti:
+            # 1) all'utente x del foreach deve piacere almeno una canzone con 
+            # lo stesso genere_target che stiamo cercando, allora lo aggiunge 
+            # alla lista degli amici suggeriti.
+            # 2) l'utente x del foreach non deve essere già un amico dell'utente
+            # corrente, ovvero su colui che sta girando l'algoritmo
+            # 3) l'utente x del foreach non deve essere lo stesso su cui stiamo
+            # eseguendo l'algoritmo
+            if ( (genere_target == genere_canzone_utente_temp) and 
+            (x.account.id not in list_friends_accountid) and 
+            (x.account.id != account.id) ):
+                list_suggested_friends.append(x)
+
+    # context
+    context = {
+        'previsione': previsione,
+        'list_songs_genere_target': list_songs_genere_target,
+        'list_suggested_friends': list_suggested_friends,
+    }
+    return render(request, 'discover.html', context)
