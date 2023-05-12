@@ -16,7 +16,6 @@ I fattori tenuti in considerazione per lo sviluppon dell'algoritmo di Discover s
     \item Il sesso dell'utente.
 \end{itemize}
 
-
 Il funzionamento dell'algoritmo si basa su una previsione Machine Learning, tramite la libreria \textbf{Pandas} di Python;
 Il nome "Pandas" fa riferimento sia a "Panel Data" che "Python Data Analysis", infatti è una libreria molto utilizzata per lavorare 
 con dataset: tramite le sue molteplici funzioni consente di analizzare, pulire, esplorare e manipolare i dati, definendo 
@@ -24,24 +23,21 @@ conclusioni basate su teorie statiistiche.
 Come anticipato, in base al genere preferito dell'utente, il suo sesso e la sua età, l'algoritmo suggerisce dei brani ricavandoli 
 da un dataset, filtrandoli secondo le variabili sopracitate. Al termine dell'esecuzione l'algoritmo mostrerà un elenco di brani suggeriti.
 
-I passi base dell'algoritmo sono i seguenti: 
+Inizialmente, viene creato un oggetto account contenente le informazioni relative all'account dell'utente loggato, che ci serviranno in seguito; 
+viene passato il parametro \textbf{request} che è quello che contiene le informazioni di interesse, ovvero l'età e il sesso (1=maschio, 0=femmina). 
+In seguito viene utilizzato un training set (\textbf{utenti.csv}) sul quale allenare la stima, contenente le informazioni degli utenti 
+necessarie per estrapolare le variabili: quelle di input includono il sesso e l'età dell'utente, quella di output contiene solo 
+il genere preferito (ciò che suggerirà l'algoritmo). 
 
-Inizialmente, viene creato un oggetto account perchè in seguito serviranno le informazioni dell'account corrent, passando request (parametro che 
-mi da le info relative all'account che sto utilizzando, CIOè USER1), viene quindi ricavata l'età e il sesso dell'utente loggato (1=maschio, 0=femmina); 
-in seguito utilizzo un training set (utenti.csv) contenente tutte le informazioni degli utenti: 
-sesso, anni, genere musicale preferito. 
-Le variabili di input X considerate sono le prime due, mentre la variabile di output Y è il genere musicale (ciò che suggerirà l'algoritmo),
-dopo aver creato queste due tabelle istanziamo il modello tramite il comando DecisionTreeClassifier (pandas), 
-dobbiamo poi fittare quindi il modello si allena sulle variabili scelte per darci in seguito il risultato. 
-In seguito effettuo la predizione inserendo le informazioni relative all'utente loggeto (tramite modello.predict), indine 
-effettuo e salvo la previsione relativa solo al genere musicale come campo. 
+Dopo aver creato queste due tabelle viene istanziato il modello previsionale tramite il comando \textbf{DecisionTreeClassifier}, un comando 
+della libreria Pandas che permette, dandogli in input le variabili considerate, di fittare il modello che le lega. 
 
+Viene quindi fittato il modello tramite il comando \textbf{modello.fit(...)}, che si allenerà sulle variabili scelte, età e sesso, per restituire 
+il risultato (genere preferito). 
 
-viene letto un training set sul quale la stima si allena, contenente delle info
-su altri utenti (scrivere quali). In seguito viene istanziato il modello tramite la funzione
-\textbf{DecisionTreeClassifier()} (scrivere cosa fa). 
-In seguito il modello viene allenato sui valori e infine tramite la funzione 
-\textbf{predict} viene effettuata una previsione del genere musicale in base alle variabili considerate. 
+In seguito effettuo la predizione inserendo le informazioni relative all'utente loggato tramite la funzione \textbf{modello.predict}, ed infine 
+salvo la previsione relativa solo alla variabile di genere musicale. 
+
 
 
 \subsection{Discover: Suggerimento brano}
@@ -66,15 +62,12 @@ Condizione per rientrare negli utenti suggeriti:
 Nel context poi passo la lista che ho creato. 
 
 \subsection{Bootstrap}
-Per il frontend è stato utilizzato Bootstrap is a free front-end framework for faster and easier web development
-Bootstrap includes HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, image carousels and many other, as well as optional JavaScript plugins
-Bootstrap also gives you the ability to easily create responsive designs
-
-vantaggi: 
-Easy to use: Anybody with just basic knowledge of HTML and CSS can start using Bootstrap
-Responsive features: Bootstrap's responsive CSS adjusts to phones, tablets, and desktops
-Mobile-first approach: In Bootstrap 3, mobile-first styles are part of the core framework
-Browser compatibility: Bootstrap is compatible with all modern browsers (Chrome, Firefox, Internet Explorer, Edge, Safari, and Opera)
+Per il frontend è stato utilizzato Bootstrap, un framework per frontend gratuito e per web development più semplice e veloce. 
+Bootstrap include templates design basati su HTML e CSS per typografia, forme, pulsanti, tabelle, navigazione, caroselli di 
+immagini e molto altro, come anche plugin opzionali si JavaScript, permettendo uno sviluppo semplice. 
+E' molto semplice da usare e un alta compatibilità con tutti i browser maggiormente usati. 
 
 
 \subsection{Flowchart algoritmo??}
+I passi base dell'algoritmo sono i seguenti: 
+
