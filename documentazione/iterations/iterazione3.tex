@@ -32,42 +32,50 @@ il genere preferito (ciò che suggerirà l'algoritmo).
 Dopo aver creato queste due tabelle viene istanziato il modello previsionale tramite il comando \textbf{DecisionTreeClassifier}, un comando 
 della libreria Pandas che permette, dandogli in input le variabili considerate, di fittare il modello che le lega. 
 
-Viene quindi fittato il modello tramite il comando \textbf{modello.fit(...)}, che si allenerà sulle variabili scelte, età e sesso, per restituire 
+Viene quindi fittato il modello tramite il comando \textbf{modello.fit(...)}, che si allenerà sulle variabili scelte (età e sesso), per restituire 
 il risultato (genere preferito). 
 
-In seguito effettuo la predizione inserendo le informazioni relative all'utente loggato tramite la funzione \textbf{modello.predict}, ed infine 
-salvo la previsione relativa solo alla variabile di genere musicale. 
+In seguito verrà effettuata la predizione inserendo le informazioni relative all'utente loggato tramite la funzione \textbf{modello.predict}, ed 
+infine viene memorizzata la previsione relativa solo alla variabile di genere musicale. 
 
 
 
 \subsection{Discover: Suggerimento brano}
-Nella prima parte dell'algoritmo si effettua un filtro su tutte le canzoni presenti nel db e 
-prenderle per il target che ci ha dato l'algoritmo, quindi seleziono tutte le canzoni presenti nel db che 
-rispecchiano il genere suggerito dall'algoritmo, salvo in una lista. 
-Quindi il risultato sarà
+Nella parte successiva dell'algoritmo Discover si effettua un semplice filtro su tutte le canzoni presenti nel db e vengono
+ selezionate solo quelle che rispettano il genere target restituito dall'algoritmo Discover; vengono in seguito salvate in una 
+ lista e proposte all'utente, che sarà in grado di navigare e selezionare quale scaricare o aggiungere ai preferiti o ad una playlist. 
 
 \subsection{Discover: Suggerimento amici}
-La seconda parte dell'algoritmo è più meccanica: si basa sempre sul genere target individuato nella parte
-iniziale dell'algoritmo, ma andiamo ad estrapolare una lista di amici suggeriti per l'utente. 
-Inizialmente viene creata una lista amici vuota e salvo le info dell'utente loggato, prendo tutti 
-i suoi amici in modo da escluderli in seguito nell'algoritmo(per evitare che vengano suggeriti quelli già amici), ed escludere
-anche l'utente stesso. Dopo aver creato una lista degli identificativi, tramite un for each, scorro tutti gli utenti nel db
-sfoglio le canzoni preferite da questi utenti nel db e salvo il genere di ogni canzone in una variabile y, 
+Nell'ultima parte dell'algoritmo Discover viene seguito un processo più meccanico: facendo ancora riferimento al genere target 
+individuato nella parte iniziale dell'algoritmo, viene estrapolata una lista di amici suggeriti per l'utente. 
+
+Inizialmente viene creata una lista amici vuota, vengono salvate le informazioni relative dell'utente loggato, vengono quindi 
+selezionati tutti gli utenti presenti nella lista amici da escluderli in seguito nell'algoritmo.
+Dopo aver creato una lista degli identificativi, tramite un ciclo for each vengono selezionati gli utenti nel db 
+sfogliando per ognuno le canzoni preferite, al fine di salvare il genere di ogni canzone in una variabile y.
 
 Condizione per rientrare negli utenti suggeriti:
-1. all'utente x (nel db) deve piacere almeno una canzone che abbia lo stesso genere target dell'algoritmo, 
-2. non deve essere già amico dell'utente
-3. non deve essere lo stesso utente loggato. 
+\begin{itemize}
+    \item L'utente analizzato (nel database) non deve essere l'utente loggato, ovvero devono avere id diversi;
+    \item L'utente analizzato (nel database) non deve essere amico dell'utente loggato, ovvero il suo id non deve essere presente 
+    nella lista amici;
+    \item All'utente analizzato (nel database) deve piacere almeno una canzone che abbia lo stesso genere target dell'algoritmo.
 
-Nel context poi passo la lista che ho creato. 
+\end{itemize}
+
+Nel context viene poi passata la lista creata con gli utenti selezionati dal database, in modo da permettere all'utente di poter
+navigare fra gli utenti ed, eventualmente, aggiungerli fra gli amici. 
 
 \subsection{Bootstrap}
-Per il frontend è stato utilizzato Bootstrap, un framework per frontend gratuito e per web development più semplice e veloce. 
-Bootstrap include templates design basati su HTML e CSS per typografia, forme, pulsanti, tabelle, navigazione, caroselli di 
-immagini e molto altro, come anche plugin opzionali si JavaScript, permettendo uno sviluppo semplice. 
-E' molto semplice da usare e un alta compatibilità con tutti i browser maggiormente usati. 
+Per il frontend è stato utilizzato Bootstrap, un framework per frontend e web development semplice e veloce. 
+Bootstrap include templates design basati su HTML e CSS per tipografia, forme, pulsanti, tabelle, navigazione, caroselli di 
+immagini e molto altro, come anche plugin opzionali di JavaScript; è' molto semplice da usare e possiede un'alta 
+compatibilità con i browser maggiormente usati. 
 
 
 \subsection{Flowchart algoritmo??}
 I passi base dell'algoritmo sono i seguenti: 
+
+\subsection{Complessità}
+Pseudocodice + analisi complessità
 
