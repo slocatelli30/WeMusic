@@ -4,7 +4,7 @@ from django.core import serializers
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.edit import CreateView
 from .models import Playlist, OrdinaryUser, Song, Artist, Album, Account
-from .forms import AllSearchForm, CreatePlaylistForm, AddSongToPlaylistForm, SearchOrdinaryUserForm
+from .forms import AllSearchForm, CreatePlaylistForm, AddSongToPlaylistForm
 import collections
 import json
 import datetime
@@ -32,6 +32,8 @@ def index(request):
         context = {
             'liked_songs': ordinary_user.liked_songs.order_by('?').all()[:10],
             'playlists': Playlist.objects.filter(creator=ordinary_user).order_by('-creation_date')[:10],
+            # nome dell'utente corrente
+            'name': ordinary_user.account.name,
             # 'playlists': ordinary_user.playlist_set.all(),
         }
         return render(request, 'index.html', context)
@@ -141,6 +143,7 @@ def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
 
     context = {
+        'album': album,
         'songs': album.song_set.order_by('title').all(),
     }
     return render(request, 'album_detail.html', context)

@@ -1,38 +1,58 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+
+<!-- titolo pagina -->
 <h1>{{playlist.name}}</h1>
-<table>
+
+<!-- tabella della playlist selezionata contenente i brani -->
+<table class="table table-striped" style="background-color: white;">
+    <!-- table head -->
     <thead>
-        <tr>
-            <th>Title</th>
-            <th>Genre</th>
-            <th>Year</th>
-            <th></th>
-            <th>Download</th>
-        </tr>
+      <tr>
+        <!-- Titolo -->
+        <th scope="col">Titolo</th>
+        <!-- Genere -->
+        <th scope="col">Genere</th>
+        <!-- Anno -->
+        <th scope="col">Anno</th>
+        <!-- Rimuovi -->
+        <th scope="col">Rimuovi</th>
+        <!-- Download -->
+        <th scope="col">Download</th>
+      </tr>
     </thead>
+
+    <!-- table body -->
     <tbody>
+        <!-- foreach -->
         {% for s in songs %}
-        <tr>
-            <td><a href="{% url 'song_detail' s.id %}">{{s.title}}</a></td>
-            <td>{{s.genre}}</td>
-            <td>{{s.year}}</td>
-            <!-- remove -->
-            <td>
-                <form action="{% url 'remove_song_from_playlist' playlist.id s.id %}" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="remove">
-                </form>
-            </td>
-            <!-- download -->
-            <td><a href="{{s.file.url}}" download>Download</a></td>
-        </tr>
+            <tr>
+                <!-- titolo -->
+                <td><a href="{% url 'song_detail' s.id %}" class="btn btn-primary"><b>{{s.title}}</b></a></td>
+                <!-- genere -->
+                <td>{{s.genre}}</td>
+                <!-- anno -->
+                <td>{{s.year}}</td>
+                <!-- remove -->
+                <td>
+                    <form action="{% url 'remove_song_from_playlist' playlist.id s.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" value="remove" class="btn"><i class="fa fa-close"></i></button>
+                    </form>
+                </td>
+                <!-- download -->
+                <td>
+                    <a href="{{s.file.url}}" download class="btn"><i class="fa fa-download"></i></a>
+                </td> 
+            </tr>
         {% endfor %}
     </tbody>
 </table>
+
 <form action="{% url 'delete_playlist' playlist.id %}" method="post">
     {% csrf_token %}
-    <input type="submit" value="delete">
+    <button type="submit" value="delete" class="btn btn-danger"><b>Elimina playlist {{playlist.name}}</b> <i class="fa fa-trash"></i></button>
 </form>
+
 {% endblock %}

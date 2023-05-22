@@ -1,29 +1,40 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Creation date</th>
-            <th>Number of songs</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for p in playlists %}
-        <tr>
-            <td><a href="{% url 'playlist_detail' p.id %}">{{p.name}}</a></td>
-            <td>{{p.creation_date}}</td>
-            <td>{{ p.songs.all|length }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
 
+<!-- titolo 1 -->
+<h1>Creazione di una nuova playlist</h1>
 
-<form action="{% url 'playlist_create' %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Crea">
-</form>
+<!-- div per la creazione di una nuova playlist -->
+<div class="form-control">
+    <form action="{% url 'playlist_create' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <!-- bottone crea playlist -->
+        <input type="submit" value="Crea" class="btn btn-primary">
+    </form>
+</div>
+
+<!-- titolo 2 -->
+<h1>Elenco delle playlist</h1>
+
+<!-- sezione playlist -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for p in playlists %}
+        <!-- item playlist -->
+        <div class="col">
+            <div class="card h-100">
+                <img src="../static/playlist/playlist_{{p.name}}.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title"><b>Playlist {{p.name}}</b> <a href="{% url 'playlist_detail' p.id %}" class="btn btn-light"><img src="../../static/icons/eye-solid.svg" style="width: 17px;" alt="eye-solid.svg not found"></a></h5>
+                <p class="card-text">Numero brani della playlist <i>{{p.name}}</i>: {{p.songs.all|length}}</p>
+                </div>
+                <div class="card-footer">
+                <small class="text-body-secondary">{{p.creation_date}}</small>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

@@ -1,24 +1,38 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>We Music</h1>
   
+  <!-- se l'utente è autenticato -->
   {% if user.is_authenticated %}
-    <p>Benvenuto {{ user.get_username }}!</p>
+    <!-- messaggio di benvenuto -->
+    <h1>We Music ti dà il benvenuto {{ name }}!</h1>
+    <!-- se user_type è ordinary -->
     {% if request.user_type == 'ordinary' %}
-      <div style="display:flex; flex-direction: row;">
-        <div style="margin-right: 40px; border: 1px solid black; padding: 10px;">
-          {% for s in liked_songs %}
-            <div><a href="{% url 'song_detail' s.id %}">{{ s.title }}</a></div>
-          {% endfor %}
+      <!-- cards -->
+      <div class="card-deck">
+        <!-- card song -->
+        <div class="card text-white bg-warning mb-3">
+          <div class="card-header"><h5>I tuoi brani preferiti <img src="../static/icons/music.svg" style="width: 20px;" alt="music.svg not found"></h5></div>
+          <!-- lista brani -->
+          <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+            {% for s in liked_songs %}
+              <a href="{% url 'song_detail' s.id %}" class="btn btn-outline text-white bg-warning"><b>{{ s.title }}</b></a>
+            {% endfor %} 
+          </div>
         </div>
-        <div style="border: 1px solid black; padding: 10px;">
-          {% for p in playlists %}
-            <div><a href="{% url 'playlist_detail' p.id %}">{{ p.name }}</a></div>
-          {% endfor %}
+        <!-- card playlist -->
+        <div class="card text-white bg-info mb-3">
+          <div class="card-header"><h5>Le tue playlist <img src="../static/icons/list.svg" style="width: 20px;" alt="list.svg not found"></h5></div>
+          <!-- lista playlist -->
+          <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+            {% for p in playlists %}
+              <a href="{% url 'playlist_detail' p.id %}" class="btn btn-outline text-white bg-info"><b>{{ p.name }}</b></a>
+            {% endfor %}
+          </div>
         </div>
       </div>
     {% endif %}
+    <!-- se user_type è artist -->
     {% if request.user_type == 'artist' %}
       <div style="display:flex; flex-direction: row;">
         <div style="margin-right: 40px; border: 1px solid black; padding: 10px;">
@@ -33,6 +47,7 @@
         </div>
       </div>
     {% endif %}
+  <!-- se l'utente NON è autenticato -->
   {% else %}
     <p>Benvenuto!</p>
   {% endif %}

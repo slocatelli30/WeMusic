@@ -2,21 +2,36 @@
 
 {% block content %}
 <!-- Titolo -->
-<h1>Lista amici</h1>
+<h1>Lista dei tuoi amici</h1>
 
 <!-- lista amici -->
 <!-- se sono presenti amici nella lista -->
 {% if friends_list %}
-    {% for l in friends_list %}
-        <li>{{ l.account.name }} - {{ l.account.surname }}  - {{ l.account.email }}  - 
-            <!-- controllo in più: se sono amici tasto rimuovi -->
-            {% if l in friends_list %}
-                <td><a href="{% url 'remove_friends' l.id %}">remove {{l.account.id}} - {{l.id}}</a></li>
-            {% else %}
-                <!-- altrimenti, verrà mostrato il pulsante add (a rigor di logica non dovrebbe mai verificarsi) -->
-                <td><a href="{% url 'add_friends' l.id %}">add</a></li>
-            {% endif %}
-    {% endfor %}
+    <div class="container mb-5">
+        <div class="row">
+            {% for l in friends_list %}
+                <div class="col-sm-4 mb-3 mb-sm-2">
+                    <!-- card -->
+                    <div class="card" style="width: 18rem;">
+                        <!-- img utente -->
+                        <img src="../../static/profiles/{{l.account.name}}_{{l.account.surname}}.jpg" class="card-img-top" alt="img jpg non trovata">
+                        <!-- body card per info utente -->
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{l.account.name}} {{l.account.surname}}</b></h5>
+                            <p class="card-text"><i>Te e {{l.account.name}} {{l.account.surname}}</i>, siete amici. Email: <i>{{l.account.email}}</i>, id: [<i>{{l.account.id}}</i>,<i>{{l.id}}</i>]</p>
+                            <!-- controllo in più: se sono amici tasto rimuovi -->
+                            {% if l in friends_list %}
+                                <a href="{% url 'remove_friends' l.id %}" class="btn btn-danger">remove <img src="../../static/icons/user-minus-solid.svg" style="width: 17px;" alt="user-minus-solid.svg not found"></a>
+                            {% else %}
+                                <!-- altrimenti, verrà mostrato il pulsante add (a rigor di logica non dovrebbe mai verificarsi) -->
+                                <a href="{% url 'add_friends' l.id %}" class="btn btn-success">add</a>
+                            {% endif %}
+                        </div>
+                    </div> 
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% else %}
 <!-- altrimenti messaggio -->
     <h2>Non hai amici :/</h2>

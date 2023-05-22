@@ -1,22 +1,22 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<table>
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Genre</th>
-            <th>Year</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for s in songs %}
-        <tr>
-            <td><a href="{% url 'song_detail' s.id %}">{{s.title}}</a></td>
-            <td>{{s.genre}}</td>
-            <td>{{s.year}}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<!-- titolo pagina -->
+<h1>Le tue canzoni preferite</h1>
+
+<!-- sezione lista canzoni preferite -->
+<ol class="list-group">
+    <!-- ciclo for -->
+    {% for s in songs %}
+        <!-- sezione canzone preferita -->
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2">
+                <a href="{% url 'song_detail' s.id %}" class="btn btn-light"><b>{{s.title}}</b></a>
+                {{s.genre}}, {{s.year}}
+            </div>
+            <a href="{% url 'song_detail' s.id %}" class="badge bg-primary rounded-pill"></a>
+        </li>
+    {% endfor %}
+</ol>
+
 {% endblock %}
