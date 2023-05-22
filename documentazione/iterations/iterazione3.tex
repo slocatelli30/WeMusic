@@ -1,47 +1,57 @@
 \section{Introduzione}
-Nella terza iterazione è stato approfondito è implementato l'algoritmo portante del sistema: l'algoritmo di Discover permette di "Scoprire" nuova 
+Nella terza iterazione è stato approfondito e implementato l'algoritmo portante del sistema: l'algoritmo di Discover permette di ``Scoprire" nuova 
 musica e nuovi utenti in base alle preferenze dell'utente.
 
 
 \section{Descrizione dell'algoritmo}
 L'algoritmo di Discover è stato ideato per offrire all'utente un'esperienza completa di riproduzione e scoperta di nuova musica, unendo a ciò la 
-componente social, permettendogli di conoscere nuove persone che condividono con l'utente i propri gusti musicali. Questo tipo di algoritmo 
-tiene traccia dei generi preferiti dell'utente e lo utilizza per suggerire musica simile, ma non solo: allo stesso modo riesce a suggerire 
-una lista di utenti che hanno gusti simili all'utente loggato, in modo da poterli aggiungere.  
+componente social: in questo modo si permette all'utente di conoscere nuove persone che condividono con lui i propri gusti musicali. 
 
-I fattori tenuti in considerazione per lo sviluppon dell'algoritmo di Discover sono i seguenti: 
+Questo tipo di algoritmo 
+tiene traccia dei generi preferiti dell'utente e lo utilizza per suggerire musica simile, ma non solo: allo stesso modo riesce a suggerire 
+una lista di utenti che hanno gusti simili all'utente loggato, in modo da poterli aggiungere alla propria lista di amici.  
+
+Le variabili e i fattori tenuti in considerazione per lo sviluppon dell'algoritmo di Discover sono i seguenti: 
 \begin{itemize}
     \item Il genere favorito dell'utente, ottenuto da un'analisi dei suoi brani preferiti;
     \item L'età dell'utente;
     \item Il sesso dell'utente.
 \end{itemize}
 
+
+\newpage
+\section{Funzionamento dell'algoritmo}
 Il funzionamento dell'algoritmo si basa su una previsione Machine Learning, tramite la libreria \textbf{Pandas} di Python;
-Il nome "Pandas" fa riferimento sia a "Panel Data" che "Python Data Analysis", infatti è una libreria molto utilizzata per lavorare 
+Il nome ``Pandas" fa riferimento sia a ``Panel Data" che ``Python Data Analysis", infatti è una libreria molto utilizzata per lavorare 
 con dataset: tramite le sue molteplici funzioni consente di analizzare, pulire, esplorare e manipolare i dati, definendo 
-conclusioni basate su teorie statiistiche. 
+conclusioni basate su teorie statistiche. 
+
 Come anticipato, in base al genere preferito dell'utente, il suo sesso e la sua età, l'algoritmo suggerisce dei brani ricavandoli 
-da un dataset, filtrandoli secondo le variabili sopracitate. Al termine dell'esecuzione l'algoritmo mostrerà un elenco di brani suggeriti.
+da un dataset, filtrandoli secondo le variabili sopracitate. Al termine dell'esecuzione l'algoritmo mostrerà un elenco di brani e amici suggeriti.
 
-Inizialmente, viene creato un oggetto account contenente le informazioni relative all'account dell'utente loggato, che ci serviranno in seguito; 
-viene passato il parametro \textbf{request} che è quello che contiene le informazioni di interesse, ovvero l'età e il sesso (1=maschio, 0=femmina). 
-In seguito viene utilizzato un training set (\textbf{utenti.csv}) sul quale allenare la stima, contenente le informazioni degli utenti 
-necessarie per estrapolare le variabili: quelle di input includono il sesso e l'età dell'utente, quella di output contiene solo 
-il genere preferito (ciò che suggerirà l'algoritmo). 
+Gli step di funzionamento dell'algoritmo possono essere così riassunti: 
+\begin{itemize}
+    \item Inizialmente, viene creato un oggetto account contenente le informazioni relative all'account dell'utente loggato, che ci serviranno in seguito; 
+    viene passato il parametro \textbf{request} che è quello che contiene le informazioni di interesse, ovvero l'età e il sesso (1=maschio, 0=femmina). 
+    In seguito viene utilizzato un training set (\textbf{utenti.csv}) sul quale allenare la stima, contenente le informazioni degli utenti 
+    necessarie per estrapolare le variabili: quelle di input includono il sesso e l'età dell'utente, quella di output contiene solo 
+    il genere preferito (ciò che suggerirà l'algoritmo). 
 
-Dopo aver creato queste due tabelle viene istanziato il modello previsionale tramite il comando \textbf{DecisionTreeClassifier}, un comando 
-della libreria Pandas che permette, dandogli in input le variabili considerate, di fittare il modello che le lega. 
+    \item Dopo aver creato queste due tabelle viene istanziato il modello previsionale tramite il comando \textbf{DecisionTreeClassifier}, un comando 
+    della libreria Pandas che permette, dandogli in input le variabili considerate, di fittare il modello che le lega. 
+    
+    \item Viene quindi fittato il modello tramite il comando \textbf{modello.fit(...)}, che si allenerà sulle variabili scelte (età e sesso), per restituire 
+    il risultato (genere preferito). 
 
-Viene quindi fittato il modello tramite il comando \textbf{modello.fit(...)}, che si allenerà sulle variabili scelte (età e sesso), per restituire 
-il risultato (genere preferito). 
-
-In seguito verrà effettuata la predizione inserendo le informazioni relative all'utente loggato tramite la funzione \textbf{modello.predict}, ed 
-infine viene memorizzata la previsione relativa solo alla variabile di genere musicale. 
-
+    \item In seguito verrà effettuata la predizione inserendo le informazioni relative all'utente loggato tramite la funzione \textbf{modello.predict}, ed 
+    infine viene memorizzata la previsione relativa solo alla variabile di genere musicale. 
+    
+\end{itemize}
 
 
+\newpage
 \subsection{Discover: Suggerimento brano}
-Nella parte successiva dell'algoritmo Discover si effettua un semplice filtro su tutte le canzoni presenti nel db e vengono
+Nella parte successiva dell'algoritmo Discover si effettua un semplice filtro su tutte le canzoni presenti nel database del sistema e vengono
  selezionate solo quelle che rispettano il genere target restituito dall'algoritmo Discover; vengono in seguito salvate in una 
  lista e proposte all'utente, che sarà in grado di navigare e selezionare quale scaricare o aggiungere ai preferiti o ad una playlist. 
 
@@ -50,8 +60,8 @@ Nell'ultima parte dell'algoritmo Discover viene seguito un processo più meccani
 individuato nella parte iniziale dell'algoritmo, viene estrapolata una lista di amici suggeriti per l'utente. 
 
 Inizialmente viene creata una lista amici vuota, vengono salvate le informazioni relative dell'utente loggato, vengono quindi 
-selezionati tutti gli utenti presenti nella lista amici da escluderli in seguito nell'algoritmo.
-Dopo aver creato una lista degli identificativi, tramite un ciclo for each vengono selezionati gli utenti nel db 
+selezionati tutti gli utenti presenti nella lista amici (in modo da escluderli in seguito nell'algoritmo).
+Dopo aver creato una lista degli identificativi, tramite un ciclo for each vengono selezionati gli utenti nel database 
 sfogliando per ognuno le canzoni preferite, al fine di salvare il genere di ogni canzone in una variabile y.
 
 Condizione per rientrare negli utenti suggeriti:

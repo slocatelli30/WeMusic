@@ -1,8 +1,16 @@
 \section{Introduzione}
 Nella secconda iterazione sono stati implementati la maggior parte dei casi d'uso: viene proposta 
-un'analisi dettagliata di ognuno al fine di specificare gli attori coinvolti nel caso d'uso, l'esecuzione
-standard dello stesso, le eventuali precondizioni e le postcondizioni, le eccezioni.
-In seguito si procede al testing, quindi analisi statica e dinamica tramite(...)
+un'analisi dettagliata al fine di specificare le seguenti informazioni:
+\begin{itemize}
+    \item \textbf{Attori:} vengono specificati quali attori sono coinvolti nel caso d'uso in analisi.
+    \item \textbf{Precondizioni:} condizioni che devono necessariamente essere verificate per il corretto funzionamento del sistema nel caso d'uso in analisi. 
+    \item \textbf{Postcondizioni:} condizioni che saranno verificate a seguito di un corretto funzionamento del sistema nel caso d'uso in analisi. 
+    \item \textbf{Sequenza base:} riassume gli step base del caso d'uso in analisi.
+    \item \textbf{Sequenza in caso di eccezioni:} specifica i casi d'eccezione possibili e a che passo della Base Sequence si viene riportati. 
+\end{itemize}
+
+Dopo aver analizzato nel dettaglio i casi d'uso si procede con la parte di Testing, 
+quindi analisi statica e dinamica tramite Electron. (...)
 
 
 \newpage
@@ -375,7 +383,7 @@ Il presente caso d'uso consiste nel poter modificare delle proprie playlist: pu√
     \item \textbf{Base Sequence:}
     \begin{itemize}
         \item \textbf{1.} L'utente, dopo aver visualizzato le info del proprio profilo, clicca su elimina profilo.
-        \item \textbf{2.} L'utente conferma la decidione.
+        \item \textbf{2.} L'utente conferma la decisione.
         \item \textbf{3.} L'utente ha correttamente eseguito l'operazione.
     \end{itemize}
     \item \textbf{Exception Sequence:} Connessione fallita.
@@ -385,17 +393,23 @@ Il presente caso d'uso consiste nel poter modificare delle proprie playlist: pu√
 \end{itemize}
 \vspace{1cm}
 
-\subsection{UC19 -- ``Discover'' e classifiche}
+\subsection{UC19 -- ``Discover''}
 \begin{itemize}
     \item \textbf{Actor:} Utente base.
-    \item \textbf{Precondition:}
-    \item \textbf{Postcondition:}
+    \item \textbf{Precondition:} L'utente deve aver effettuato il log in.
+    \item \textbf{Postcondition:} L'utente pu√≤ scoprire nuovi brani e aggiungere nuovi amici secondo i suggerimenti dell'algoritmo. 
     \item \textbf{Base Sequence:}
-    \item \textbf{Branch Sequence:}
-    \item \textbf{Exception Sequence:}
-    \item \textbf{Sub UseCase:}
+    \begin{itemize}
+        \item \textbf{1.} L'utente, dopo aver effettuato il log in, clicca su Discover dal menu a sinistra.
+        \item \textbf{2.} L'utente naviga nella pagina dei brani e amici suggeriti.
+        \item \textbf{3.} L'utente ha correttamente eseguito l'operazione.
+    \end{itemize}
+    \item \textbf{Exception Sequence:} Connessione fallita.
+    \begin{itemize}
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
 \end{itemize}
 \vspace{1cm}
 
 
-\section{Testing + pagine aggiunte?}
+\section{Testing + pagine aggiunte}

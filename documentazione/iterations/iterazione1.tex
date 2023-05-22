@@ -96,15 +96,37 @@ Di seguito un elenco dettagliato dei casi d'uso suddivisi come anticipato.
     \end{itemize}
 \end{itemize}
 
+
+\begin{comment}
+    L'architettura di Django si basa sul design pattern MVC, acronimo di Model View 
+    Controller. Lo scopo di questa scelta di design è la suddivisione della logica in 
+    tre parti fondamentali favorendo modularità, sviluppo collaborativo e riutilizzo del 
+    codice oltre a rendere l'applicazione più flessibile e scalabile.
+    
+    Django interpreta il pattern MVC a modo suo, in modo tale che il Controller risulti in 
+    realtà il framework in sé, le View non scelgano come i dati vadano mostrati bensì quali 
+    dati mostrare e il come mostrarli viene in realtà deciso nei Template.
+   
+    Siccome la parte del Controller è gestita dal framework e la View è rappresentata dai Template, Django 
+    utilizza un framework MTV, ovvero Model Template View.
+    
+    Per prima cosa quando viene effettuata una richiesta HTTP essa viene confrontata con gli URL, 
+    che sono una “mappa” delle risorse disponibili. La richiesta viene quindi inoltrata alla View 
+    che la gestisce producendo una risposta HTTP della cui formattazione si occuperanno i template, 
+    mentre il Model fornirà la logica per accedere ai dati e convertirli in tabelle nel database. 
+    
+    Riassumendo:
+    M - Model: “data access layer” - Definisce la struttura delle entità del nostro sito, tradotte 
+    poi in tabelle nel database. 
+    T - Template: “presentation layer” - Descrive come i dati vadano mostrati nelle pagine web.
+    V - View: “business logic layer” - Gestisce le richieste e le risposte HTTP, dispone della 
+    logica per sapere a quali dati accedere tramite i model e delega la formattazione della risposa ai template
+
+    Nel model ho le classi, nella view i metodi. 
+
+\end{comment}
+
 \newpage
-\section{System Diagram}
-In figura sono rappresentate tutte le interfacce richieste ed esposte dal nostro sistema. Inoltre,
-i casi d'uso sono stati raggruppati indicando il nome dell'interfaccia che permetterà di implementare
-il particolare caso d'uso.
-
-
-\newpage
-
 \section{UML Component Diagram}
 Il Component Diagram in UML ha come obiettivo quello di mostrare la struttura
 del sistema software, descrivendo i singoli componenti, le relative interfacce 
@@ -122,6 +144,8 @@ una componente centrale, il server del sistema, alla quale si collegano il datab
 
 
 
+
+
 \newpage
 
 \section{UML Class Diagram}
@@ -130,15 +154,14 @@ visualizzando i diversi tipi di oggetti all'interno di esso e le relazioni
 statiche che esistono fra loro: sono descritte in maniera più approfondita 
 le tre componenti già precedentemente analizzate, ovvero Account, Musica e 
 Autenticazione.
-In questo caso vengono rappresentati in unico diagramma il Data Class Diagram 
-e l'Interface/Package Diagram.
-Il primo descrive le classi che compongono la struttura dell'applicazione,  
-le entità presenti al suo interno; il secondo rappresenta i package che 
-riassumono la struttura logica dell’applicazione con i metodi implementati. 
+In questo caso viene rappresentato in unico diagramma il Data Class Diagram, 
+il quale descrive le classi che compongono la struttura dell'applicazione e le
+le entità presenti al suo interno. Sono inoltre stati inseriti i metodi implementati
+nel sistema.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.37]{images/ClassDiagram_ver1.png}
+    \includegraphics[scale=0.37]{images/ClassDiagram_ver2.jpg}
     \caption{UML  Class Diagram}
     \label{fig-uml-class-diag}
 \end{figure}
