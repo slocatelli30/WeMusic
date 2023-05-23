@@ -31,7 +31,35 @@ stili architetturali, per poi distribuire le componenti su nodi computazionali b
 uno sviluppo fisico del sistema.
 
 
+E' necessario specificare che l'architettura di Django si basa sul design pattern MVC, acronimo di Model View 
+Controller. Lo scopo di questa scelta di design è la suddivisione della logica in 
+tre parti fondamentali favorendo modularità, sviluppo collaborativo e riutilizzo del 
+codice oltre a rendere l'applicazione più flessibile e scalabile.
+    
+Django interpreta il pattern MVC a modo suo, in modo tale che il Controller risulti in 
+realtà il framework in sé, le View non scelgano come i dati vadano mostrati bensì quali 
+dati mostrare e il come mostrarli viene in realtà deciso nei Template.
 
+Siccome la parte del Controller è gestita dal framework e la View è rappresentata dai Template, Django 
+utilizza un framework MTV, ovvero Model Template View.
+    
+\begin{comment}
+Per prima cosa quando viene effettuata una richiesta HTTP essa viene confrontata con gli URL, 
+che sono una “mappa” delle risorse disponibili. La richiesta viene quindi inoltrata alla View 
+che la gestisce producendo una risposta HTTP della cui formattazione si occuperanno i template, 
+mentre il Model fornirà la logica per accedere ai dati e convertirli in tabelle nel database. 
+
+\end{comment}
+   
+\begin{itemize}
+    \item \textbf{M - Model:} “data access layer” - Definisce la struttura delle entità (le classi) del nostro sito, tradotte 
+    poi in tabelle nel database.
+    \item \textbf{T - Template:} “presentation layer” - Descrive come i dati vadano mostrati nelle pagine web.
+    \item \textbf{V - View:} “business logic layer” - Gestisce le richieste e le risposte HTTP, dispone della 
+    logica per sapere a quali dati accedere tramite i model e delega la formattazione della risposa ai template, contenendo quindi i metodi. 
+\end{itemize}
+    
+    
 \newpage
 
 \section{Casi d'uso}
@@ -97,34 +125,7 @@ Di seguito un elenco dettagliato dei casi d'uso suddivisi come anticipato.
 \end{itemize}
 
 
-\begin{comment}
-    L'architettura di Django si basa sul design pattern MVC, acronimo di Model View 
-    Controller. Lo scopo di questa scelta di design è la suddivisione della logica in 
-    tre parti fondamentali favorendo modularità, sviluppo collaborativo e riutilizzo del 
-    codice oltre a rendere l'applicazione più flessibile e scalabile.
-    
-    Django interpreta il pattern MVC a modo suo, in modo tale che il Controller risulti in 
-    realtà il framework in sé, le View non scelgano come i dati vadano mostrati bensì quali 
-    dati mostrare e il come mostrarli viene in realtà deciso nei Template.
-   
-    Siccome la parte del Controller è gestita dal framework e la View è rappresentata dai Template, Django 
-    utilizza un framework MTV, ovvero Model Template View.
-    
-    Per prima cosa quando viene effettuata una richiesta HTTP essa viene confrontata con gli URL, 
-    che sono una “mappa” delle risorse disponibili. La richiesta viene quindi inoltrata alla View 
-    che la gestisce producendo una risposta HTTP della cui formattazione si occuperanno i template, 
-    mentre il Model fornirà la logica per accedere ai dati e convertirli in tabelle nel database. 
-    
-    Riassumendo:
-    M - Model: “data access layer” - Definisce la struttura delle entità del nostro sito, tradotte 
-    poi in tabelle nel database. 
-    T - Template: “presentation layer” - Descrive come i dati vadano mostrati nelle pagine web.
-    V - View: “business logic layer” - Gestisce le richieste e le risposte HTTP, dispone della 
-    logica per sapere a quali dati accedere tramite i model e delega la formattazione della risposa ai template
 
-    Nel model ho le classi, nella view i metodi. 
-
-\end{comment}
 
 \newpage
 \section{UML Component Diagram}

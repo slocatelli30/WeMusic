@@ -1,32 +1,32 @@
 \section{Requisiti}
 
-Si vuole realizzare un sistema software che offra un servizio di sharing musicale, unito
-alle funzionalità tipiche di un social network. Alla registrazione, l'utente dovrà
+Si vuole realizzare un sistema software che offra un servizio di sharing musicale, integrato
+con le funzionalità tipiche di un social network. Durante la fase di registrazione, l'utente
+sarà tenuto ad 
 inserire una lista di generi musicali preferiti. L'algoritmo proporrà quindi all'utente i
-brani più popolari basati sulle sue preferenze e gli permetterà di esplorare le sue
-affinità musicali. Gli attori in gioco sono i seguenti:
+brani più popolari basati sulle sue preferenze e gli consetirà di esplorare le sue
+affinità musicali. Gli attori coinvolti sono i seguenti:
 \begin{itemize}
-      \item utenti che vogliono ascoltare musica, conoscere e condividere le proprie
+      \item \textbf{Utenti:} coloro che desiderano ascoltare musica, conoscere e condividere le proprie
             attività musicali con gli amici;
-      \item artisti indipendenti e non per pubblicare e gestire la propria musica.
+      \item \textbf{Artisti:} sia indipendenti che non, per pubblicare e gestire la propria musica.
 \end{itemize}
 
-L'utente, per poter usufruire dei servizi forniti, deve registrarsi e creare un proprio
-profilo personale. Una volta iscritto, verrà indirizzato alla homepage che mostra i brani
-più popolari dei generi preferiti dall'utente, la possibilità di cercare un brano
-specifico e la sezione di impostazioni personali e social. Quando viene selezionato il
-brano da scaricare, vengono fornite tutte le informazioni relative (titolo, artista,
-album, anno di uscita, genere di appartenenza, numero di ascolti, durata del brano, casa
-discografica).
+Per poter usufruire dei servizi forniti dal sistema l'utente deve registrarsi e creare un proprio
+profilo personale. Una volta completata la registrazione, verrà indirizzato alla homepage del sistema 
+dove potrà visualizzare i brani più popolari appartenenti ai generi musicali di suo interesse, avrà la 
+possibilità di effettuare ricerche specifiche di brani e accedere alla sezione delle impostazioni personali e social. 
+Nel momento in cui viene selezionato un brano per il download, saranno fornite tutte le informazioni relative ad esso, 
+tra cui titolo, artista, album, anno di pubblicazione, genere di appartenenza, numero di ascolti, durata del brano e casa discografica
 
 Il software offre anche la possibilità di mettere ``like'' ai brani e di creare playlist
-personalizzate. Nella propria libreria saranno quindi presenti le playlist dell'utente e
-la playlist dei brani preferiti. L'interfaccia social permette invece di aggiungere gli
+personalizzate. Nella propria libreria musicale saranno quindi presenti le playlist dell'utente e
+la playlist dei brani preferiti. Inoltre l'interfaccia social permette di aggiungere gli
 amici e di chattare con essi.
 
-La funzionalità principale offerta dal servizio è l'algoritmo ``Discover'', che consente
-di trovare i brani più apprezzati dalle persone che ascoltano gli stessi generi musicali
-dell'utente così da permettergli di scoprire sempre nuove canzoni.
+La funzionalità principale offerta dal servizio è l'algoritmo ``Discover'', che permette all'utente
+di trovare i brani più apprezzati dalle persone che ascoltano gli stessi generi musicali, 
+al fine di permettergli di scoprire sempre nuove canzoni. Inoltre, l'algoritmo è anche in grado di proporre
 
 L'artista, a differenza dell'utente ascoltatore, può caricare brani singoli e album
 inserendo i dati relativi alla propria produzione artistica.
@@ -174,14 +174,13 @@ Al momento della registrazione sarà necessario inserire alcune informazioni per
 Inoltre si dovrà inserire un nome utente identificativo e una password, necessari per il login. Nel caso in cui l'utente 
 sia già registrato sarà necessario inserire solo questi campi per accedere al sistema. 
 
-Al termine dell'iscrizione è possibile navigare nella Home page, la quale si suddivide in varie sezioni; ad esempio, 
-viene offerta una selezione dei brani più ascoltati e scaricati dagli utenti. 
+Al termine dell'iscrizione è possibile navigare nella Home page, la quale si suddivide in varie sezioni. 
+
+È possibile cercare un brano dalla barra di ricerca (tramite il titolo, nome dell'artista o nome 
+dell'album) e scaricarlo.
 
 Una volta scelto il brano, per ognuno di essi vengono visualizzate alcune informazioni come il titolo del brano, 
 il nome dell'artista e l'etichetta discografica di riferimento.
-
-Alternativamente, è possibile cercare un brano dalla barra di ricerca (tramite il titolo, nome dell'artista o nome 
-dell'album) e scaricarlo.
 
 È offerta la possibilità di mettere like al brano e creare playlist personalizzate con i propri brani preferiti: 
 visualizzando la propria libreria, infatti, è possibile visualizzare i Brani Preferiti e le proprie playlist. 
@@ -216,7 +215,7 @@ già precedentemente descritti mettendoli in correlazione con il corrispettivo a
 
 \begin{figure}[H]
       \centering
-      \includegraphics[scale=0.50]{UseCaseDiagram_ver2.jpg}
+      \includegraphics[scale=0.50]{UseCaseDiagram_ver3.jpg}
       \caption{UML Use Cases Diagram}
       \label{fig-uml-use-cases}
 \end{figure}
@@ -228,7 +227,7 @@ L'architettura del sistema è stata formalizzata attraverso la rappresentazione 
 sviluppato al fine di modellizzare e descrivere un sistema in termini di risorse hardware e di relazioni fra di esse.
 Vengono sviluppatidue Deployment Diagram differenti:
 
-il primo, riportato in figura \ref{architettura}, rappresenta il sistema
+Il primo, riportato in figura \ref{architettura}, rappresenta il sistema
 attraverso una notazione a stile libero, mentre il secondo, riportato in figura \ref{dep_diagram}, rappresenta
 la topologia del sistema tramite lo stile UML. 
 
