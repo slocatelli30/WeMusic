@@ -234,7 +234,6 @@ Pseudocodice parte che suggerisce amici con gusti simili.
 
 
 %algoritmo 3
-%algoritmo2
 \begin{algorithm}[H]
 
     \caption{Step 3 - Amici}
@@ -249,7 +248,7 @@ Pseudocodice parte che suggerisce amici con gusti simili.
         \BlankLine
         \textbf{/* Creazione lista vuota */}\\
         \textbf{do}{
-            $[  ] \leftarrow list\_suggested\_friends $
+            $[] \leftarrow list\_suggested\_friends $
         }
 
         \BlankLine
@@ -271,7 +270,7 @@ Pseudocodice parte che suggerisce amici con gusti simili.
         \BlankLine
         \textbf{/* Creazione lista vuota */}\\
         \textbf{do}{
-            $[] \leftarrow list\_user\_friends $
+            $[\ \ ] \leftarrow list\_user\_friends $
         }
 
 
@@ -353,12 +352,56 @@ Pseudocodice parte finale algoritmo.
 
 
 
+
+
 \newpage
-
-
 \subsection{Analisi della complessità}
+Per valutare la complessità temporale dell'algoritmo, vengono esaminate le operazioni principali che 
+vengono eseguite e e viene analizzato come queste operazioni dipendono dalla dimensione dell'input. 
+Di seguito viene fornita una stima approssimativa della complessità temporale per ogni parte dell'algoritmo:
+\begin{itemize}
+    \item \textbf{Lettura del file CSV:} La lettura del file CSV tramite la funzione $read\_csv$ ha una 
+        complessità temporale che dipende dalla dimensione del file, nello specifico dal numero di righe e colonne del file.
+        Supponiamo che ci siano n righe e m colonne nel file. La lettura del file richiede un'operazione 
+        perogni cella nel file, di conseguenza la complessità è dell'ordine 
+        di ${O(n*m)}$.
+    \item \textbf{Creazione e addestramento del modello di classificazione:} La creazione del modello 
+        \textit{DecisionTreeClassifier} e l'addestramento del modello tramite il metodo \textit{fit} dipendono dal numero di 
+        caratteristiche e dal numero di esempi nel set di dati. Se denotiamo con d il numero di caratteristiche 
+        e con k il numero di esempi, allora la complessità temporale può essere approssimata a $O(d * k log(k))$, 
+        poiché la costruzione di un albero decisionale richiede operazioni che dipendono da entrambi i valori.
+    \item \textbf{Previsione dei generi musicali:} La previsione dei generi musicali per l'utente corrente 
+        utilizzando il modello addestrato ha una complessità temporale di ${O(1)}$, poiché si tratta di un singolo esempio
+        (operazione costante).
+    \item \textbf{Filtraggio dei brani musicali:} Il filtro dei brani musicali nel database attraverso la chiamata 
+        a \textit{Song.objects.filter} può dipendere dal numero di brani nel database e dalla complessità della query. 
+        Solitamente, questa operazione ha una complessità temporale dell'ordine di ${O(s)}$, dove s rappresenta il 
+        numero di brani che soddisfano i criteri di filtro.
+    \item \textbf{Ricerca degli amici suggeriti:} La ricerca degli amici suggeriti coinvolge \textit{due cicli for nidificati}. 
+        Supponendo che ci siano \textit{n} utenti nel database e \textit{m} canzoni preferite per ogni utente, la complessità temporale di questa
+        parte dell'algoritmo può essere approssimata a $O(n * m)$.
+    \item \textbf{Creazione del contesto:} La creazione del contesto finale ha una complessità temporale trascurabile, 
+        poiché coinvolge solo l'assegnazione di variabili.
+    
+     
+\end{itemize}
+Quindi, sommando tutte queste parti, possiamo dire che la complessità temporale complessiva dell'algoritmo è approssimativamente:
+
+\boldmath
+\begin{center}
+    \BlankLine
+    $O(n * m) + O(d * k log(k)) + O(s) + O(1)$
+    \BlankLine
+\end{center}
+\unboldmath
+
+
+È importante notare che questa stima approssimata dipende dal contesto specifico, dal volume dei dati e dalle 
+operazioni effettuate. Per ottenere una stima più precisa, potrebbe essere necessario un'analisi dettagliata 
+delle operazioni e delle strutture dati coinvolte nell'algoritmo.
 
 
 \newpage
 \subsection{Flowchart dell'algoritmo}
 I passi base dell'algoritmo sono i seguenti: 
+
