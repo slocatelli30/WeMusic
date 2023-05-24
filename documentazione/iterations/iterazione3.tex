@@ -92,7 +92,7 @@ Pseudocodice parte iniziale algoritmo.
 \begin{figure}[H]
     \centering
     \begin{center}
-        \includegraphics[scale=0.7]{images/alg1.jpg}
+    \includegraphics[scale=0.7]{images/alg1.jpg}
     \end{center}
     \caption{Pseudocodice}
     \label{fig-pseudocodice-1}
@@ -101,93 +101,84 @@ Pseudocodice parte iniziale algoritmo.
 
 
 
-%algoritmo
+% algoritmo 1
 \begin{algorithm}[H]
-
     \caption{Step 1 - Inizializzazione}
     \SetAlgoLined
-    %\SetAlgoNlRelativeSize{-1}
-    %\SetAlgoNlWidth{1\linewidth}
-
-    %inizializzazione\;
+    \LinesNumbered
     \SetKwProg{myalg}{algoritmo}{ begin}{end}
-    \myalg{Discover($user\_current\_gender$, $user\_current\_age$)}{
+    \myalg{Discover($curruser\_gender$, $curruser\_age$)}{
         \BlankLine
         \BlankLine
-        \textbf{/* creo oggetto account */}\
+        \textbf{/* Creazione oggetto account */}\
 
         \textbf{do}{
-            assegnamento
+            $account \leftarrow request.account$
         }
         \BlankLine
         \BlankLine
-        \textbf{/* leggo il training set utenti.csv */}\
+        \textbf{/* Lettura training set degli utenti.csv */}\
             
         \textbf{do}{
-            assegnamento
+           $utenti \leftarrow read\_csv('utenti.csv')$
         }
         \BlankLine
         \BlankLine
-        \textbf{/* imposto la colonna di input della previsione */}\
+        \textbf{/* Creazione colonna di input della previsione */}\
             
         \textbf{do}{
-            assegnamento
+            $X \leftarrow utenti.drop(columns=['genmusic'])$
         }
         \BlankLine
         \BlankLine
-        \textbf{/* imposto la colonna di output della previsione */}\
+        \textbf{/* Creazione colonna di output della previsione */}\
             
         \textbf{do}{
-            assegnamento
+            $y \leftarrow utenti['genmusic'] $
         }
         \BlankLine
         \BlankLine
-        \textbf{/* istanzio il modello */}\
+        \textbf{/* Creazione istanza del modello */}\
             
         \textbf{do}{
-            assegnamento
+            $ modello \leftarrow \underline{DecisionTreeClassifier()}$
         }
         \BlankLine
         \BlankLine
-        \textbf{/* previsione dei generi */}\
+        \textbf{/* Allenamento del modello sui dati */}\
             
         \textbf{do}{
-            assegnamento
+            $ modello.\underline{fit}(X.values, y.values)$
         }
         \BlankLine
         \BlankLine
-        \textbf{/* salvo il genere target */}\
+        \textbf{/* Previsione dei generi */}\
+            
+        \textbf{do}{
+            $previsione \leftarrow modello.\underline{predict}(curruser\_gender, curruser\_age)$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Memorizzazione del genere target */}\
 
         \textbf{do}{
-            assegnamento
-        }
+            $genere\_target \leftarrow previsione[0]$
+        } 
+
         \BlankLine
         \BlankLine
-            
-
-
-           
-        
-        \While{While condition}{
-            instructions\;
-            \eIf{condition}{
-            instructions1\;
-            instructions2\;
-        }{
-            instructions3\;
-        }
-    } 
-}
-\KwResult{Genere target}
-\label(alg:1)
+        \KwResult{Genere target}
+        \BlankLine
+        \BlankLine
+        \textbf{...} \vspace{0.5cm}
+        %\label(Step 1 - Inizializzazione)
+        %\ContinuedFloat
+    }
 \end{algorithm}
 
-
 \newpage
 
-
-
-\newpage
+%pseudocodice parte 2
 Pseudocodice parte algoritmo che suggerisce brani in base al genere target.
 \begin{figure}[H]
     \centering
@@ -195,9 +186,44 @@ Pseudocodice parte algoritmo che suggerisce brani in base al genere target.
     \caption{Pseudocodice}
     \label{fig-pseudocodice-2}
 \end{figure}
+\vspace{1.5cm}
+
+%algoritmo2
+\begin{algorithm}[H]
+    \caption{Step 2 - Brani}
+    \SetAlgoLined
+   
+    \SetKwProg{myalg}{algoritmo}{ begin}{end}
+    \myalg{Discover($curruser\_gender$, $curruser\_age$)}{
+        \BlankLine
+        \BlankLine
+        \textbf{...}
+        \BlankLine
+        \BlankLine
+        \textbf{/* Estrazione dei brani con genere target */}\
+
+        \textbf{do}{
+            $songs\_list \leftarrow Songs.\underline{filter}(genere=genere\_target)$
+        }
+        \BlankLine
+        \BlankLine
+        \Return{song\_list}\
+            
+        \KwResult{Lista brani con genere target}
+        \BlankLine
+        \BlankLine
+        \textbf{...}
+        \vspace{0.5cm}
+        %\label(alg:1)
+    }
+\end{algorithm}
+
+
+
 
 
 \newpage
+%pseudocodice 3
 Pseudocodice parte che suggerisce amici con gusti simili. 
 \begin{figure}[H]
     \centering
@@ -207,7 +233,90 @@ Pseudocodice parte che suggerisce amici con gusti simili.
 \end{figure}
 
 
+%algoritmo 3
+%algoritmo2
+\begin{algorithm}[H]
+
+    \caption{Step 3 - Amici}
+    \SetAlgoLined
+   
+    \SetKwProg{myalg}{algoritmo}{ begin}{end}
+    \myalg{Discover($curruser\_gender$, $curruser\_age$)}{
+        \BlankLine
+        \BlankLine
+        \textbf{...}
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione lista vuota */}\\
+        \textbf{do}{
+            $[  ] \leftarrow list\_suggested\_friends $
+        }
+
+        \BlankLine
+        \BlankLine
+
+        \textbf{/* Memorizzazione utente corrente */}\\
+            \textbf{do}{
+            $curr\_user \leftarrow curr\_user.\underline{get}()$
+        }
+        \BlankLine
+        \BlankLine
+
+        \textbf{/* Memorizzazione della lista di amici dell'utente corrente */}\\
+        \textbf{do}{
+            $friends\_id \leftarrow curr\_user.friends.\underline{values}() $
+        }
+
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione lista vuota */}\\
+        \textbf{do}{
+            $[] \leftarrow list\_user\_friends $
+        }
+
+
+        \BlankLine
+        \BlankLine
+        \For{v in friens\_id }{
+            %\tcp{Blocco di istruzioni da eseguire per ogni valore di i}
+            $list\_user\_friends.\underline{append}(v[id])$
+            
+        }
+        \BlankLine
+        \Return{risultato}\;
+
+        \textbf{/* Memorizzazione amici dell'utente corrente */}\\
+        \ForEach{ x in user.\underline{all}()}{
+            %\tcp{Blocco di istruzioni per ogni elemento}
+
+            \ForEach{y in x.liked\_songs.\underline{all}().\underline{values}()}{
+                %\tcp{Blocco di istruzioni per ogni elemento}
+                $genere\_temp \leftarrow y [genere] $\\
+                \BlankLine
+                \If{genere\_target = genere\_temp AND x.account.id != account.id AND x.account.id not in list\_user\_friends }{
+                    %\tcp{Blocco di istruzioni se la condizione è vera}
+                    list\_suggested\_friends.\underline{append}(x)
+                }
+                \BlankLine
+            }
+            \BlankLine
+        }
+    \BlankLine
+    \Return{list\_suggested\_friends}\
+    \BlankLine
+    \BlankLine
+    \KwResult{Lista utenti con gusti affini all'utente}
+    \BlankLine
+    \BlankLine
+    \textbf{...}
+    \vspace{0.5cm}
+    %\label(alg:1)
+    }
+\end{algorithm}
+
+
 \newpage
+% pseudocodice 4
 Pseudocodice parte finale algoritmo. 
 \begin{figure}[H]
     \centering
@@ -215,6 +324,32 @@ Pseudocodice parte finale algoritmo.
     \caption{Pseudocodice}
     \label{fig-pseudocodice-4}
 \end{figure}
+\vspace{0.5cm}
+
+% algoritmo 4
+\begin{algorithm}[H]
+
+    \caption{Step 4 - Parametri di ritordno}
+    \SetAlgoLined
+   
+    \SetKwProg{myalg}{algoritmo}{ begin}{end}
+    \myalg{Discover($curruser\_gender$, $curruser\_age$)}{
+        \BlankLine
+        \BlankLine
+        \textbf{...}
+        \BlankLine
+        \BlankLine
+        \textbf{/* Ritorno parametri di interesse */}\\
+        \Return{song\_list}\\
+        \Return{list\_suggested\_friends}\\    
+        \BlankLine
+        \BlankLine
+        \KwResult{Lista brani con genere target e lista utenti con gusti affini all'utente }
+        \vspace{0.5cm}
+        %\label(alg:1)
+    }
+\end{algorithm}
+
 
 
 
