@@ -76,32 +76,31 @@ Condizione per rientrare negli utenti suggeriti:
 Nel context viene poi passata la lista creata con gli utenti selezionati dal database, in modo da permettere all'utente di poter
 navigare fra gli utenti ed, eventualmente, aggiungerli fra gli amici. 
 
-\subsection{Bootstrap}
-Per il frontend è stato utilizzato Bootstrap, un framework per frontend e web development semplice e veloce. 
-Bootstrap include templates design basati su HTML e CSS per tipografia, forme, pulsanti, tabelle, navigazione, caroselli di 
-immagini e molto altro, come anche plugin opzionali di JavaScript; è' molto semplice da usare e possiede un'alta 
-compatibilità con i browser maggiormente usati. 
 
+
+
+\newpage
 
 \section{Studio della complessità}
 
+% codice 1
+\subsection{Pseudocodice - I}
 
-\subsection{Pseudocodice}
-
-Pseudocodice parte iniziale algoritmo. 
+Codice della prima parte dell'algoritmo, relativa all'inizializzazione 
+e all'individuazione del genere target. 
 \begin{figure}[H]
     \centering
     \begin{center}
     \includegraphics[scale=0.7]{images/alg1.jpg}
     \end{center}
-    \caption{Pseudocodice}
-    \label{fig-pseudocodice-1}
+    \caption{Codice (parte I)}
+    \label{fig-codice1}
 \end{figure}
 
 
 
 
-% algoritmo 1
+% pseudocodice 1
 \begin{algorithm}[H]
     \caption{Step 1 - Inizializzazione}
     \SetAlgoLined
@@ -178,17 +177,19 @@ Pseudocodice parte iniziale algoritmo.
 
 \newpage
 
-%pseudocodice parte 2
-Pseudocodice parte algoritmo che suggerisce brani in base al genere target.
+\subsection{Pseudocodice - II}
+%codice parte 2
+Codice della seconda parte dell'algoritmo, relativa al suggerimento 
+dei brani in base al genere target.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.7]{images/alg2.jpg}
-    \caption{Pseudocodice}
-    \label{fig-pseudocodice-2}
+    \caption{Codice (parte II)}
+    \label{fig-codice2}
 \end{figure}
 \vspace{1.5cm}
 
-%algoritmo2
+% pseudocodice 2
 \begin{algorithm}[H]
     \caption{Step 2 - Brani}
     \SetAlgoLined
@@ -223,17 +224,20 @@ Pseudocodice parte algoritmo che suggerisce brani in base al genere target.
 
 
 \newpage
+
 %pseudocodice 3
-Pseudocodice parte che suggerisce amici con gusti simili. 
+\subsection{Pseudocodice - III}
+Codice della terza parte dell'algoritmo, quella relativa al
+suggerimento di utenti con gusti simili. 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.7]{images/alg3.jpg}
-    \caption{Pseudocodice}
-    \label{fig-pseudocodice-3}
+    \caption{Codice (Parte III)}
+    \label{fig-codice3}
 \end{figure}
 
 
-%algoritmo 3
+% pseudocodice 3
 \begin{algorithm}[H]
 
     \caption{Step 3 - Amici}
@@ -315,13 +319,15 @@ Pseudocodice parte che suggerisce amici con gusti simili.
 
 
 \newpage
-% pseudocodice 4
-Pseudocodice parte finale algoritmo. 
+% codice 4
+
+\subsection{Pseudocodice - IV}
+Codice dell'ultima parte dell'algoritmo.  
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.7]{images/alg4.jpg}
-    \caption{Pseudocodice}
-    \label{fig-pseudocodice-4}
+    \caption{Codice (parte IV)}
+    \label{fig-codice4}
 \end{figure}
 \vspace{0.5cm}
 
@@ -400,6 +406,59 @@ Quindi, sommando tutte queste parti, possiamo dire che la complessità temporale
 operazioni effettuate. Per ottenere una stima più precisa, potrebbe essere necessario un'analisi dettagliata 
 delle operazioni e delle strutture dati coinvolte nell'algoritmo.
 
+
+\vspace{1cm}
+\subparagraph{Analisi complessità di \textit{DecisionTreeClassifier}}
+Il DecisionTreeClassifier fa parte di una libreria Python per l'apprendimento 
+automatico. L'addestramento di un albero decisionale utilizzando DecisionTreeClassifier 
+ha una complessità temporale di $O(n * m * log(m))$, dove n è il numero di 
+campioni nel set di addestramento e m è il numero di features.
+
+L'algoritmo Decision Tree è basato su una serie di divisioni dei dati 
+in base alle caratteristiche (features) dei campioni. La complessità principale 
+dell'addestramento di un albero decisionale è determinata dalla fase di costruzione 
+dell'albero stesso.
+
+Durante la costruzione dell'albero, l'algoritmo esamina tutte le possibili 
+divisioni delle caratteristiche e cerca quella che massimizza la "purezza" dei 
+sottoinsiemi risultanti. La purezza misura quanto bene un sottoinsieme è composto 
+da campioni di una sola classe. L'algoritmo valuta le divisioni utilizzando misure 
+come l'entropia o la Gini impurity.
+
+La complessità dell'addestramento di un albero decisionale è influenzata 
+principalmente da due fattori:
+\begin{itemize}
+    \item Il numero di campioni nel set di addestramento (n): Più campioni ci sono, 
+        più operazioni di divisione e valutazione devono essere eseguite.
+    \item Il numero di caratteristiche (features) nel set di addestramento (m): 
+        Più caratteristiche ci sono, più divisioni devono essere valutate.
+
+
+\end{itemize}
+Quindi, in generale, la complessità dell'addestramento di un albero decisionale 
+con il DecisionTreeClassifier è approssimativamente $O(n * m * log(m))$.
+
+
+\vspace{1cm}
+
+\subparagraph{Analisi complessità di \textit{fit}}
+Il metodo fit in Pandas viene utilizzato per adattare un modello ai dati. 
+Tuttavia, la complessità del comando fit dipende dall'algoritmo di apprendimento utilizzato. 
+Ad esempio, se stai utilizzando fit con un modello di regressione lineare utilizzando il metodo dei minimi quadrati, 
+la complessità è $O(n * m^2)$, dove n è il numero di campioni e m è il numero di features. 
+Tuttavia, le complessità possono variare a seconda dell'algoritmo specifico utilizzato.
+
+La complessità del comando fit dipende dall'algoritmo di apprendimento specifico utilizzato
+ per adattare il modello ai dati. Ogni algoritmo ha il proprio procedimento interno, 
+ che può includere operazioni come calcoli matematici, ottimizzazioni, iterazioni sui dati, ecc.
+
+Ad esempio, se stai utilizzando il metodo dei minimi quadrati per adattare un modello di 
+regressione lineare, il procedimento coinvolge il calcolo di coefficienti ottimali attraverso 
+la soluzione di un sistema di equazioni lineari. 
+La complessità di questa operazione dipende dal numero di campioni (n) e dal numero di 
+caratteristiche (m), risultando in una complessità approssimativa di $O(n * m^2)$.
+
+È importante notare che le complessità possono variare a seconda dell'algoritmo specifico utilizzato. Alcuni algoritmi possono avere complessità diverse, basate su tecniche come l'ottimizzazione del gradiente, l'algoritmo di backpropagation, ecc.
 
 \newpage
 \subsection{Flowchart dell'algoritmo}
