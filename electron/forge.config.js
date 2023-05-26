@@ -11,11 +11,11 @@ module.exports = {
     //   config: {},
     // },
     {
-      name: '@electron-forge/maker-wix',
+      name: '@electron-forge/maker-squirrel',
       config: {
-        language: 1033,
-        manufacturer: 'My Awesome Company'
-      }
+        certificateFile: './cert.pfx',
+        certificatePassword: process.env.CERTIFICATE_PASSWORD,
+      },
     },
   ],
 };
