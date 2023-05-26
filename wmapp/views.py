@@ -380,9 +380,11 @@ def remove_song_from_playlist(request, playlist_id, song_id):
 def discover(request):
     # oggetto account
     account = request.account
+    # ottengo l'utente corrente (ordinaryuser)
+    ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
 
     # ricavo l'età (finta) dell'utente corrente
-    ordinaryuser_current_age = 34
+    ordinaryuser_current_age = 35
     # ricavo il sesso (finto) dell'utente corrente
     # 0 = femmina, 1 = uomo, maschio
     ordinaryuser_current_gender = 1
@@ -412,7 +414,28 @@ def discover(request):
     # l'algoritmo estrapola per sesso ed età dell'utente corrente i generi musicali
     # suggerendoli mediante una lista di brani
     # estraggo dal db tutti i brani con il genere dedotto dall'algoritmo
-    list_songs_genere_target = Song.objects.filter( genre__icontains=genere_target )
+    list_songs_genere_target_db = Song.objects.filter( genre__icontains=genere_target )
+    # a questo punto, devo assicurarmi che l'algoritmo NON suggerisca all'utente
+    # corrente brani che gli piacciano già
+    # creo una lista di brani che piacciono (già) all'utente corrente
+    list_songs_liked = ordinaryuser_current.liked_songs.values()
+    # creo una lista di soli id dei brani che piacciono (già) all'utente corrente
+    list_songs_liked_id = []
+    # per ogni canzone che piace all'utente corrente (var.temp. sl), ne estrapolo 
+    # il relativo id
+    for sl in list_songs_liked:
+        list_songs_liked_id.append(sl["id"])
+    
+    # creo la lista vuota dei brani che dovrenno essere suggeriti all'utente 
+    # dall'algoritmo con l'accorgimento di non inserire i duplicati che già
+    # piacciono
+    list_songs_genere_target = []
+    # per ogni brano estrapolato dal db con il giusto target di genere previsionale,
+    # verifico che non sia già nella lista di quelli a cui piace all'utente
+    for s in list_songs_genere_target_db:
+        if( s.id not in list_songs_liked_id ):
+            # si può aggiungere il brano corrente ai suggerimenti proposti dall'algoritmo
+            list_songs_genere_target.append(s)
 
     # SECONDA PARTE DELL'ALGORITMO DI DISCOVER
     # creazione della lista vuota contenente gli amici suggeriti dall'algoritmo.
@@ -420,8 +443,6 @@ def discover(request):
     # viene aggiunto alla lista. Inizialmente la lista degli amici suggeriti è vuota
     list_suggested_friends = []
 
-    # ottengo l'utente corrente (ordinaryuser)
-    ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
     # ottengo gli amici dell'utente corrente
     ordinaryuser_current_friends = ordinaryuser_current.friends.values()
 

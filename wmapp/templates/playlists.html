@@ -24,7 +24,7 @@
         <!-- item playlist -->
         <div class="col">
             <div class="card h-100">
-                <img src="../static/playlist/playlist_{{p.name}}.jpg" class="card-img-top" alt="...">
+                <img src="../static/playlist/playlist_{{p.name}}.jpg" class="card-img-top" alt="playlist_{{p.name}}.jpg non trovata">
                 <div class="card-body">
                 <h5 class="card-title"><b>Playlist {{p.name}}</b> <a href="{% url 'playlist_detail' p.id %}" class="btn btn-light"><img src="../../static/icons/eye-solid.svg" style="width: 17px;" alt="eye-solid.svg not found"></a></h5>
                 <p class="card-text">Numero brani della playlist <i>{{p.name}}</i>: {{p.songs.all|length}}</p>

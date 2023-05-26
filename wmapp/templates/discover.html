@@ -2,198 +2,70 @@
 
 {% block content %}
 
-<h1>Algoritmo di Discover</h1>
+<!-- titolo pagina -->
+<h1>Algoritmo di Discover <img src="../static/icons/cpu.svg" style="width: 30px;" alt="cpu.svg not found"> </h1>
 
 <!-- algoritmo suggerimento genere canzone -->
 <!-- funzionamento: in base al sesso e all'età dell'utente, 
 l'algoritmo suggerisce dei brani ricavandoli da un dataset.
 1) l'algoritmo filtra per sesso ed età i generi musicali
 2) all'utente, in base a ciò che si ricava al punto precedente, viene mostrata una lista di brani -->
-<div>previsione Machine Learning: {{previsione.0}}</div>
-<div>l'algoritmo vuole suggerirti dei brani che potrebbero piacerti:</div>
-<!-- lista delle canzoni suggerite dall'algoritmo -->
-<ul>
-    {% for s in list_songs_genere_target %}
-        <!-- !?! non riesco a recuperare il nome e cognome dell'artista legato al brano in questione -->
-        <li>{{s.title}}, {{s.genre}}</li>
-    {% endfor %}
-</ul>
+<h3 class="rounded-3" style="background-color: skyblue; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+    Previsione di Machine Learning. Il genere musicale che ti suggeriamo è: <b><i>{{previsione.0}}</i></b>
+</h3>
+
+<!-- card brani suggeriti -->
+<div class="card-deck">
+    <!-- card song -->
+    <div class="card text-white bg-warning mb-3">
+      <div class="card-header"><h5>Ecco i brani che potrebbero piacerti <img src="../static/icons/music.svg" style="width: 20px;" alt="music.svg not found"></h5></div>
+      <!-- lista delle canzoni suggerite dall'algoritmo -->
+      <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+        {% for s in list_songs_genere_target %}
+            <!-- !?! non riesco a recuperare il nome e cognome dell'artista legato al brano in questione -->
+            <!-- !?! attento a suggerire dei brani che piacciano già all'utente corrente -->
+            <a href="{% url 'song_detail' s.id %}" class="btn btn-outline text-white bg-warning"><b>{{ s.title }} (<i>{{s.genre}}</i>)</b></a>
+        {% endfor %} 
+      </div>
+    </div>
+</div>
 
 <!-- algoritmo suggerimento amici -->
 <!-- se la lista contenente gli utenti suggeriti è vuota -->
 {% if not list_suggested_friends %}
-    <div> L'algoritmo non ha trovato nessuna persona che potresti conoscere con i tuoi stessi gusti musicali! Ci dispiace.. </div>
+    <h3 class="rounded-3" style="background-color: red; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+        Siamo spiacenti ma l'algoritmo non ha trovato nessuna persona che potresti conoscere con i tuoi stessi gusti musicali!
+        <img src="../static/gif/cryingemoji.gif" style="width: 75px;" alt="cryingemoji.gif non trovata" />
+    </h3>
 {% else %}
     <!-- se la lista contenente gli utenti suggeriti non è vuota, elencali -->
-    <div>l'algoritmo vuole suggerirti delle persone che potresti conoscere in base ai tuoi generi musicali:</div>
+    <h3>L'algoritmo vuole suggerirti delle persone che potresti conoscere in base ai tuoi generi musicali:</h3>
     <!-- lista amici suggeriti -->
-    <ul>
-        {% for u in list_suggested_friends %}
-            <!-- nome e cognome degli utenti suggeriti ma che non devono essere già presenti negli amici -->
-            <li>id: {{u.account.id}}, name: {{u.account.name}}, surname: {{u.account.surname}}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-<!-- prova bootstrap (1) -->
-<nav class="navbar navbar-light bg-light">
-    <form class="form-inline">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-</nav>
-<!-- fine prova bootstrap (1) -->
-
-<!-- prova bootstrap (2) -->
-<div class="container mb-5">
-    <div class="row">
-
-        <!-- utente 1 -->
-        <div class="col-md-3">
-            <!-- card -->
-            <div class="card mb-4">
-                <!-- card body -->
-                <div class="card-body text-center">
-                    <!-- img profilo -->
-                    <img src="https://imagesvc.meredithcorp.io/v3/mm/image?q=60&c=sc&rect=456%2C155%2C1558%2C1258&poi=face&w=2000&h=2000&url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2020%2F06%2F26%2Fwhite-maletese-puppy-walking-641791436-2000.jpg" class="rounded-circle" width="200" height="200" />
-                    <!-- nome utente -->
-                    <h4 class="card-title mt-3">Utente1</h4>
-                    <!-- paragrafi -->
-                    <p>Descrizione</p>
-                    <p>
-                        <a href="#">Uno</a> |
-                        <a href="#">Due</a> |
-                        <a href="#">Tre</a>
-                    </p>
+    <!-- container per le card -->
+    <div class="container mb-5">
+        <div class="row">
+            <!-- foreach utenti suggeriti in lista amici suggeriti -->
+            {% for u in list_suggested_friends %}
+                <!-- nome e cognome degli utenti suggeriti ma che non devono essere già presenti negli amici -->
+                <!-- utente n-esimo -->
+                <div class="col-md-3">
+                    <!-- card -->
+                    <div class="card mb-4">
+                        <!-- card body -->
+                        <div class="card-body text-center">
+                            <!-- img profilo -->
+                            <img src="../../static/profiles/{{u.account.name}}_{{u.account.surname}}.jpg" class="rounded-circle" width="200" height="200" alt="{{u.account.name}}_{{u.account.surname}}.jpg non trovata" />
+                            <!-- nome utente -->
+                            <h4 class="card-title mt-3"><b>{{u.account.name}} {{u.account.surname}}</b></h4>
+                            <!-- paragrafi -->
+                            <p>Anche a <i>{{u.account.name}}</i> piace il tuo stesso genere musicale!</p>
+                        </div>
+                        <!-- fine card body-->
+                    </div>
                 </div>
-                <!-- fine card body-->
-            </div>
-            <!-- fine card -->
+            {% endfor %}
         </div>
-        <!-- fine utente 1 -->
-
-        <!-- utente 2 -->
-        <div class="col-md-3">
-            <!-- card -->
-            <div class="card mb-4">
-                <!-- card body -->
-                <div class="card-body text-center">
-                    <!-- img profilo -->
-                    <img src="https://images.saymedia-content.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cq_auto:eco%2Cw_1200/MTk2MzAwNDM0OTc2MDIzODU2/friendly-dog-breeds.png" class="rounded-circle" width="200" height="200" />
-                    <!-- nome utente -->
-                    <h4 class="card-title mt-3">Utente2</h4>
-                    <!-- paragrafi -->
-                    <p>Descrizione</p>
-                    <p>
-                        <a href="#">Uno</a> |
-                        <a href="#">Due</a> |
-                        <a href="#">Tre</a>
-                    </p>
-                </div>
-                <!-- fine card body-->
-            </div>
-            <!-- fine card -->
-        </div>
-        <!-- fine utente 2 -->
-
-        <!-- utente 3 -->
-        <div class="col-md-3">
-            <!-- card -->
-            <div class="card mb-4">
-                <!-- card body -->
-                <div class="card-body text-center">
-                    <!-- img profilo -->
-                    <img src="https://images.saymedia-content.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:eco%2Cw_1200/MTk2NTgzMjA1NDIyMjQ1Njk0/five-best-small-white-dog-breeds.jpg" class="rounded-circle" width="200" height="200" />
-                    <!-- nome utente -->
-                    <h4 class="card-title mt-3">Utente3</h4>
-                    <!-- paragrafi -->
-                    <p>Descrizione</p>
-                    <p>
-                        <a href="#">Uno</a> |
-                        <a href="#">Due</a> |
-                        <a href="#">Tre</a>
-                    </p>
-                </div>
-                <!-- fine card body-->
-            </div>
-            <!-- fine card -->
-        </div>
-        <!-- fine utente 3 -->
-
-        <!-- utente 4 -->
-        <div class="col-md-3">
-            <!-- card -->
-            <div class="card mb-4">
-                <!-- card body -->
-                <div class="card-body text-center">
-                    <!-- img profilo -->
-                    <img src="https://media-be.chewy.com/wp-content/uploads/2022/09/27095535/cute-dogs-pembroke-welsh-corgi.jpg" class="rounded-circle" width="200" height="200" />
-                    <!-- nome utente -->
-                    <h4 class="card-title mt-3">Utente4</h4>
-                    <!-- paragrafi -->
-                    <p>Descrizione</p>
-                    <p>
-                        <a href="#">Uno</a> |
-                        <a href="#">Due</a> |
-                        <a href="#">Tre</a>
-                    </p>
-                </div>
-                <!-- fine card body-->
-            </div>
-            <!-- fine card -->
-        </div>
-        <!-- fine utente 4 -->
-
-        <!-- utente 5 -->
-        <div class="col-md-3">
-            <!-- card -->
-            <div class="card mb-4">
-                <!-- card body -->
-                <div class="card-body text-center">
-                    <!-- img profilo -->
-                    <img src="https://easypet.com/wp-content/uploads/2022/07/boston-terrier_dog-breed.webp" class="rounded-circle" width="200" height="200" />
-                    <!-- nome utente -->
-                    <h4 class="card-title mt-3">Utente5</h4>
-                    <!-- paragrafi -->
-                    <p>Descrizione</p>
-                    <p>
-                        <a href="#">Uno</a> |
-                        <a href="#">Due</a> |
-                        <a href="#">Tre</a>
-                    </p>
-                </div>
-                <!-- fine card body-->
-            </div>
-            <!-- fine card -->
-        </div>
-        <!-- fine utente 5 -->
-
-        <!-- utente 6 -->
-        <div class="col-md-3">
-            <!-- card -->
-            <div class="card mb-4">
-                <!-- card body -->
-                <div class="card-body text-center">
-                    <!-- img profilo -->
-                    <img src="https://hips.hearstapps.com/hmg-prod/images/small-dogs-toy-poodle-1563780396.jpg?crop=0.524xw:0.790xh;0.245xw,0.167xh&resize=1200:*" class="rounded-circle" width="200" height="200" />
-                    <!-- nome utente -->
-                    <h4 class="card-title mt-3">Utente6</h4>
-                    <!-- paragrafi -->
-                    <p>Descrizione</p>
-                    <p>
-                        <a href="#">Uno</a> |
-                        <a href="#">Due</a> |
-                        <a href="#">Tre</a>
-                    </p>
-                </div>
-                <!-- fine card body-->
-            </div>
-            <!-- fine card -->
-        </div>
-        <!-- fine utente 6 -->
-
     </div>
-</div>
-<!-- fine prova bootstrap (2) -->
+{% endif %}
 
 {% endblock %}
