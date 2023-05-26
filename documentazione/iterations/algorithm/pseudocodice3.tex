@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{caption}
+
+\begin{document}
+% pseudocodice 3
+\begin{algorithm}[H]
+
+    \caption{Step 3 - Amici}
+    \SetAlgoLined
+   
+    \SetKwProg{myalg}{algoritmo}{ begin}{end}
+    \myalg{Discover($curr\_gender$, $curr\_age$)}{
+        \BlankLine
+        \BlankLine
+        \textbf{...}
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione lista vuota */}\\
+        \textbf{do}{
+            $[] \leftarrow list\_suggested\_friends $
+        }
+
+        \BlankLine
+        \BlankLine
+        \textbf{/* Memorizzazione della lista di amici dell'utente corrente */}\\
+        \textbf{do}{
+            $friends\_id \leftarrow curr\_user.friends.\underline{values}() $
+        }
+
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione lista vuota */}\\
+        \textbf{do}{
+            $[ ] \leftarrow list\_user\_friends $
+        }
+
+
+        \BlankLine
+        \BlankLine
+        \For{v in friends\_id }{
+            %\tcp{Blocco di istruzioni da eseguire per ogni valore di i}
+            $list\_user\_friends.\underline{append}(v[id])$
+            
+        }
+        \BlankLine
+        \Return{risultato}\;
+
+        \textbf{/* Memorizzazione amici dell'utente corrente */}\\
+        \ForEach{ x in user.\underline{all}()}{
+            \ForEach{y in x.liked\_songs.\underline{all}().\underline{values}()}{
+                $genere\_temp \leftarrow y [genere] $\\
+                \BlankLine
+                \If{genere\_target = genere\_temp AND x.account.id != account.id AND x.account.id not in list\_user\_friends }{
+                    list\_suggested\_friends.\underline{append}(x)
+                }
+                \BlankLine
+            }
+            \BlankLine
+        }
+    \BlankLine
+    \Return{list\_suggested\_friends}\
+    \BlankLine
+    \BlankLine
+    \KwResult{Lista utenti con gusti affini all'utente}
+    \BlankLine
+    \BlankLine
+    \textbf{...}
+    \vspace{0.5cm}
+   
+    }
+\end{algorithm}
+
+
+
+\end{document}

@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{caption}
+
+\begin{document}
+
+
+
+% pseudocodice 1
+\begin{algorithm}[H]
+    \caption{Step 1 - Inizializzazione}
+    \SetAlgoLined
+    \LinesNumbered
+    \SetKwProg{myalg}{algoritmo}{ begin}{end}
+    \myalg{Discover($curr\_gender$, $curr\_age$)}{
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione oggetto account */}\
+
+        \textbf{do}{
+            $account \leftarrow request.account$
+        }
+        \BlankLine
+        \BlankLine
+        
+        \textbf{/* Memorizzazione utente corrente */}\\
+            \textbf{do}{
+            $curr\_user \leftarrow curr\_user.\underline{get}()$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Lettura training set degli utenti.csv */}\
+            
+        \textbf{do}{
+           $utenti \leftarrow read\_csv('utenti.csv')$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione colonna di input della previsione */}\
+            
+        \textbf{do}{
+            $X \leftarrow utenti.\underline{drop}(columns=['genmusic'])$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione colonna di output della previsione */}\
+            
+        \textbf{do}{
+            $y \leftarrow utenti['genmusic'] $
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione istanza del modello */}\
+            
+        \textbf{do}{
+            $ modello \leftarrow \underline{DecisionTreeClassifier}()$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Allenamento del modello sui dati */}\
+            
+        \textbf{do}{
+            $ modello.\underline{fit}(X.values, y.values)$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Previsione dei generi */}\
+            
+        \textbf{do}{
+            $previsione \leftarrow modello.\underline{predict}(curr\_gender, curr\_age)$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Memorizzazione del genere target */}\
+
+        \textbf{do}{
+            $genere\_target \leftarrow previsione[0]$
+        } 
+
+        \BlankLine
+        \BlankLine
+        \KwResult{Genere target}
+        \BlankLine
+        \BlankLine
+        \textbf{...} 
+        \vspace{0.5cm}
+        %\label(Step 1 - Inizializzazione)
+        %\ContinuedFloat
+    }
+\end{algorithm}
+
+
+\end{document}

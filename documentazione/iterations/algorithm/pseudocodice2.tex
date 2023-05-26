@@ -1,0 +1,72 @@
+
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{caption}
+
+
+% pseudocodice 2
+\begin{algorithm}[H]
+    \caption{Step 2 - Brani}
+    \SetAlgoLined
+   
+    \SetKwProg{myalg}{algoritmo}{ begin}{end}
+    \myalg{Discover($curr\_gender$, $curr\_age$)}{
+        \BlankLine
+        \BlankLine
+        \textbf{...}
+        \BlankLine
+        \BlankLine
+        \textbf{/* Estrazione dei brani con genere target */}\
+
+        \textbf{do}{
+            $songs\_list\_db \leftarrow Songs.\underline\{filter\}(genere=genere\_target)$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione lista dei brani che piacciono all'utente */}\
+
+        \textbf{do}{
+            $liked\_songs\_list \leftarrow curr\_user.liked\_song.\underline{values}()$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione lista vuota per gli id */}\
+
+        \textbf{do}{
+            $liked\_songs\_list\_id \leftarrow [] $
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Inserimento degli ID nella lista */}\
+
+        \For{$sl in liked\_songs_\list$}{
+            $liked\_songs\_list\_id.\underline{append}(sl[id])$
+            
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione lista vuota per i brani da suggerire all'utente*/}\
+
+        \textbf{do}{
+            $songs\_list \leftarrow [] $
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione lista vuota per i brani da suggerire all'utente*/}\
+
+        \For{$s in songs\_list\_db$}{
+            \If{$s.id not in liked\_songs\_list\_id$}{
+                $songs\_list.\underline{append}(s)$
+            }
+        }
+        \BlankLine
+        \BlankLine
+        \Return{$songs\_list$}\
+        \BlankLine
+        \BlankLine   
+        \KwResult{Lista brani con genere target}
+        \BlankLine
+        \BlankLine
+        \textbf{...}
+        %\vspace{0.5cm}   
+    }
+\end{algorithm}
