@@ -101,14 +101,86 @@ e all'individuazione del genere target.
 \end{figure}
 
 % pseudocodice 1
-%\include{./algorithm/pseudocodice1.tex}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.8]{images/pseudocodice1.jpg}
-    \caption{Pseudocodice (parte I)}
-    \label{fig-pseudocodice1}
-\end{figure}
-\vspace{1.5cm}
+
+% pseudocodice 1
+\begin{algorithm}
+    \caption{Step 1 - Inizializzazione}
+    \SetAlgoLined
+    \LinesNumbered
+    \SetKwProg{myalg}{algoritmo}{ begin}{end}
+    \myalg{Discover($curr\_gender$, $curr\_age$)}{
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione oggetto account */}\
+
+        \textbf{do}{
+            $account \leftarrow request.account$
+        }
+        \BlankLine
+        \BlankLine
+        
+        \textbf{/* Memorizzazione utente corrente */}\\
+            \textbf{do}{
+            $curr\_user \leftarrow curr\_user.\underline{get}()$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Lettura training set degli utenti.csv */}\
+            
+        \textbf{do}{
+           $utenti \leftarrow read\_csv('utenti.csv')$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione colonna di input della previsione */}\
+            
+        \textbf{do}{
+            $X \leftarrow utenti.\underline{drop}(columns=['genmusic'])$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione colonna di output della previsione */}\
+            
+        \textbf{do}{
+            $y \leftarrow utenti['genmusic'] $
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione istanza del modello */}\
+            
+        \textbf{do}{
+            $ modello \leftarrow \underline{DecisionTreeClassifier}()$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Allenamento del modello sui dati */}\
+            
+        \textbf{do}{
+            $ modello.\underline{fit}(X.values, y.values)$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Previsione dei generi */}\
+            
+        \textbf{do}{
+            $previsione \leftarrow modello.\underline{predict}(curr\_gender, curr\_age)$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Memorizzazione del genere target */}\
+
+        \textbf{do}{
+            $genere\_target \leftarrow previsione[0]$
+        } 
+
+        \BlankLine
+        \textbf{...}
+        \BlankLine
+        \KwResult{Genere target}
+        \BlankLine
+        
+    }
+\end{algorithm}
 
 \newpage
 
@@ -122,16 +194,67 @@ dei brani in base al genere target.
 %    \caption{Codice (parte II)}
 %    \label{fig-codice2}
 %\end{figure}
-
 % pseudocodice 2
-%\include{./algorithm/pseudocodice2.tex}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.8]{images/pseudocodice2.jpg}
-    \caption{Pseudocodice (parte II)}
-    \label{fig-pseudocodice2}
-\end{figure}
-\vspace{1.5cm}
+\begin{algorithm}
+    \caption{Step 2 - Brani}
+    \SetAlgoLined
+    \SetKwProg{myalg}{algoritmo}{ begin}{end}
+    \myalg{Discover($curr\_gender$, $curr\_age$)}{
+        \BlankLine
+        \textbf{...}
+        \BlankLine
+        \textbf{/* Estrazione dei brani con genere target */}\
+
+        \textbf{do}{
+            $songs\_list\_db \leftarrow Songs.\underline{filter}(genere=genere\_target)$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione lista dei brani che piacciono all'utente */}\
+
+        \textbf{do}{
+            $liked\_songs\_list \leftarrow curr\_user.liked\_song.\underline{values}()$
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione lista vuota per gli id */}\
+
+        \textbf{do}{
+            $liked\_songs\_list\_id \leftarrow [] $
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Inserimento degli ID nella lista */}\
+
+        \For{sl in liked\_songs\_list}{
+            $liked\_songs\_list\_id.\underline{append}(sl[id])$
+            
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione lista per i brani da suggerire all'utente*/}\
+
+        \textbf{do}{
+            $songs\_list \leftarrow [] $
+        }
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione lista vuota per i brani da suggerire all'utente*/}\
+
+        \For{s in songs\_list\_db}{
+            \If{s.id not in liked\_songs\_list\_id}{
+                $songs\_list.\underline{append}(s)$
+            }
+        }
+        \BlankLine
+        \Return{$songs\_list$}\\
+        \textbf{...}
+        \BlankLine
+        \KwResult{Lista brani con genere target}
+        \BlankLine
+        %\vspace{0.5cm}   
+    }
+\end{algorithm}
 
 
 
@@ -151,15 +274,61 @@ suggerimento di utenti con gusti simili.
 
 
 % pseudocodice 3
-%\include{./algorithm/pseudocodice3.tex}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.8]{images/pseudocodice3.jpg}
-    \caption{Pseudocodice (parte III)}
-    \label{fig-pseudocodice3}
-\end{figure}
-\vspace{1.5cm}
+\begin{algorithm}
 
+    \caption{Step 3 - Amici}
+    \SetAlgoLined
+   
+    \SetKwProg{myalg}{algoritmo}{ begin}{end}
+    \myalg{Discover($curr\_gender$, $curr\_age$)}{
+        \BlankLine
+        \textbf{...}
+        \BlankLine
+        \textbf{/* Creazione lista vuota */}\\
+        \textbf{do}{
+            $[] \leftarrow list\_suggested\_friends $
+        }
+
+        \BlankLine
+        \BlankLine
+        \textbf{/* Memorizzazione della lista di amici dell'utente*/}\\
+        \textbf{do}{
+            $friends\_id \leftarrow curr\_user.friends.\underline{values}() $
+        }
+
+        \BlankLine
+        \BlankLine
+        \textbf{/* Creazione lista vuota */}\\
+        \textbf{do}{
+            $[ ] \leftarrow list\_user\_friends $
+        }
+
+
+        \BlankLine
+        \BlankLine
+        \For{v in friends\_id }{
+            %\tcp{Blocco di istruzioni da eseguire per ogni valore di i}
+            $list\_user\_friends.\underline{append}(v[id])$
+            
+        }
+        \BlankLine
+        \textbf{/* Memorizzazione amici dell'utente corrente */}\\
+        \ForEach{ x in user.\underline{all}()}{
+            \ForEach{y in x.liked\_songs.\underline{all}().\underline{values}()}{
+                $genere\_temp \leftarrow y [genere] $\\
+                \If{genere\_target = genere\_temp AND x.account.id != account.id AND x.account.id not in list\_user\_friends }{
+                    list\_suggested\_friends.\underline{append}(x)
+                }
+            }
+        }
+    \BlankLine
+    \Return{list\_suggested\_friends}\\
+    \textbf{...}
+    \BlankLine
+    \KwResult{Lista utenti con gusti affini all'utente}
+    \BlankLine
+    }
+\end{algorithm}
 
 
 \newpage
@@ -176,15 +345,28 @@ Pseudocodice dell'ultima parte dell'algoritmo.
 %\vspace{0.5cm}
 
 % pseudocodice 4
-%\include{algorithm/pseudocodice4.tex}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.8]{images/pseudocodice4.jpg}
-    \caption{Pseudocodice (parte IV)}
-    \label{fig-pseudocodice4}
-\end{figure}
-\vspace{1.5cm}
+\begin{algorithm}
 
+    \caption{Step 4 - Parametri di ritordno}
+    \SetAlgoLined
+   
+    \SetKwProg{myalg}{algoritmo}{ begin}{end}
+    \myalg{Discover($curr\_gender$, $curr\_age$)}{
+        \BlankLine
+        \BlankLine
+        \textbf{...}
+        \BlankLine
+        \BlankLine
+        \textbf{/* Ritorno parametri di interesse */}\\
+        \Return{songs\_list}\\
+        \Return{list\_suggested\_friends}\\    
+        \BlankLine
+        \BlankLine
+        \KwResult{Lista brani con genere target e lista utenti con gusti affini all'utente }
+        \vspace{0.5cm}
+        %\label(alg:1)
+    }
+\end{algorithm}
 
 
 
@@ -273,6 +455,48 @@ la complessità è $O(n * m^2)$, dove n è il numero di campioni e m è il numer
 
 
 \newpage
-\subsection{Flowchart dell'algoritmo}
-I passi base dell'algoritmo sono i seguenti: 
 
+%\subsection{Flowchart dell'algoritmo}
+
+\subparagraph{Diagramma di flusso} \textbf{-- Parte I}
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.8]{images/flowchart-Parte I.png}
+    \caption{Flowchart (parte I)}
+    \label{fig-fc1}
+\end{figure}
+
+
+
+\newpage
+\subparagraph{Diagramma di flusso}\textbf{-- Parte II}
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.62]{images/flowchart-Parte II.png}
+    \caption{Flowchart (parte II)}
+    \label{fig-fc2}
+\end{figure}
+
+
+
+
+\newpage
+\subparagraph{Diagramma di flusso} \textbf{-- Parte III}
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.65]{images/flowchart-Parte III.png}
+    \caption{Flowchart (parte III)}
+    \label{fig-fc3}
+\end{figure}
+
+
+
+
+\newpage
+\subparagraph{Diagramma di flusso} \textbf{-- Parte IV}
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.7]{images/flowchart-Parte IV.png}
+    \caption{Flowchart (parte IV)}
+    \label{fig-fc4}
+\end{figure}
