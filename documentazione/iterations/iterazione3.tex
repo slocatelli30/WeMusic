@@ -2,6 +2,24 @@
 Nella terza iterazione è stato approfondito e implementato l'algoritmo portante del sistema: l'algoritmo di Discover permette di ``Scoprire" nuova 
 musica e nuovi utenti in base alle preferenze dell'utente.
 
+\section{Implementazione del caso d'uso}
+\subsection{UC19 -- ``Discover''}
+\begin{itemize}
+    \item \textbf{Actor:} Utente base.
+    \item \textbf{Precondition:} L'utente deve aver effettuato il log in.
+    \item \textbf{Postcondition:} L'utente può scoprire nuovi brani e aggiungere nuovi amici secondo i suggerimenti dell'algoritmo. 
+    \item \textbf{Base Sequence:}
+    \begin{itemize}
+        \item \textbf{1.} L'utente, dopo aver effettuato il log in, clicca su Discover dal menu a sinistra.
+        \item \textbf{2.} L'utente naviga nella pagina dei brani e amici suggeriti.
+        \item \textbf{3.} L'utente ha correttamente eseguito l'operazione.
+    \end{itemize}
+    \item \textbf{Exception Sequence:} Connessione fallita.
+    \begin{itemize}
+        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
+    \end{itemize}
+\end{itemize}
+\vspace{1cm}
 
 \section{Descrizione dell'algoritmo}
 L'algoritmo di Discover è stato ideato per offrire all'utente un'esperienza completa di riproduzione e scoperta di nuova musica, unendo a ciò la 
@@ -11,7 +29,7 @@ Questo tipo di algoritmo
 tiene traccia dei generi preferiti dell'utente e lo utilizza per suggerire musica simile, ma non solo: allo stesso modo riesce a suggerire 
 una lista di utenti che hanno gusti simili all'utente loggato, in modo da poterli aggiungere alla propria lista di amici.  
 
-Le variabili e i fattori tenuti in considerazione per lo sviluppon dell'algoritmo di Discover sono i seguenti: 
+Le variabili e i fattori tenuti in considerazione per lo sviluppo dell'algoritmo di Discover sono i seguenti: 
 \begin{itemize}
     \item Il genere favorito dell'utente, ottenuto da un'analisi dei suoi brani preferiti;
     \item L'età dell'utente;
@@ -19,7 +37,6 @@ Le variabili e i fattori tenuti in considerazione per lo sviluppon dell'algoritm
 \end{itemize}
 
 
-\newpage
 \section{Funzionamento dell'algoritmo}
 Il funzionamento dell'algoritmo si basa su una previsione Machine Learning, tramite la libreria \textbf{Pandas} di Python;
 il nome fa riferimento sia a ``Panel Data" che ``Python Data Analysis", infatti è una libreria molto utilizzata per lavorare 
@@ -83,24 +100,20 @@ navigare fra gli utenti ed, eventualmente, aggiungerli fra gli amici.
 
 \section{Studio della complessità}
 
-% codice 1
-\subsection{Pseudocodice}
-
+\subsection{Algortimo Parte I}
 \vspace{0.5cm}
-
-\subparagraph{Pseudocodice - Parte I}
+\subparagraph{Pseudocodice}
 Pseudocodice della prima parte dell'algoritmo, relativa all'inizializzazione 
 e all'individuazione del genere target. 
-\begin{figure}[H]
-    \centering
-    \begin{center}
-    \includegraphics[scale=0.5]{images/alg1_v2.jpg}
-    \end{center}
-    \caption{Codice (parte I)}
-    \label{fig-codice1}
-\end{figure}
-
-% pseudocodice 1
+% codice 1
+%\begin{figure}[H]
+%    \centering
+%    \begin{center}
+%    \includegraphics[scale=0.5]{images/alg1_v2.jpg}
+%    \end{center}
+%    \caption{Codice (parte I)}
+%    \label{fig-codice1}
+%\end{figure}
 
 % pseudocodice 1
 \begin{algorithm}
@@ -182,9 +195,21 @@ e all'individuazione del genere target.
     }
 \end{algorithm}
 
+% flowchart 1
 \newpage
+\subparagraph{Diagramma di flusso} 
+Diagramma di flusso della prima parte dell'algoritmo.
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.7]{images/flowchart-Parte I.png}
+    \caption{Flowchart (parte I)}
+    \label{fig-fc1}
+\end{figure}
 
-\subparagraph{Pseudocodice - Parte II}
+
+\newpage
+\subsection{Algortimo Parte II}
+\subparagraph{Pseudocodice}
 %codice parte 2
 Pseudocodice della seconda parte dell'algoritmo, relativa al suggerimento 
 dei brani in base al genere target.
@@ -255,14 +280,25 @@ dei brani in base al genere target.
         %\vspace{0.5cm}   
     }
 \end{algorithm}
+%flowchart 2
+\newpage
+\subparagraph{Diagramma di flusso}
+Diagramma di flusso della seconda parte dell'algoritmo.
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.62]{images/flowchart-Parte II.png}
+    \caption{Flowchart (parte II)}
+    \label{fig-fc2}
+\end{figure}
 
 
 
 
 \newpage
+\subsection{Algoritmo Parte III}
 
 % codice 3
-\subparagraph{Pseudocodice - Parte III}
+\subparagraph{Pseudocodice}
 Pseudocodice della terza parte dell'algoritmo, quella relativa al
 suggerimento di utenti con gusti simili. 
 %\begin{figure}[H]
@@ -275,11 +311,9 @@ suggerimento di utenti con gusti simili.
 
 % pseudocodice 3
 \begin{algorithm}
-
     \caption{Step 3 - Amici}
     \SetAlgoLined
-   
-    \SetKwProg{myalg}{algoritmo}{ begin}{end}
+       \SetKwProg{myalg}{algoritmo}{ begin}{end}
     \myalg{Discover($curr\_gender$, $curr\_age$)}{
         \BlankLine
         \textbf{...}
@@ -330,11 +364,23 @@ suggerimento di utenti con gusti simili.
     }
 \end{algorithm}
 
+% flowchart 3
+\newpage
+\subparagraph{Diagramma di flusso} 
+Diagramma di flusso della terza parte dell'algoritmo.
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.65]{images/flowchart-Parte III.png}
+    \caption{Flowchart (parte III)}
+    \label{fig-fc3}
+\end{figure}
+
 
 \newpage
+\subsection{Algoritmo Parte IV}
 % codice 4
 
-\subparagraph{Pseudocodice - Parte IV}
+\subparagraph{Pseudocodice}
 Pseudocodice dell'ultima parte dell'algoritmo.  
 %\begin{figure}[H]
 %    \centering
@@ -367,6 +413,15 @@ Pseudocodice dell'ultima parte dell'algoritmo.
         %\label(alg:1)
     }
 \end{algorithm}
+% flowchart 4
+\vspace{1cm}
+\subparagraph{Diagramma di flusso} Diagramma di flusso dell'ultima parte dell'algoritmo.
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.7]{images/flowchart-Parte IV.png}
+    \caption{Flowchart (parte IV)}
+    \label{fig-fc4}
+\end{figure}
 
 
 
@@ -390,9 +445,8 @@ Di seguito viene fornita una stima approssimativa della complessità temporale p
     poiché la costruzione di un albero decisionale richiede operazioni che dipendono da entrambi i valori.
     % sono 21 istanze e 3 colonne, quindi può essere approssimato a O(1) costante
     \item \textbf{Previsione dei generi musicali:} La previsione dei generi musicali per 
-    l'utente corrente 
-    utilizzando il modello addestrato ha una complessità temporale di $O(1)$, poiché si 
-    tratta di un singolo esempio (operazione costante).
+    l'utente corrente utilizzando il modello addestrato ha una complessità temporale di 
+    $O(1)$, poiché si tratta di un singolo esempio (operazione costante).
     \item \textbf{Filtraggio dei brani musicali:} Per ogni brano che piace all'utente corrente, viene estratto il relativo
      ID e memorizzato in una lista. Questa operazione richiede un'iterazione su tutti i $s$ brani preferiti, quindi la 
      complessità è $O(s)$.
@@ -409,29 +463,27 @@ Di seguito viene fornita una stima approssimativa della complessità temporale p
     \item \textbf{Creazione del contesto:} La creazione del contesto finale ha una complessità temporale trascurabile, 
     poiché coinvolge solo l'assegnazione di variabili.
 \end{itemize}
-Quindi, sommando tutte queste parti, possiamo dire che la complessità temporale complessiva dell'algoritmo è approssimativamente:
+Quindi, sommando tutte queste parti, si può concludere che la complessità temporale complessiva dell'algoritmo 
+è approssimativamente:
 
 \boldmath
 \begin{center}
-    
-    $O(n * m) + O(n * m log(m)) + O(s) + O(1)$
-   
+    $O(n * m) + O(n * m log(m)) + O(s) + O(z) + O(x * y) + O(1)$
 \end{center}
 \unboldmath
 
 
 \subparagraph{Analisi complessità di \textit{DecisionTreeClassifier}}
 Il DecisionTreeClassifier fa parte di una libreria Python per il Machine Learning.
- L'addestramento di un albero decisionale utilizzando DecisionTreeClassifier si basa 
- su una serie di divisioni dei dati 
-in base alle caratteristiche (features) dei campioni. La complessità principale 
-dell'addestramento di un albero decisionale è determinata dalla fase di costruzione 
-dell'albero stesso.
-%Durante la costruzione dell'albero, l'algoritmo esamina tutte le possibili 
-%divisioni delle caratteristiche e cerca quella che massimizza la "purezza" dei 
-%sottoinsiemi risultanti. La purezza misura quanto bene un sottoinsieme è composto 
-%da campioni di una sola classe. L'algoritmo valuta le divisioni utilizzando misure 
-%come l'entropia o la Gini impurity.
+L'addestramento di un albero decisionale utilizzando DecisionTreeClassifier si basa 
+su una serie di divisioni dei dati in base alle caratteristiche (features) dei campioni.
+La complessità principale dell'addestramento di un albero decisionale è determinata 
+dalla fase di costruzione dell'albero stesso.
+Alberi decisionali sono metodi di learning supervisionato non parametrici usati per la classificazione
+e la regressione. L'obiettivo è di creare un modello che preveda il valore di una variabile target tramite 
+apprendimento di semplici regole decisionali e dedotte dalle caratteristiche dei dati. Quindi 
+un albero può essere visto come una costantr approssimazione a tratti.
+
 
 La complessità dell'addestramento di un albero decisionale è influenzata 
 principalmente da due fattori:
@@ -440,63 +492,96 @@ principalmente da due fattori:
         più operazioni di divisione e valutazione devono essere eseguite.
     \item Il numero di caratteristiche (features) dei campioni nel set di addestramento (m): 
         Più caratteristiche ci sono, più divisioni devono essere valutate.
-
-
 \end{itemize}
-Quindi, in generale, la complessità dell'addestramento di un albero decisionale 
-con il DecisionTreeClassifier è approssimativamente $O(n * m * log(m))$.
 
 \vspace{0.3cm}
 \subparagraph{Analisi complessità di \textit{fit}}
-Il metodo fit in Pandas viene utilizzato per adattare un modello ai dati. 
-Tuttavia, la complessità del comando fit dipende dall'algoritmo di apprendimento utilizzato. 
-Ad esempio, si utilizza fit con un modello di regressione lineare utilizzando il metodo dei minimi quadrati, 
-la complessità è $O(n * m^2)$, dove n è il numero di campioni e m è il numero di features. 
+Il metodo fit in Pandas viene utilizzato per adattare un modello ai dati; in questo caso,
+consente di produrre un modello di regressione lineare, insieme alla funzione analizzata
+precedentemente. 
+\vspace{0.5cm}
 
 
-\newpage
-
-%\subsection{Flowchart dell'algoritmo}
-
-\subparagraph{Diagramma di flusso} \textbf{-- Parte I}
-\begin{figure} [H]
-    \centering
-    \includegraphics[scale=0.8]{images/flowchart-Parte I.png}
-    \caption{Flowchart (parte I)}
-    \label{fig-fc1}
-\end{figure}
-
-
+In conclusione, la complessità dell'addestramento di un albero decisionale 
+con la funzione DecisionTreeClassifier e la regressione tramite fit 
+risulta $O(n * m * log(m))$.
 
 \newpage
-\subparagraph{Diagramma di flusso}\textbf{-- Parte II}
-\begin{figure} [H]
-    \centering
-    \includegraphics[scale=0.62]{images/flowchart-Parte II.png}
-    \caption{Flowchart (parte II)}
-    \label{fig-fc2}
-\end{figure}
+\section{Casi di test}
+Il testing statico dei campi è una pratica comune nel processo di sviluppo del software 
+per verificare che i dati immessi in determinati campi rispettino determinate regole o vincoli. 
+Durante la terza iterazione sono stati sviluppati dei test su specifici campi delle classi, organizzati nel file test.py. Per supportare l'esecuzione 
+dei test, sono state create funzioni ausiliarie raggruppate nel file utility.py.
+Di seguito vengono descritti i casi di test per i campi chiave delle classi Account, Album e Playlist.
 
 
+\subparagraph{Test per la classe \textbf{Album:}} La classe Album gestisce le informazioni riguardanti un album musicale. È presente un caso di test che verifica la validità della data di pubblicazione.
+\begin{itemize}
+    \item \textbf{isValidReleaseDate(const char* releaseDate):}
+    Questo test verifica che la data di pubblicazione immessa per l'album sia valida. Se la data non rispetta un formato o una logica valida, il test restituisce false, altrimenti restituisce true.
+\end{itemize}
+
+\begin{lstlisting}[caption={class AlbumModelTests(TestCase)}, captionpos=b]
+def test_album_data_pub_correct(self):
+    time = timezone.now() +  datetime.timedelta(days=30)
+    future_album = Album(pub_date = time)
+    self.assertIs(future_album.album_pub_correct(), 
+                                                False)
+\end{lstlisting} 
 
 
-\newpage
-\subparagraph{Diagramma di flusso} \textbf{-- Parte III}
-\begin{figure} [H]
-    \centering
-    \includegraphics[scale=0.65]{images/flowchart-Parte III.png}
-    \caption{Flowchart (parte III)}
-    \label{fig-fc3}
-\end{figure}
+\subparagraph{Test per la classe \textbf{Playlist:}} La classe Playlist gestisce le informazioni di una playlist musicale. È presente un caso di test che verifica la validità del nome della playlist:
+\begin{itemize}
+    \item \textbf{isValidPlaylistName(const char* playlistName):}
+    Questo test verifica che il nome immesso durante la creazione della playlist sia valido. Se il nome non rispetta determinati criteri o restrizioni, il test restituisce false, altrimenti restituisce true.
+\end{itemize}
+\begin{lstlisting}[caption={PlaylistModelTests(TestCase)}, captionpos=b]
+def test_playlist_name_correct(self):
+    playlist_name_empty = ""
+    playlist_err = Playlist(name = playlist_name_empty)
+    self.assertIs(playlist_err.playlist_name_correct(), 
+                                                False)
+\end{lstlisting} 
 
 
+\subparagraph{Test per la classe \textbf{Account:}} La classe Account gestisce le informazioni dell'utente, come il nome e l'email. 
+Durante la fase di registrazione, sono presenti tre casi di test che verificano la validità dei dati immessi:
+\vspace{0.2cm}
+\begin{itemize}
+    \item \textbf{isNameNotEmpty(const char* name)}
+    Questo test verifica che il nome immesso durante la registrazione non sia vuoto. Se il nome è vuoto, il test restituisce false, altrimenti restituisce true;
+\end{itemize}
+\begin{lstlisting}[caption={class AccountModelTests(TestCase)}, captionpos=b]   
+def test_name_account_empty(self):
+    name_fake = ""
+    account_fake = Account(name = name_fake)
+    self.assertIs(account_fake.account_name_correct(), 
+                                                False)
+\end{lstlisting} 
+\vspace{0.2cm}
 
+\begin{itemize}    
+    \item \textbf{isNameWithoutNumbers(const char* name):}
+    Questo test verifica che il nome immesso durante la registrazione non contenga numeri. Se il nome contiene almeno un numero, il test restituisce false, altrimenti restituisce true.
+\end{itemize}
+\begin{lstlisting}[caption={class AccountModelTests(TestCase)}, captionpos=b]
+def test_name_account_number(self):
+    name_err = "Luca9"
+    account_err = Account(name = name_err)
+    self.assertIs(account_err.account_name_correct(), 
+                                                False)
+\end{lstlisting} 
+\vspace{0.2cm}
 
-\newpage
-\subparagraph{Diagramma di flusso} \textbf{-- Parte IV}
-\begin{figure} [H]
-    \centering
-    \includegraphics[scale=0.7]{images/flowchart-Parte IV.png}
-    \caption{Flowchart (parte IV)}
-    \label{fig-fc4}
-\end{figure}
+\begin{itemize}
+    \item \textbf{isValidEmail(const char* email):}
+    Questo test verifica che l'email immessa durante la registrazione sia valida. Se l'email non rispetta un formato valido, il test restituisce false, altrimenti restituisce true.
+\end{itemize}
+\begin{lstlisting}[caption={class AccountModelTests(TestCase)}, captionpos=b]
+def test_email_account_correct(self):
+    email_fake = "pulcinopiowemusic.it"
+    account_fake = Account(email = email_fake)
+    self.assertIs(account_fake.account_email_correct(), 
+                                                False)
+\end{lstlisting}
+

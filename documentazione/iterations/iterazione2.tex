@@ -228,9 +228,9 @@ Il presente caso d'uso consiste nel visualizzare i brano contenuti in una delle 
 \begin{itemize}
     \item \textbf{Actor:} Utente base.
     \item \textbf{Precondition:} L'utente deve aver effettuato il log in e deve aver creato almeno una playlist.
-    \item \textbf{Postcondition:} L'utente può consultare il contenuto della playlist, 
-    perciò potrà navigare nell'elenco 
-    e decidere di scaricare un brano \textbf{(UC7)} o mettere like \textbf{(UC8)}.
+    \item \textbf{Postcondition:} L'utente può consultare il contenuto della 
+    playlist, perciò potrà navigare nell'elenco e decidere di scaricare 
+    un brano \textbf{(UC7)} o mettere like \textbf{(UC8)}.
     \item \textbf{Base Sequence:}
     \begin{itemize}
         \item \textbf{1.} L'utente seleziona l'elenco delle proprie playlist dal menu.
@@ -398,23 +398,39 @@ Il presente caso d'uso consiste nel poter modificare delle proprie playlist: pu�
 \end{itemize}
 \vspace{1cm}
 
-\subsection{UC19 -- ``Discover''}
-\begin{itemize}
-    \item \textbf{Actor:} Utente base.
-    \item \textbf{Precondition:} L'utente deve aver effettuato il log in.
-    \item \textbf{Postcondition:} L'utente può scoprire nuovi brani e aggiungere nuovi amici secondo i suggerimenti dell'algoritmo. 
-    \item \textbf{Base Sequence:}
-    \begin{itemize}
-        \item \textbf{1.} L'utente, dopo aver effettuato il log in, clicca su Discover dal menu a sinistra.
-        \item \textbf{2.} L'utente naviga nella pagina dei brani e amici suggeriti.
-        \item \textbf{3.} L'utente ha correttamente eseguito l'operazione.
-    \end{itemize}
-    \item \textbf{Exception Sequence:} Connessione fallita.
-    \begin{itemize}
-        \item Nel caso di connessione fallita si ritorna al passo 1 della Base Sequence del caso d'uso \textbf{UC1}.
-    \end{itemize}
-\end{itemize}
-\vspace{1cm}
 
 
-\section{Testing + pagine aggiunte}
+\newpage
+\section{Documentazione API}
+Nel back-end sono stati realizzati gli endpoint visibili in tabella. Questi endpoint sono le fondamenta 
+per il funzionamento base della comunicazione tra utente e sistema.
+\begin{table} [h!]
+\begin{center}
+    \begin{tabular}{ |Sc|Sc|Sc| } 
+     \hline
+     Metodo & Endpoint & Funzione \\ 
+     \hline
+     \hline
+     \makecell{\texttt{views.remove}\\\texttt{\_song\_from\_playlist}} & \makecell{\texttt{playlists/}\\ \texttt{<int:playlist\_id>/} \\ \texttt{remove\_song/} \\ \texttt{<int:song\_id>}} & \makecell{Visualizza \\brani piaciuti} \\ %11
+     \hline
+     \texttt{views.song\_detail} & \makecell{\texttt{songs/} \\ \texttt{<int:song\_id>}} & \makecell{Visualizza \\dettagli brano} \\ %15
+     \hline
+     \texttt{views.like\_song} & \makecell{\texttt{song/like/}\\ \texttt{<int:song\_id>}} & Like al brano \\ %16
+     \hline
+     \texttt{views.unlike\_song} & \makecell{\texttt{song/unlike/} \\ \texttt{<int:song\_id>}} & Unlike Brano\\ %17
+     \hline
+     \texttt{views.album\_detail} & \makecell{\texttt{albums/} \\ \texttt{<int:album\_id>}} & \makecell{Visualizza \\dettagli album}\\ %18
+     \hline
+     \makecell{\texttt{views.add\_song}\\ \texttt{\_to\_playlist}} & \makecell{\texttt{playlist/addsong/}\\ \texttt{<int:song\_id>}} & \makecell{Aggiungi brano \\ a playlist}\\ %24
+     \hline
+     \texttt{views.add\_friends} & \makecell{\texttt{people/add/}\\ \texttt{<int:ordinaryuser\_id>}} & Aggiungi amico \\ %28
+     \hline
+     \texttt{views.remove\_friends} & \makecell{\texttt{friends/remove/} \\ \texttt{<int:ordinaryuser\_id>}} & Rimuovi amico \\ %31
+     \hline
+     \texttt{views.discover} & \texttt{discover} & Algoritmo Discover \\ %33
+     \hline
+    \end{tabular}
+\end{center}
+\caption{API}
+\end{table}
+
