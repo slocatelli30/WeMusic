@@ -1,10 +1,13 @@
 module.exports = {
-  packagerConfig: {},
+  packagerConfig: {
+    icon: 'img/icon',
+  },
   rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-zip',
       // platforms: ['darwin'],
+      icon: 'img/icon.ico',
     },
     // {
     //   name: '@electron-forge/maker-deb',
@@ -15,6 +18,7 @@ module.exports = {
       config: {
         certificateFile: './cert.pfx',
         certificatePassword: process.env.CERTIFICATE_PASSWORD,
+        setupIcon: 'img/icon.ico',
       },
     },
   ],
