@@ -23,7 +23,6 @@ l'algoritmo suggerisce dei brani ricavandoli da un dataset.
       <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
         {% for s in list_songs_genere_target %}
             <!-- !?! non riesco a recuperare il nome e cognome dell'artista legato al brano in questione -->
-            <!-- !?! attento a suggerire dei brani che piacciano già all'utente corrente -->
             <a href="{% url 'song_detail' s.id %}" class="btn btn-outline text-white bg-warning"><b>{{ s.title }} (<i>{{s.genre}}</i>)</b></a>
         {% endfor %} 
       </div>
