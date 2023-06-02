@@ -85,7 +85,7 @@ Di seguito un elenco dettagliato dei casi d'uso suddivisi come anticipato.
         \item \textbf{UC6:} Cerca Artista
         \item \textbf{UC7:} Scarica brano
         \item \textbf{UC8:} Like al brano
-        \item \textbf{UC19:} ``Discover'' e classifiche
+        \item \textbf{UC19:} ``Discover'' 
     \end{itemize} 
     
     \item \textbf{Playlist:} in questa sezione rientrano tutti i casi d'uso relativi alla creazione e gestione delle playlist.
@@ -132,17 +132,30 @@ Di seguito un elenco dettagliato dei casi d'uso suddivisi come anticipato.
 Il Component Diagram in UML ha come obiettivo quello di mostrare la struttura
 del sistema software, descrivendo i singoli componenti, le relative interfacce 
 e le dipendenze. 
-La rappresentazione del sistema è stata gestita partendo da una
-una componente centrale, il server del sistema, alla quale si collegano il database e la parte front-end.
 
+\subsection{Black Box - Top level}
+La rappresentazione black box del sistema è stata gestita partendo da una
+una componente centrale, il server del sistema, alla quale si collegano il database e la parte front-end.
+Le componenti principali sono: Account, Authentication, Music (che include Brani, Playlist, Album),
+Discover e Friends.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.64]{component_diagram_V3_1.png}
+    \caption{UML Component Diagram}
+    \label{fig-uml-component-diag_1}
+\end{figure}
+
+\newpage
+\subsection{White Box - Top level}
+La rappresentazione white box del sistema rappresenta anche le componenti
+interne e le interfacce tramite le quali comunicano tra loro.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.20]{component_diagram_v00.png}
+    \includegraphics[scale=0.45]{component_diagram_V3_2.png}
     \caption{UML Component Diagram}
-    \label{fig-uml-component-diag}
+    \label{fig-uml-component-diag_2}
 \end{figure}
-
 
 
 
@@ -159,7 +172,7 @@ In questo caso viene rappresentato in unico diagramma il Data Class Diagram,
 il quale descrive le classi che compongono la struttura dell'applicazione e le
 le entità presenti al suo interno. Sono inoltre stati inseriti i metodi implementati
 nel sistema.
-
+%%da rifare
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.35]{images/ClassDiagram_ver2.jpg}
