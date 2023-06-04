@@ -21,6 +21,18 @@ musica e nuovi utenti in base alle preferenze dell'utente.
 \end{itemize}
 \vspace{1cm}
 
+\section{UML Component Diagram}
+In figura sono presenti tutte le interfacce
+relative alle componenti implementate in questa iterazione, 
+ovvero Amici e Discover (parte relativa all'algoritmo).
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.64]{component_diagram_ver4_5.png} 
+    \caption{UML Component Diagram}
+    \label{fig-uml-component-diag_5}
+\end{figure}
+
+\newpage
 \section{Descrizione dell'algoritmo}
 L'algoritmo di Discover è stato ideato per offrire all'utente un'esperienza completa di riproduzione e scoperta di nuova musica, unendo a ciò la 
 componente social: in questo modo si permette all'utente di conoscere nuove persone che condividono con lui i propri gusti musicali. 
@@ -36,7 +48,7 @@ Le variabili e i fattori tenuti in considerazione per lo sviluppo dell'algoritmo
     \item Il sesso dell'utente.
 \end{itemize}
 
-
+\vspace{1cm}
 \section{Funzionamento dell'algoritmo}
 Il funzionamento dell'algoritmo si basa su una previsione Machine Learning, tramite la libreria \textbf{Pandas} di Python;
 il nome fa riferimento sia a ``Panel Data" che ``Python Data Analysis", infatti è una libreria molto utilizzata per lavorare 
@@ -65,13 +77,14 @@ Gli step di funzionamento dell'algoritmo possono essere così riassunti:
     
 \end{itemize}
 
-
-\newpage
+\vspace{1cm}
 \subsection{Discover: Suggerimento brano}
 Nella parte successiva dell'algoritmo Discover si effettua un semplice filtro su tutte le canzoni presenti nel database del sistema e vengono
  selezionate solo quelle che rispettano il genere target restituito dall'algoritmo Discover; vengono in seguito salvate in una 
  lista e proposte all'utente, che sarà in grado di navigare e selezionare quale scaricare o aggiungere ai preferiti o ad una playlist. 
 
+ 
+\newpage
 \subsection{Discover: Suggerimento amici}
 Nell'ultima parte dell'algoritmo Discover viene seguito un processo più meccanico: facendo ancora riferimento al genere target 
 individuato nella parte iniziale dell'algoritmo, viene estrapolata una lista di amici suggeriti per l'utente. 
