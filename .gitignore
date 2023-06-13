@@ -3,3 +3,5 @@ __pycache__
 env.py
 node_modules/
 *.m4a
+venv
+.coverage

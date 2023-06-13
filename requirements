@@ -1,0 +1,7 @@
+django
+django-extensions
+pylint
+pylint-django
+pandas
+scikit-learn
+coverage
