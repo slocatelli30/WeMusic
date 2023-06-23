@@ -384,10 +384,10 @@ def discover(request):
     ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
 
     # ricavo l'età (finta) dell'utente corrente
-    ordinaryuser_current_age = 40
+    ordinaryuser_current_age = 18
     # ricavo il sesso (finto) dell'utente corrente
     # 0 = femmina, 1 = uomo, maschio
-    ordinaryuser_current_gender = 1
+    ordinaryuser_current_gender = 0
 
     # algoritmo di discover
     # lettura del training set

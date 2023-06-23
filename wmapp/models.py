@@ -4,8 +4,8 @@ from datetime import datetime
 from django.contrib.auth.models import User
 # import models
 from django.db import models
-# import def contains_number into utility.py
-from .utility import contains_number, pub_past
+# import def contains_number, pub_past, genre_valido into utility.py
+from .utility import contains_number, pub_past, genre_valido
 
 # classe Account
 class Account(models.Model):
@@ -17,6 +17,19 @@ class Account(models.Model):
     def __str__(self):
         return f'account: {self.user.username}'
     
+    # funzione per il controllo dell'email (protezione bassa)
+    def account_email_correct(self):
+        # condizioni:
+        # se l'email dell'account è vuoto oppure
+        # se l'email dell'account non contiene la @
+        # se l'email dell'account non contiene il .
+        if( (not self.email) or 
+           ("@" not in self.email) or
+           ("." not in self.email) ):
+            return False
+        else:
+            return True
+        
     # funzione per il controllo sul nome
     def account_name_correct(self):
         # condizioni:
@@ -24,17 +37,6 @@ class Account(models.Model):
         # se il nome dell'account contiene un numero
         if( (not self.name) or
            (contains_number(self.name)) ):
-            return False
-        else:
-            return True
-    
-    # funzione per il controllo dell'email (protezione bassa)
-    def account_email_correct(self):
-        # condizioni:
-        # se l'email dell'account è vuoto oppure
-        # se l'email dell'account non contiene la @
-        if( (not self.email) or 
-           ("@" not in self.email) ):
             return False
         else:
             return True
@@ -47,6 +49,7 @@ class OrdinaryUser(models.Model):
     def __str__(self):
         return f'utente: {self.account.user.username}'
 
+# classe Artist
 class Artist(models.Model):
     account = models.OneToOneField(Account, on_delete=models.CASCADE)
 
@@ -70,7 +73,7 @@ class Album(models.Model):
         else:
             return False
 
-# Song
+# classe Song
 class Song(models.Model):
     title = models.CharField(max_length=255)
     genre = models.CharField(max_length=255)
@@ -81,6 +84,26 @@ class Song(models.Model):
 
     def __str__(self):
         return self.title
+    
+    # funzione per il controllo della 
+    # validità di un genere musicale
+    def song_genre_correct(self):
+        # condizioni:
+        # il genere deve essere valido (presente nella lista generi)
+        if( genre_valido(self.genre) == True):
+            return True
+        else:
+            return False
+
+    # funzione per il controllo dell'anno
+    def song_year_correct(self):
+        # condizioni:
+        # year non deve essere negativo
+        # year deve essere un intero
+        if( self.year > 0 and (isinstance(self.year, int)) ):
+            return True
+        else:
+            return False
 
 # classe Playlist
 class Playlist(models.Model):
@@ -101,3 +124,13 @@ class Playlist(models.Model):
             return False
         else:
             return True
+        
+    # funzione per il controllo della creazione 
+    # della Playlist
+    def playlist_creation_date_correct(self):
+        # condizioni:
+        # se la creazione della Playlist è attuale o passata
+        if ( pub_past(self.creation_date) ):
+            return True
+        else:
+            return False
