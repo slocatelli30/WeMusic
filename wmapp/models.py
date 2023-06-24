@@ -9,14 +9,56 @@ from .utility import contains_number, pub_past, genre_valido
 
 # classe Account
 class Account(models.Model):
+
+    # opzioni per il sesso dell'utente
+    SEX_CHOICES = (
+        ('F', 'Femmina'),
+        ('M', 'Maschio'),
+    )
+
+    # campi (fields)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.CharField(max_length=72, null=True)
     name = models.CharField(max_length=255, null=True)
     surname = models.CharField(max_length=255, null=True)
+    # birth date (campo settato a null)
+    birth_date = models.DateField(null=True)
+    # sesso 
+    sex = models.CharField(max_length=7, choices=SEX_CHOICES)
 
     def __str__(self):
         return f'account: {self.user.username}'
     
+    # calcolaEta
+    def calcolaEta(self):
+        # oggi
+        today = datetime.today()
+        # return
+        return today.year - self.birth_date.year - ((today.month, today.day) < (self.birth_date.month, self.birth_date.day))
+
+    # sexBool (0 = femmina, 1 = maschio)
+    def sexBool(self):
+        # se femmina, return 0
+        if( self.sex == 'F' ):
+            return 0
+        # altrimenti è maschio, return 1
+        else:
+            return 1
+
+    # sexValue
+    def sexValue(self):
+        # se femmina
+        if( self.sex == 'F' ):
+            # return 0
+            return 'Femmina'
+        # se maschio
+        if( self.sex == 'M' ):
+            # return 1
+            return 'Maschio'
+        else:
+            # return null (errore)
+            return 'Null'
+
     # funzione per il controllo dell'email (protezione bassa)
     def account_email_correct(self):
         # condizioni:

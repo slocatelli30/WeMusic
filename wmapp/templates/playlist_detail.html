@@ -38,12 +38,12 @@
                 <td>
                     <form action="{% url 'remove_song_from_playlist' playlist.id s.id %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" value="remove" class="btn"><i class="fa fa-close"></i></button>
+                        <button type="submit" value="remove" class="btn"><img src="../../static/icons/x.svg" style="width: 20px;" alt="x.svg not found"></button>
                     </form>
                 </td>
                 <!-- download -->
                 <td>
-                    <a href="{{s.file.url}}" download class="btn"><i class="fa fa-download"></i></a>
+                    <a href="{{s.file.url}}" download class="btn"><img src="../../static/icons/download.svg" style="width: 20px;" alt="download.svg not found"></a>
                 </td> 
             </tr>
         {% endfor %}

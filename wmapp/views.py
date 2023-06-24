@@ -196,6 +196,8 @@ def account_detail(request):
         'name': account.name,
         'surname': account.surname,
         'email': account.email,
+        'eta': account.calcolaEta(),
+        'sesso': account.sexValue(),
     }
     return render(request, 'account_detail.html', context)
 
@@ -384,10 +386,10 @@ def discover(request):
     ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
 
     # ricavo l'età (finta) dell'utente corrente
-    ordinaryuser_current_age = 18
+    ordinaryuser_current_age = account.calcolaEta()
     # ricavo il sesso (finto) dell'utente corrente
     # 0 = femmina, 1 = uomo, maschio
-    ordinaryuser_current_gender = 0
+    ordinaryuser_current_gender = account.sexBool()
 
     # algoritmo di discover
     # lettura del training set
