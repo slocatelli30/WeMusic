@@ -25,21 +25,21 @@
       <!-- menu verticale -->
       <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
           <!-- home + icon -->
-          <a href="{% url 'index' %}" class="btn btn-light"><b>Home</b> <img src="{% static 'icons/cpu.svg' %}" style="width: 12px;" alt="person-shelter-solid.svg not found"></a>
+          <a href="{% url 'index' %}" class="btn btn-light"><b>Home</b> <img src="{% static 'icons/home.svg' %}" style="width: 15px;" alt="home.svg not found"></a>
           {% if user.is_authenticated %}
             {% if request.user_type == 'ordinary' %}
                 <!-- account + icon -->
-                <a href="{% url 'account_detail' %}" class="btn btn-light"><b>Account</b> <img src="{% static 'icons/user-regular.svg' %}" style="width: 12px;" alt="user-regular.svg not found"></a>
+                <a href="{% url 'account_detail' %}" class="btn btn-light"><b>Account</b> <img src="{% static 'icons/user.svg' %}" style="width: 15px;" alt="user.svg not found"></a>
                 <!-- algoritmo di discover + icon -->
-                <a href="{% url 'discover' %}" class="btn btn-light"><b>Discover</b> <img src="{% static 'icons/microchip-solid.svg' %}" style="width: 15px;" alt="microchip-solid.svg not found"></a>
+                <a href="{% url 'discover' %}" class="btn btn-light"><b>Discover</b> <img src="{% static 'icons/cpu.svg' %}" style="width: 15px;" alt="cpu.svg not found"></a>
                 <!-- liked songs + icon -->
-                <a href="{% url 'liked_songs' %}" class="btn btn-primary"><b>Liked</b> <img src="{% static 'icons/heart-check.svg' %}" style="width: 22px;" alt="heart-check.svg not found"></a>
+                <a href="{% url 'liked_songs' %}" class="btn btn-light"><b>Liked</b> <img src="{% static 'icons/heart.svg' %}" style="width: 15px;" alt="heart.svg not found"></a>
                 <!-- playlists + icon -->
-                <a href="{% url 'playlists' %}" class="btn btn-primary"><b>Playlists</b> <img src="{% static 'icons/list.svg' %}" style="width: 17px;" alt="list.svg not found"></a>
+                <a href="{% url 'playlists' %}" class="btn btn-light"><b>Playlists</b> <img src="{% static 'icons/list.svg' %}" style="width: 15px;" alt="list.svg not found"></a>
                 <!-- social + icon -->
-                <a href="{% url 'people' %}" class="btn btn-primary"><b>Social</b> <img src="{% static 'icons/users-plus.svg' %}" style="width: 19px;" alt="users-plus.svg not found"></a>
+                <a href="{% url 'people' %}" class="btn btn-light"><b>Social</b> <img src="{% static 'icons/user-plus.svg' %}" style="width: 15px;" alt="user-plus.svg not found"></a>
                 <!-- friends + icon -->
-                <a href="{% url 'friends_detail' %}" class="btn btn-primary"><b>Friends</b> <img src="{% static 'icons/users.svg' %}" style="width: 17px;" alt="users.svg not found"></a>
+                <a href="{% url 'friends_detail' %}" class="btn btn-light"><b>Friends</b> <img src="{% static 'icons/users.svg' %}" style="width: 15px;" alt="users.svg not found"></a>
                 {% endif %}
             {% if request.user_type == 'artist' %}
               <li><a href="{% url 'account_detail' %}">Account</a></li>
@@ -47,13 +47,13 @@
               <li><a href="{% url 'uploaded_albums' %}">Albums</a></li>
             {% endif %}
             <!-- search + icon -->
-            <a href="{% url 'search_results' %}" class="btn btn-primary"><b>Search</b> <img src="{% static 'icons/search-file.svg' %}" style="width: 17px;" alt="search-file.svg not found"></a>
+            <a href="{% url 'search_results' %}" class="btn btn-light"><b>Search</b> <img src="{% static 'icons/search.svg' %}" style="width: 15px;" alt="search.svg not found"></a>
             <hr/>
             <!-- logout + icon -->
-            <a href="{% url 'logout' %}?next={{ request.path }}" class="btn btn-danger"><b>Logout</b> <img src="{% static 'icons/logout.svg' %}" style="width: 17px;" alt="logout.svg not found"></a>
+            <a href="{% url 'logout' %}?next={{ request.path }}" class="btn btn-danger"><b>Logout</b> <img src="{% static 'icons/logout.svg' %}" style="width: 15px;" alt="logout.svg not found"></a>
           {% else %}
             <!-- login + icon -->
-            <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-success"><b>Login</b> <img src="{% static 'icons/login.svg' %}" style="width: 17px;" alt="login.svg not found"></a>
+            <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-success"><b>Login</b> <img src="{% static 'icons/login.svg' %}" style="width: 15px;" alt="login.svg not found"></a>
           {% endif %}
         
       </div>
