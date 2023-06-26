@@ -1,19 +1,19 @@
+# import decorators
 from .decorators import require_ordinary_user, require_artist, derive_user_type
 from django.contrib.auth.decorators import login_required
-from django.core import serializers
+# import shortcuts
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic.edit import CreateView
-from .models import Playlist, OrdinaryUser, Song, Artist, Album, Account
+# import dal models.py
+from .models import Playlist, OrdinaryUser, Song, Artist, Album
+# import dal forms.py
 from .forms import AllSearchForm, CreatePlaylistForm, AddSongToPlaylistForm
 import collections
-import json
-import datetime
-from django.contrib.auth.models import User
 # import (machine learning)
 from pandas import read_csv
 from sklearn.tree import DecisionTreeClassifier
 # import Q
 from django.db.models import Q
+
 
 @derive_user_type
 def index(request):
@@ -61,12 +61,18 @@ def index(request):
         return render(request, 'index.html')
 
 # download song
+
+
 @login_required
 @derive_user_type
 @require_ordinary_user
 def download_song(request):
+    """
+    Download song
+    """
     downloadsong = Song.objects.all()
-    return render(request, 'playlist_detail.html', {'downloadsong':downloadsong})
+    return render(request, 'playlist_detail.html', {'downloadsong': downloadsong})
+
 
 @login_required
 @derive_user_type
@@ -188,6 +194,9 @@ def uploaded_albums(request):
 @login_required
 @derive_user_type
 def account_detail(request):
+    """
+    View per i dettagli dell'account
+    """
     # oggetto account
     account = request.account
 
@@ -197,7 +206,7 @@ def account_detail(request):
         'surname': account.surname,
         'email': account.email,
         'eta': account.calcolaEta(),
-        'sesso': account.sexValue(),
+        'sesso': account.sexvalue(),
     }
     return render(request, 'account_detail.html', context)
 
@@ -205,6 +214,9 @@ def account_detail(request):
 @login_required
 @derive_user_type
 def search_results(request):
+    """
+    View per i risultati della ricerca
+    """
     if request.method == 'GET':
         songs = []
         albums = []
@@ -222,6 +234,8 @@ def search_results(request):
     return render(request, 'search_results.html', context)
 
 # view per la pagina social (principale)
+
+
 @login_required
 @derive_user_type
 @require_ordinary_user
@@ -241,20 +255,25 @@ def people(request):
     return render(request, 'people_results.html', context)
 
 # view per la ricerca di utenti
+
+
 @login_required
 @derive_user_type
 @require_ordinary_user
 def people_results(request):
+    """
+    View per la ricerca di utenti
+    """
     if request.method == 'GET':
         ordinaryuser = []
         form = AllSearchForm()
     else:
         form = AllSearchForm(request.POST)
         # filtro tutti gli utenti presenti nel db per parte del nome
-        #ordinaryuser = OrdinaryUser.objects.filter(account__name__icontains=form.data['q'])
-        ordinaryuser = OrdinaryUser.objects.filter( Q(account__name__icontains=form.data['q']) | 
-                                                   Q(account__surname__icontains=form.data['q']) )
-    
+        # ordinaryuser = OrdinaryUser.objects.filter(account__name__icontains=form.data['q'])
+        ordinaryuser = OrdinaryUser.objects.filter(Q(account__name__icontains=form.data['q']) |
+                                                   Q(account__surname__icontains=form.data['q']))
+
     # ottengo l'utente corrente (ordinaryuser)
     ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
 
@@ -267,10 +286,15 @@ def people_results(request):
     return render(request, 'people_results.html', context)
 
 # view per l'aggiunta di amici
+
+
 @login_required
 @derive_user_type
 @require_ordinary_user
 def add_friends(request, ordinaryuser_id):
+    """
+    View per l'aggiunta di amici
+    """
     # ottengo l'id dell'utente (ordinaryuser) che voglio aggiungere come amico
     ordinaryuser = get_object_or_404(OrdinaryUser, pk=ordinaryuser_id)
     # ottengo l'utente corrente (ordinaryuser) che vuole aggiungere l'amico
@@ -279,28 +303,38 @@ def add_friends(request, ordinaryuser_id):
     ordinaryuser_current.save()
 
     # context
-    context = { 'friends_list': ordinaryuser_current.friends.all() }
-    #return render(request, 'friends_detail.html', context)
+    context = {'friends_list': ordinaryuser_current.friends.all()}
+    # return render(request, 'friends_detail.html', context)
     return redirect('friends_detail')
 
 # view per la visualizzazione della lista amici nella pagina friends
+
+
 @login_required
 @derive_user_type
 @require_ordinary_user
 def friends_detail(request):
+    """
+    View per la visualizzazione della lista amici nella pagina friends
+    """
     # ottengo l'utente corrente (ordinaryuser)
     ordinaryuser_current = OrdinaryUser.objects.get(account=request.account)
     # ottengo la lista dei soli amici
     friends_list = ordinaryuser_current.friends.all()
     # context
-    context = { 'friends_list': friends_list }
+    context = {'friends_list': friends_list}
     return render(request, 'friends_detail.html', context)
 
 # view per rimozione degli amici nella pagina friends
+
+
 @login_required
 @derive_user_type
 @require_ordinary_user
 def remove_friends(request, ordinaryuser_id):
+    """
+    View per rimozione degli amici nella pagina friends
+    """
     # ottengo l'id dell'utente (ordinaryuser) che voglio rimuovere dalla lista di amici
     ordinaryuser = get_object_or_404(OrdinaryUser, pk=ordinaryuser_id)
     # ottengo l'utente corrente (ordinaryuser) che vuole rimuovere l'amico
@@ -308,14 +342,18 @@ def remove_friends(request, ordinaryuser_id):
     ordinaryuser_current.friends.remove(ordinaryuser)
     ordinaryuser_current.save()
     # context
-    context = { 'friends_list': ordinaryuser_current.friends.all() }
-    #return render(request, 'friends_detail.html', context)
+    context = {'friends_list': ordinaryuser_current.friends.all()}
+    # return render(request, 'friends_detail.html', context)
     return redirect('friends_detail')
+
 
 @login_required
 @derive_user_type
 @require_ordinary_user
 def playlist_create(request):
+    """
+    Creazione di una playlist
+    """
     form = CreatePlaylistForm(request.POST)
     ordinary_user = OrdinaryUser.objects.get(account=request.account)
     p = Playlist(creator=ordinary_user, name=form.data['playlist_name'])
@@ -327,6 +365,9 @@ def playlist_create(request):
 @derive_user_type
 @require_ordinary_user
 def add_song_to_playlist(request, song_id):
+    """
+    Aggiungere una canzone ad una playlist
+    """
     form = AddSongToPlaylistForm(request.POST)
     song = get_object_or_404(Song, pk=song_id)
     playlist = get_object_or_404(Playlist, pk=form.data['playlist'])
@@ -339,6 +380,9 @@ def add_song_to_playlist(request, song_id):
 @derive_user_type
 @require_ordinary_user
 def like_song(request, song_id):
+    """
+    Mettere il like alla canzone (like)
+    """
     song = get_object_or_404(Song, pk=song_id)
     ordinary_user = OrdinaryUser.objects.get(account=request.account)
     ordinary_user.liked_songs.add(song)
@@ -350,6 +394,9 @@ def like_song(request, song_id):
 @derive_user_type
 @require_ordinary_user
 def unlike_song(request, song_id):
+    """
+    Togliere il like dalla canzone (unlike)
+    """
     song = get_object_or_404(Song, pk=song_id)
     ordinary_user = OrdinaryUser.objects.get(account=request.account)
     ordinary_user.liked_songs.remove(song)
@@ -361,6 +408,9 @@ def unlike_song(request, song_id):
 @derive_user_type
 @require_ordinary_user
 def delete_playlist(request, playlist_id):
+    """
+    Cancella Playlist
+    """
     playlist = get_object_or_404(Playlist, pk=playlist_id)
     playlist.delete()
     return redirect('playlists')
@@ -370,6 +420,9 @@ def delete_playlist(request, playlist_id):
 @derive_user_type
 @require_ordinary_user
 def remove_song_from_playlist(request, playlist_id, song_id):
+    """
+    Rimozione di una canzone dalla playlist
+    """
     playlist = get_object_or_404(Playlist, pk=playlist_id)
     song = get_object_or_404(Song, pk=song_id)
     playlist.songs.remove(song)
@@ -377,9 +430,14 @@ def remove_song_from_playlist(request, playlist_id, song_id):
     return redirect('playlist_detail', playlist_id=playlist.id)
 
 # view contenente l'algoritmo di discover
+
+
 @login_required
 @derive_user_type
 def discover(request):
+    """
+    Algoritmo di Discover
+    """
     # oggetto account
     account = request.account
     # ottengo l'utente corrente (ordinaryuser)
@@ -389,7 +447,7 @@ def discover(request):
     ordinaryuser_current_age = account.calcolaEta()
     # ricavo il sesso (finto) dell'utente corrente
     # 0 = femmina, 1 = uomo, maschio
-    ordinaryuser_current_gender = account.sexBool()
+    ordinaryuser_current_gender = account.sexbool()
 
     # algoritmo di discover
     # lettura del training set
@@ -404,10 +462,11 @@ def discover(request):
     # alleniamo il modello
     modello.fit(X.values, y.values)
     # [sesso dell'utente target, età dell'utente target]
-    # 0 = colonna sesso (0=femmina, 1=maschio), 31 = colonna età obiettivo 
+    # 0 = colonna sesso (0=femmina, 1=maschio), 31 = colonna età obiettivo
     # 1 = colonne sesso (0=femmina, 1=maschio), 16 = colonne età obiettivo
     # previsione dei generi musicali in base all'eta e al sesso dell'utente corrente
-    previsione = modello.predict([[ordinaryuser_current_gender,ordinaryuser_current_age]])
+    previsione = modello.predict(
+        [[ordinaryuser_current_gender, ordinaryuser_current_age]])
     # salvo il genere musicale dedotto dall'algoritmo
     genere_target = previsione[0]
 
@@ -416,32 +475,33 @@ def discover(request):
     # l'algoritmo estrapola per sesso ed età dell'utente corrente i generi musicali
     # suggerendoli mediante una lista di brani
     # estraggo dal db tutti i brani con il genere dedotto dall'algoritmo
-    list_songs_genere_target_db = Song.objects.filter( genre__icontains=genere_target )
+    list_songs_genere_target_db = Song.objects.filter(
+        genre__icontains=genere_target)
     # a questo punto, devo assicurarmi che l'algoritmo NON suggerisca all'utente
     # corrente brani che gli piacciano già
     # creo una lista di brani che piacciono (già) all'utente corrente
     list_songs_liked = ordinaryuser_current.liked_songs.values()
     # creo una lista di soli id dei brani che piacciono (già) all'utente corrente
     list_songs_liked_id = []
-    # per ogni canzone che piace all'utente corrente (var.temp. sl), ne estrapolo 
+    # per ogni canzone che piace all'utente corrente (var.temp. sl), ne estrapolo
     # il relativo id
     for sl in list_songs_liked:
         list_songs_liked_id.append(sl["id"])
-    
-    # creo la lista vuota dei brani che dovrenno essere suggeriti all'utente 
+
+    # creo la lista vuota dei brani che dovrenno essere suggeriti all'utente
     # dall'algoritmo con l'accorgimento di non inserire i duplicati che già
     # piacciono
     list_songs_genere_target = []
     # per ogni brano estrapolato dal db con il giusto target di genere previsionale,
     # verifico che non sia già nella lista di quelli a cui piace all'utente
     for s in list_songs_genere_target_db:
-        if( s.id not in list_songs_liked_id ):
+        if s.id not in list_songs_liked_id:
             # si può aggiungere il brano corrente ai suggerimenti proposti dall'algoritmo
             list_songs_genere_target.append(s)
 
     # SECONDA PARTE DELL'ALGORITMO DI DISCOVER
     # creazione della lista vuota contenente gli amici suggeriti dall'algoritmo.
-    # criterio: se ad un utente piace almeno un brano con il medesimo genere_target, 
+    # criterio: se ad un utente piace almeno un brano con il medesimo genere_target,
     # viene aggiunto alla lista. Inizialmente la lista degli amici suggeriti è vuota
     list_suggested_friends = []
 
@@ -460,18 +520,18 @@ def discover(request):
         for y in x.liked_songs.all().values():
             # salvo il genere musicale in genere_canzone_utente_temp
             genere_canzone_utente_temp = y["genre"]
-            
+
             # condizioni per rientrare tra gli utenti suggeriti:
-            # 1) all'utente x del foreach deve piacere almeno una canzone con 
-            # lo stesso genere_target che stiamo cercando, allora lo aggiunge 
+            # 1) all'utente x del foreach deve piacere almeno una canzone con
+            # lo stesso genere_target che stiamo cercando, allora lo aggiunge
             # alla lista degli amici suggeriti.
             # 2) l'utente x del foreach non deve essere già un amico dell'utente
             # corrente, ovvero su colui che sta girando l'algoritmo
             # 3) l'utente x del foreach non deve essere lo stesso su cui stiamo
             # eseguendo l'algoritmo
-            if ( (genere_target == genere_canzone_utente_temp) and 
-            (x.account.id not in list_friends_accountid) and 
-            (x.account.id != account.id) ):
+            if ((genere_target == genere_canzone_utente_temp) and
+                (x.account.id not in list_friends_accountid) and
+                    (x.account.id != account.id)):
                 list_suggested_friends.append(x)
 
     # context

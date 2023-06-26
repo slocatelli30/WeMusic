@@ -1,3 +1,7 @@
+"""
+Tests.py
+"""
+
 # import TestCase
 from django.test import TestCase
 # import datetime
@@ -14,10 +18,11 @@ from .models import Song
 # import Playlist
 from .models import Playlist
 
-# Create your tests here.
-
-# Test per la classe Account
 class AccountModelTests(TestCase):
+    """
+    Test per la classe Account
+    """
+
     # test nome account vuoto
     def test_name_account_empty(self):
         """
@@ -25,7 +30,7 @@ class AccountModelTests(TestCase):
         ritorna false in fase di test, altrimenti true
         """
         name_fake = ""
-        account_fake = Account(name = name_fake)
+        account_fake = Account(name=name_fake)
         self.assertIs(account_fake.account_name_correct(), False)
 
     # test nome account contiene numeri
@@ -36,7 +41,7 @@ class AccountModelTests(TestCase):
         altrimenti true
         """
         name_err = "Luca9"
-        account_err = Account(name = name_err)
+        account_err = Account(name=name_err)
         self.assertIs(account_err.account_name_correct(), False)
 
     # test email non corretta (pt.1)
@@ -47,7 +52,7 @@ class AccountModelTests(TestCase):
         """
         # email errata per mancanza della @
         email_fake = "pulcinopiowemusic.it"
-        account_fake = Account(email = email_fake)
+        account_fake = Account(email=email_fake)
         self.assertIs(account_fake.account_email_correct(), False)
 
     # test email non corretta (pt.2)
@@ -58,27 +63,119 @@ class AccountModelTests(TestCase):
         """
         # email errata per mancanza del punto (.)
         email_fake = "pulcinopio@wemusicit"
-        account_fake = Account(email = email_fake)
+        account_fake = Account(email=email_fake)
         self.assertIs(account_fake.account_email_correct(), False)
 
-# Test per la classe Album
+    # test birth date (corretto)
+    def test_birth_date_1(self):
+        """
+        Se gli anni riferiti ad un account sono corretti,
+        ritorna true in fase di test
+        """
+        # anni corretti
+        birth_date_test = datetime.date(1995, 6, 19)
+        account_fake = Account(birth_date=birth_date_test)
+        self.assertIs(account_fake.account_age_correct(), True)
+
+    # test birth date (non corretto)
+    def test_birth_date_2(self):
+        """
+        Se gli anni riferiti ad un account NON sono corretti,
+        ritorna False in fase di test
+        """
+        # anni corretti
+        birth_date_test = datetime.date.today()
+        account_fake = Account(birth_date=birth_date_test)
+        self.assertIs(account_fake.account_age_correct(), False)
+
+    # test sex (femmina, corretto)
+    def test_sex_femmina(self):
+        """
+        Se il sesso riferito ad un account è corretto,
+        ritorna il relativo valore in fase di test
+        """
+        # sesso corretto
+        sex_test = 'F'
+        account_fake = Account(sex=sex_test)
+        self.assertIs(account_fake.sexvalue(), 'Femmina')
+
+    # test sex (maschio, corretto)
+    def test_sex_maschio(self):
+        """
+        Se il sesso riferito ad un account è corretto,
+        ritorna il relativo valore in fase di test
+        """
+        # sesso corretto
+        sex_test = 'M'
+        account_fake = Account(sex=sex_test)
+        self.assertIs(account_fake.sexvalue(), 'Maschio')
+
+    # test sex (non corretto)
+    def test_sex_error(self):
+        """
+        Se il sesso riferito ad un account NON è corretto,
+        ritorna False in fase di test
+        """
+        # sesso corretto
+        sex_test = 'bho'
+        account_fake = Account(sex=sex_test)
+        self.assertIs(account_fake.sexvalue(), False)
+
+    # test sex (0, corretto)
+    def test_sex_0(self):
+        """
+        Se il sesso riferito ad un account è corretto,
+        ritorna il relativo valore boolean in fase di test
+        """
+        # sesso corretto
+        sex_test = 'F'
+        account_fake = Account(sex=sex_test)
+        self.assertIs(account_fake.sexbool(), 0)
+
+    # test sex (1, corretto)
+    def test_sex_1(self):
+        """
+        Se il sesso riferito ad un account è corretto,
+        ritorna il relativo valore boolean in fase di test
+        """
+        # sesso corretto
+        sex_test = 'M'
+        account_fake = Account(sex=sex_test)
+        self.assertIs(account_fake.sexbool(), 1)
+
+    # test sex (NON corretto)
+    def test_sex_2(self):
+        """
+        Se il sesso riferito ad un account è corretto,
+        ritorna il relativo valore boolean in fase di test
+        """
+        # sesso corretto
+        sex_test = 'ZZZ'
+        account_fake = Account(sex=sex_test)
+        self.assertIs(account_fake.sexbool(), False)
+
 class AlbumModelTests(TestCase):
+    """
+    Test per la classe Album
+    """
     # test data pubblicazione corretta
     def test_album_data_pub_correct(self):
         """
         Se la data di pubblicazione dell'album è passata o attuale
         ritorna True, False altrimenti
         """
-        # creo una data fantoccia che mi porta nel futuro, 
+        # creo una data fantoccia che mi porta nel futuro,
         # tra 30 giorni
-        time = timezone.now() +  datetime.timedelta(days=30)
+        time = timezone.now() + datetime.timedelta(days=30)
         # creo un album futuro
-        future_album = Album(pub_date = time)
+        future_album = Album(pub_date=time)
         # test
         self.assertIs(future_album.album_pub_correct(), False)
 
-# Test per la classe Song
 class SongModelTests(TestCase):
+    """
+    Test per la classe Song
+    """
     # test genre song corretto (genere inventato)
     def test_song_genre_correct(self):
         """
@@ -87,7 +184,7 @@ class SongModelTests(TestCase):
         """
         # genere sbagliato, perché inventato
         genre_err = "arabasound"
-        genre_err = Song(genre = genre_err)
+        genre_err = Song(genre=genre_err)
         self.assertIs(genre_err.song_genre_correct(), False)
 
     # test genre song corretto (genere corretto)
@@ -98,9 +195,9 @@ class SongModelTests(TestCase):
         """
         # genere corretto
         genre_ok = "lirica"
-        genre_ok = Song(genre = genre_ok)
+        genre_ok = Song(genre=genre_ok)
         self.assertIs(genre_ok.song_genre_correct(), True)
-    
+
     # test year song corretto (numero negativo)
     def test_song_year_corrcet(self):
         """
@@ -109,7 +206,7 @@ class SongModelTests(TestCase):
         """
         # anno sbagliato, perché negativo
         year_err = -23
-        song_err = Song(year = year_err)
+        song_err = Song(year=year_err)
         self.assertIs(song_err.song_year_correct(), False)
 
     # test year song corretto (numero con la virgola)
@@ -120,11 +217,14 @@ class SongModelTests(TestCase):
         """
         # anno sbagliato, perché negativo
         year_err = 2000.7
-        song_err = Song(year = year_err)
+        song_err = Song(year=year_err)
         self.assertIs(song_err.song_year_correct(), False)
 
-# Test per la classe Playlist
 class PlaylistModelTests(TestCase):
+    """
+    Test per la classe Playlist
+    """
+
     # test nome playlist corretto
     def test_playlist_name_correct(self):
         """
@@ -132,7 +232,7 @@ class PlaylistModelTests(TestCase):
         ritorna false in fase di test, altrimenti true
         """
         playlist_name_empty = ""
-        playlist_err = Playlist(name = playlist_name_empty)
+        playlist_err = Playlist(name=playlist_name_empty)
         self.assertIs(playlist_err.playlist_name_correct(), False)
 
     # test creation date playlist corretto (data futura)
@@ -142,9 +242,9 @@ class PlaylistModelTests(TestCase):
         ritorna True, altrimenti False
         """
         # data futura della creazione della Playlist
-        playlist_creat_date_err = timezone.now() +  datetime.timedelta(days=30)
+        playlist_creat_date_err = timezone.now() + datetime.timedelta(days=30)
         # Playlist futura
-        playlist_err = Playlist(creation_date = playlist_creat_date_err)
+        playlist_err = Playlist(creation_date=playlist_creat_date_err)
         self.assertIs(playlist_err.playlist_creation_date_correct(), False)
 
     # test creation date playlist corretto (data passata)
@@ -154,7 +254,7 @@ class PlaylistModelTests(TestCase):
         ritorna True, altrimenti False
         """
         # data passata della creazione della Playlist
-        playlist_creat_date_err = timezone.now() -  datetime.timedelta(days=15)
+        playlist_creat_date_err = timezone.now() - datetime.timedelta(days=15)
         # Playlist passata
-        playlist_err = Playlist(creation_date = playlist_creat_date_err)
+        playlist_err = Playlist(creation_date=playlist_creat_date_err)
         self.assertIs(playlist_err.playlist_creation_date_correct(), True)

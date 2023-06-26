@@ -1,8 +1,12 @@
+
 from django.shortcuts import redirect
 from .models import OrdinaryUser, Account
 
 
 def require_ordinary_user(fun):
+    """
+    require_ordinary_user
+    """
     def wrapper(request, *args, **kwargs):
         if request.user_type == 'ordinary':
             return fun(request, *args, **kwargs)
@@ -11,6 +15,9 @@ def require_ordinary_user(fun):
 
 
 def require_artist(fun):
+    """
+    require_artist
+    """
     def wrapper(request, *args, **kwargs):
         if request.user_type == 'artist':
             return fun(request, *args, **kwargs)
@@ -19,6 +26,9 @@ def require_artist(fun):
 
 
 def derive_user_type(fun):
+    """
+    derive_user_type
+    """
     def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated:
             request.user_type = None
