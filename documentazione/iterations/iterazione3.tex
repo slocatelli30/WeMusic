@@ -27,7 +27,7 @@ relative alle componenti implementate in questa iterazione,
 ovvero Amici e Discover (parte relativa all'algoritmo).
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.64]{component_diagram_ver4_5.png} 
+    \includegraphics[scale=0.64]{component_diagram_ver5_5.png} 
     \caption{UML Component Diagram}
     \label{fig-uml-component-diag_5}
 \end{figure}
@@ -556,10 +556,34 @@ In conclusione, la complessità dell'addestramento di un albero decisionale
 con la funzione DecisionTreeClassifier e la regressione tramite fit 
 risulta $O(n * m * log(m))$.
 
+
+
+
+
+
 \newpage
-\section{Casi di test}
+\section{Analisi statica}
+\subsection{Backend}
 Il testing statico dei campi è una pratica comune nel processo di sviluppo del software 
 per verificare che i dati immessi in determinati campi rispettino determinate regole o vincoli. 
+Per l'analisi statica del back-end è stato usato pylint, un linter configurabile per il 
+linguaggio Python. Esso mette a disposizione varie funzionalità:
+\begin{itemize}
+    \item imposizione di \textit{coding standard} e di \textit{code style};
+    \item \textit{error detection}, sia a livello sintattico sia a livello di tipi;
+    \item \textit{refactoring} per codice non usato e/o duplicato;
+    \item integrazione con vari IDE al fine di fornire tutto ciò in tempo reale. 
+\end{itemize}
+Pylint è configurato tramite un file che contiene tutti parametri e le impostazioni 
+da noi scelti per diminuire la complessità del codice ed aumentarne la chiarezza.
+Il linting del progetto avviene tramite uno script e, oltre a warning ed errori, 
+nell'output è presente anche un singolo numero (su una scala da 1 a 10) che valuta il codice. 
+In particolare, alla fine di questa iterazione questo valore è pari a
+
+
+
+\section{Analisi dinamica}
+\subsection{Testing Backend}
 Durante la terza iterazione sono stati sviluppati dei test su specifici campi delle classi, organizzati nel file test.py. Per supportare l'esecuzione 
 dei test, sono state create funzioni ausiliarie raggruppate nel file utility.py.
 Di seguito vengono descritti i casi di test per i campi chiave delle classi Account, Album e Playlist.
@@ -587,7 +611,7 @@ def test_album_data_pub_correct(self):
 \end{itemize}
 \begin{lstlisting}[caption={PlaylistModelTests(TestCase)}, captionpos=b]
 def test_playlist_name_correct(self):
-    playlist_name_empty = ""
+    playlist_name_empty = ``"
     playlist_err = Playlist(name = playlist_name_empty)
     self.assertIs(playlist_err.playlist_name_correct(), 
                                                 False)
@@ -603,7 +627,7 @@ Durante la fase di registrazione, sono presenti tre casi di test che verificano 
 \end{itemize}
 \begin{lstlisting}[caption={class AccountModelTests(TestCase)}, captionpos=b]   
 def test_name_account_empty(self):
-    name_fake = ""
+    name_fake = ``"
     account_fake = Account(name = name_fake)
     self.assertIs(account_fake.account_name_correct(), 
                                                 False)
@@ -616,7 +640,7 @@ def test_name_account_empty(self):
 \end{itemize}
 \begin{lstlisting}[caption={class AccountModelTests(TestCase)}, captionpos=b]
 def test_name_account_number(self):
-    name_err = "Luca9"
+    name_err = ``Luca9"
     account_err = Account(name = name_err)
     self.assertIs(account_err.account_name_correct(), 
                                                 False)
@@ -629,9 +653,13 @@ def test_name_account_number(self):
 \end{itemize}
 \begin{lstlisting}[caption={class AccountModelTests(TestCase)}, captionpos=b]
 def test_email_account_correct(self):
-    email_fake = "pulcinopiowemusic.it"
+    email_fake = ``pulcinopiowemusic.it"
     account_fake = Account(email = email_fake)
     self.assertIs(account_fake.account_email_correct(), 
                                                 False)
 \end{lstlisting}
 
+\subsection{Coverage}
+Coverage.py è uno strumento atto a misurare la copertura del codice per il linguaggio
+Python. È anche disponibile un output interattivo in HTML, il cui output per il codice di questa iterazione è visibile
+in figura (ref).
