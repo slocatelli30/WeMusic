@@ -10,7 +10,19 @@ i casi d'uso già implementati e quelli ancora da implementare
 nelle future fasi di sviluppo. Questo elenco mira a fornire 
 una panoramica chiara delle attività svolte e delle attività 
 rimanenti, consentendo una migliore pianificazione anche grazie al tipo
-di priorità assegnato al caso d'uso in questione.
+di priorità assegnato al caso d'uso in questione. 
+
+I casi d'uso che non sono stati implementati si riferiscono 
+specificamente alle funzionalità che sono attive solo dal lato 
+amministratore e non sono ancora disponibili per gli utenti regolari. 
+Anche se queste funzionalità possono essere funzionanti e operative nel 
+contesto amministrativo, non possono ancora essere considerate come 
+completamente implementate fino a quando non saranno accessibili e utilizzabili 
+anche dagli utenti standard. 
+
+Pertanto, è importante distinguere tra le funzionalità 
+che sono attualmente disponibili solo per gli amministratori e quelle che sono 
+pienamente accessibili e utilizzabili dagli utenti regolari.
 
 \newpage
 \subsection{Casi d'uso implementati}
@@ -21,11 +33,9 @@ di priorità assegnato al caso d'uso in questione.
          Codice & Caso d'uso & Priorità \\ 
          \hline
          \hline
-         \texttt{UC1} & \texttt{Sign up (Utente)} & \texttt{Alta} \\ 
+         \texttt{UC2} & \texttt{Sign in} & \texttt{Alta} \\ 
          \hline
-         \texttt{UC2} & \texttt{Sign in (Utente)} & \texttt{Alta} \\ 
-         \hline
-         \texttt{UC3} & \texttt{Sign out (Utente)} & \texttt{Alta} \\ 
+         \texttt{UC3} & \texttt{Sign out} & \texttt{Alta} \\ 
          \hline
          \texttt{UC4} & \texttt{Cerca Brano} & \texttt{Alta} \\ 
          \hline
@@ -51,11 +61,7 @@ di priorità assegnato al caso d'uso in questione.
          \hline
          \texttt{UC11} & \texttt{Aggiungi Utente} & \texttt{Alta} \\ 
          \hline
-         \texttt{UC12} & \texttt{Visualizza informazioni progilo} & \texttt{Media} \\ 
-         \hline
-         \texttt{UC13} & \texttt{Modifica profilo} & \texttt{Media} \\ 
-         \hline
-         \texttt{UC14} & \texttt{Elimina profilo} & \texttt{Alta} \\ 
+         \texttt{UC12} & \texttt{Visualizza informazioni profilo} & \texttt{Media} \\ 
          \hline
          \texttt{UC19} & \texttt{Discover} & \texttt{Alta} \\ 
          \hline
@@ -73,17 +79,95 @@ di priorità assegnato al caso d'uso in questione.
          Codice & Caso d'uso & Priorità \\ 
          \hline
          \hline
-         \texttt{UC20} & \texttt{Sign up (Artista)} & \texttt{Alta} \\ 
+         \texttt{UC1} & \texttt{Sign up} & \texttt{Alta} \\ 
          \hline
-         \texttt{UC21} & \texttt{Sign in (Artista)} & \texttt{Alta} \\ 
+         \texttt{UC13} & \texttt{Modifica profilo} & \texttt{Media} \\ 
          \hline
-         \texttt{UC22} & \texttt{Sign out (Artista)} & \texttt{Alta} \\ 
+         \texttt{UC14} & \texttt{Elimina profilo} & \texttt{Alta} \\ 
          \hline
-         \texttt{UC23} & \texttt{Gestisci profilo artitsta} & \texttt{Media} \\ 
+         \texttt{UC20} & \texttt{Crea pagina Artista} & \texttt{Alta} \\ 
          \hline
-         \texttt{UC24} & \texttt{Consulta anagrafica} & \texttt{Media} \\ 
+         \texttt{UC21} & \texttt{Visualizza pagina Artista} & \texttt{Alta} \\ 
+         \hline
+         \texttt{UC22} & \texttt{Aggiungi Brano} & \texttt{Alta} \\ 
+         \hline
+         \texttt{UC23} & \texttt{Aggiungi Album} & \texttt{Media} \\ 
+         \hline
+         \texttt{UC24} & \texttt{Personalizza pagina Artista} & \texttt{Media} \\ 
+         \hline
+         \texttt{UC25} & \texttt{Consulta anagrafica} & \texttt{Media} \\ 
          \hline
          \end{tabular}
     \end{center}
     \caption{Tabella UC non implementati}
 \end{table}
+
+\newpage
+\section{Toolchain e tecnologie utilizzate}
+La seguente sezione comprende tutte le scelte di librerie, framework e piattaforme
+che sono state effettuate per l'implementazione del progetto.
+
+\subsection{Modellazione}
+\begin{itemize}
+      \item \textbf{Diagrammi UML di casi d'uso, deployment, delle classi:} Star UML,  strumento di modellazione UML che 
+      consente agli sviluppatori e agli analisti di creare modelli visivi delle loro applicazioni software; supporta anche 
+      l'importazione ed esportazione di file in vari formati UML, facilitando la collaborazione e lo scambio di modelli.
+      con altri strumenti di modellazione UML.
+      \item \textbf{Diagrammi UML di componenti, attività:}  Draw.io, uno strumento versatile che può essere utilizzato 
+      sia online che offline ed è disponibile come open source. È utilizzato per creare una vasta gamma di diagrammi generici e,
+      oltre a ciò, offre anche strumenti specifici per la modellazione UML.
+\end{itemize}
+
+\vspace{5pt}
+\subsection{Linguaggi e librerie}
+
+\subsubsection{Backend} Per l'implementazione del back-end sono stati usati:
+\begin{itemize}
+    \item \textbf{Python} come linguaggio di programmazione, scelto per la sua semplicità
+    e portabilità;
+    \item \textbf{PIP} come package manager per Python;
+    \item \textbf{Django}, un framework Python per la realizzazione di server, gestione
+    di database e templating;
+    \item \textbf{SQLite3} come DBMS, un dialetto SQL che offre un'ottima integrazione
+    con Python; pur non essendo il più performante, è stato scelto per
+    rapidità di implementazione, e in iterazioni future è possibile scambiarlo
+    con altri DBMS più performanti;
+    \item \textbf{Pylint} per l'analisi statica del codice Python, l'identificazione realtime
+    di errori, warning e la fornitura di ottimizzazioni e suggerimenti;
+    \item \textbf{Django Test Framework} e \textbf{Coverage.py} per l'analisi dinamica del
+    codice Python, dei quali il primo è integrato in Django, mentre il secondo
+    è uno strumento esterno per misurare la copertura del codice che
+    fornisce anche un output interattivo in HTML.
+\end{itemize}
+
+\subsubsection{Frontend} Per l'implementazione del front-end sono stati usati:
+\begin{itemize}
+    \item \textbf{Bootstrap}, un framework che comprende svariati stili di default per
+    velocizzare lo sviluppo di una UI coerente e reattiva;
+    \item \textbf{HTML} e \textbf{CSS} come linguaggi di markup e styling delle pagine web;
+    \item \textbf{Electron}, una libreria usata per poter compilare il codice 
+     in una app cross-platform.
+\end{itemize}
+
+\vspace{5pt}
+\subsection{Documentazione, Versioning e Organizzazione del team}
+La documentazione è stata scritta in \textbf{Latex}, compilata tramite \textbf{Visual Studio Code}.
+Il sistema di versioning utilizzato è \textbf{Git}, un sistema di versioning distribuito,
+open source e gratuito. Il codice del progetto è presente anche su \textbf{GitHub}, un sito per remote hosting
+di progetti git.
+L'organizzazione del team è avvenuta tramite \textbf{Discord}.
+
+\vspace{5pt}
+\subsection{Ambienti e IDEs}
+Lo strumento principale utilizzato è \textbf{Visual Studio Code}, un editor di
+testo open source e gratuito realizzato per i sistemi operativi Linux, macOS
+e Windows.
+
+Esso non è un IDE, in quanto non offre funzionalità di build automation
+e debugging, ma si basa invece su un sistema di estensioni, sia per syntax
+highlighting, linting, testing e building, mentre tutti gli strumenti per il
+funzionamento dei linguaggi sono locali e forniti dal sistema operativo.
+
+Fra le molte funzionalità, è presente anche la \textit{condivisione live} del codice, in
+modo da poterne discutere in real-time e poter usare tecniche di sviluppo
+agili che richiedono più persone, come il \textit{pair programming}, anche a distanza.
