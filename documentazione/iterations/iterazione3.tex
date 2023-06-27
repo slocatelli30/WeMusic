@@ -563,6 +563,7 @@ risulta $O(n * m * log(m))$.
 
 \newpage
 \section{Analisi statica}
+\vspace{2pt}
 \subsection{Backend}
 Il testing statico dei campi è una pratica comune nel processo di sviluppo del software 
 per verificare che i dati immessi in determinati campi rispettino determinate regole o vincoli. 
@@ -581,20 +582,23 @@ nell'output è presente anche un singolo numero (su una scala da 1 a 10) che val
 In particolare, alla fine di questa iterazione questo valore è pari a
 
 
-
+\newpage
 \section{Analisi dinamica}
+\vspace{2pt}
 \subsection{Testing Backend}
 Durante la terza iterazione sono stati sviluppati dei test su specifici campi delle classi, organizzati nel file test.py. Per supportare l'esecuzione 
 dei test, sono state create funzioni ausiliarie raggruppate nel file utility.py.
 Di seguito vengono descritti i casi di test per i campi chiave delle classi Account, Album e Playlist.
 
-
+\vspace{3pt}
 \subparagraph{Test per la classe \textbf{Album:}} La classe Album gestisce le informazioni riguardanti un album musicale. È presente un caso di test che verifica la validità della data di pubblicazione.
+\vspace{2pt}
 \begin{itemize}
     \item \textbf{isValidReleaseDate(const char* releaseDate):}
     Questo test verifica che la data di pubblicazione immessa per l'album sia valida. Se la data non rispetta un formato o una logica valida, il test restituisce false, altrimenti restituisce true.
 \end{itemize}
 
+\vspace{2pt}
 \begin{lstlisting}[caption={class AlbumModelTests(TestCase)}, captionpos=b]
 def test_album_data_pub_correct(self):
     time = timezone.now() +  datetime.timedelta(days=30)
@@ -604,11 +608,14 @@ def test_album_data_pub_correct(self):
 \end{lstlisting} 
 
 
+\newpage
 \subparagraph{Test per la classe \textbf{Playlist:}} La classe Playlist gestisce le informazioni di una playlist musicale. È presente un caso di test che verifica la validità del nome della playlist:
+\vspace{2pt}
 \begin{itemize}
     \item \textbf{isValidPlaylistName(const char* playlistName):}
     Questo test verifica che il nome immesso durante la creazione della playlist sia valido. Se il nome non rispetta determinati criteri o restrizioni, il test restituisce false, altrimenti restituisce true.
 \end{itemize}
+\vspace{2pt}
 \begin{lstlisting}[caption={PlaylistModelTests(TestCase)}, captionpos=b]
 def test_playlist_name_correct(self):
     playlist_name_empty = ``"
@@ -617,14 +624,15 @@ def test_playlist_name_correct(self):
                                                 False)
 \end{lstlisting} 
 
-
+\vspace{10pt}
 \subparagraph{Test per la classe \textbf{Account:}} La classe Account gestisce le informazioni dell'utente, come il nome e l'email. 
 Durante la fase di registrazione, sono presenti tre casi di test che verificano la validità dei dati immessi:
-\vspace{0.2cm}
+\vspace{2pt}
 \begin{itemize}
     \item \textbf{isNameNotEmpty(const char* name)}
     Questo test verifica che il nome immesso durante la registrazione non sia vuoto. Se il nome è vuoto, il test restituisce false, altrimenti restituisce true;
 \end{itemize}
+\vspace{2pt}
 \begin{lstlisting}[caption={class AccountModelTests(TestCase)}, captionpos=b]   
 def test_name_account_empty(self):
     name_fake = ``"
@@ -632,12 +640,14 @@ def test_name_account_empty(self):
     self.assertIs(account_fake.account_name_correct(), 
                                                 False)
 \end{lstlisting} 
-\vspace{0.2cm}
 
+
+\newpage
 \begin{itemize}    
     \item \textbf{isNameWithoutNumbers(const char* name):}
     Questo test verifica che il nome immesso durante la registrazione non contenga numeri. Se il nome contiene almeno un numero, il test restituisce false, altrimenti restituisce true.
 \end{itemize}
+\vspace{2pt}
 \begin{lstlisting}[caption={class AccountModelTests(TestCase)}, captionpos=b]
 def test_name_account_number(self):
     name_err = ``Luca9"
@@ -645,12 +655,13 @@ def test_name_account_number(self):
     self.assertIs(account_err.account_name_correct(), 
                                                 False)
 \end{lstlisting} 
-\vspace{0.2cm}
+\vspace{10pt}
 
 \begin{itemize}
     \item \textbf{isValidEmail(const char* email):}
     Questo test verifica che l'email immessa durante la registrazione sia valida. Se l'email non rispetta un formato valido, il test restituisce false, altrimenti restituisce true.
 \end{itemize}
+\vspace{2pt}
 \begin{lstlisting}[caption={class AccountModelTests(TestCase)}, captionpos=b]
 def test_email_account_correct(self):
     email_fake = ``pulcinopiowemusic.it"
@@ -659,6 +670,7 @@ def test_email_account_correct(self):
                                                 False)
 \end{lstlisting}
 
+\newpage
 \subsection{Coverage}
 Coverage.py è uno strumento atto a misurare la copertura del codice per il linguaggio
 Python. È anche disponibile un output interattivo in HTML, il cui output per il codice di questa iterazione è visibile
