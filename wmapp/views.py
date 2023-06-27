@@ -1,5 +1,13 @@
-# import decorators
-from .decorators import require_ordinary_user, require_artist, derive_user_type
+"""
+Views.py
+"""
+# import collections
+import collections
+# import (machine learning)
+from pandas import read_csv
+from sklearn.tree import DecisionTreeClassifier
+# import Q
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 # import shortcuts
 from django.shortcuts import render, get_object_or_404, redirect
@@ -7,12 +15,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Playlist, OrdinaryUser, Song, Artist, Album
 # import dal forms.py
 from .forms import AllSearchForm, CreatePlaylistForm, AddSongToPlaylistForm
-import collections
-# import (machine learning)
-from pandas import read_csv
-from sklearn.tree import DecisionTreeClassifier
-# import Q
-from django.db.models import Q
+# import decorators
+from .decorators import require_ordinary_user, require_artist, derive_user_type
 
 
 @derive_user_type
