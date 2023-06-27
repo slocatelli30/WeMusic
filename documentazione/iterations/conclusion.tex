@@ -171,3 +171,79 @@ funzionamento dei linguaggi sono locali e forniti dal sistema operativo.
 Fra le molte funzionalità, è presente anche la \textit{condivisione live} del codice, in
 modo da poterne discutere in real-time e poter usare tecniche di sviluppo
 agili che richiedono più persone, come il \textit{pair programming}, anche a distanza.
+
+
+\section{Analisi del sw}
+\subsection{Requisiti non funzionali}
+Le tecnologie sopracitate nel paragrafo relativo alla Toolchain, offrono anche dei precisi
+requisiti non funzionali, ovvero dei requisiti di qualità che definiscono le caratteristiche 
+e le proprietà di un sistema software che vanno oltre la sua funzionalità specifica. 
+
+Mentre i requisiti funzionali descrivono cosa fa il sistema, i requisiti non funzionali specificano come 
+il sistema dovrebbe essere in termini di prestazioni, sicurezza, usabilità, affidabilità e altri aspetti.
+
+Le tecnologie utilizzate quindi riescono ad offrire scalabilità, manutenibilità, prestazioni adeguate per 
+applicazioni di piccole e medie dimensioni, portabilità multi-piattaforma, sicurezza avanzata e affidabilità 
+grazie all'uso di framework consolidati e al supporto di una vasta comunità di sviluppatori.
+
+Di seguito vengono analizzati più nel dettaglio:
+\begin{itemize}
+    \item \textbf{Scalabilità}
+    Django, essendo un framework web robusto e scalabile, offre funzionalità di scalabilità 
+    orizzontale e verticale. Può gestire un numero crescente di richieste e traffico senza 
+    compromettere le prestazioni. Inoltre, SQLite può essere sostituito con un database più 
+    scalabile come MySQL o PostgreSQL per gestire un carico più elevato.
+
+    \item \textbf{Manutenibilità}
+    Django segue il principio di "don't repeat yourself" (DRY) e promuove una struttura organizzata 
+    del codice attraverso le sue convenzioni. Ciò rende più facile la manutenzione e l'estensione 
+    dell'applicazione nel tempo. Inoltre, l'uso di Python come linguaggio di programmazione favorisce 
+    una sintassi pulita e leggibile, facilitando la comprensione e la manutenzione del codice.
+
+    \item \textbf{Prestazioni}
+    L'utilizzo di Django e Python per il backend, insieme a SQLite come database leggero, offre prestazioni 
+    efficienti per applicazioni di piccole e medie dimensioni. Tuttavia, per applicazioni ad alto carico o con 
+    requisiti di prestazioni particolarmente elevati, è possibile sostituire SQLite con un database più performante 
+    come MySQL o PostgreSQL.
+
+    \item \textbf{Portabilità}
+    Utilizzando Electron per creare un'applicazione desktop multi-piattaforma, è possibile rendere l'applicazione 
+    compatibile con diversi sistemi operativi come Windows, macOS e Linux. Ciò consente agli utenti di utilizzare 
+    l'applicazione indipendentemente dalla piattaforma scelta.
+
+    \item \textbf{Sicurezza} 
+    Django è noto per le sue robuste funzionalità di sicurezza. Offre meccanismi di autenticazione e autorizzazione integrati, 
+    prevenzione di attacchi CSRF (Cross-Site Request Forgery) e protezione contro le vulnerabilità comuni come SQL 
+    injection e XSS (Cross-Site Scripting). Tuttavia, è importante adottare le best practice di sicurezza durante lo sviluppo 
+    e la configurazione dell'applicazione per garantire un livello adeguato di sicurezza.
+
+    \item \textbf{Affidabilità}
+    Django è ampiamente utilizzato e testato dalla comunità open source, il che contribuisce alla sua affidabilità. 
+    Inoltre, l'uso di tecnologie consolidate come Django, Bootstrap e SQLite riduce il rischio di problemi imprevisti 
+    e aiuta a fornire un'esperienza stabile agli utenti.
+
+\end{itemize}
+
+\subsection{Design Pattern}
+
+\begin{itemize}
+    \item \textbf{Abstraction (Astrazione)}
+    Django utilizza l'astrazione attraverso i modelli per rappresentare concetti del dominio e le interazioni con il database.
+    \item \textbf{Encapsulation (Incapsulamento)}
+    Python e Django promuovono l'incapsulamento attraverso l'uso di classi e metodi per raggruppare dati e funzionalità correlate.
+    \item \textbf{Information Hiding (Nascondere le informazioni)}
+    Questo principio è supportato da Python e Django attraverso l'uso di attributi privati e metodi che nascondono gli aspetti interni dell'implementazione.
+    \item \textbf{Separation of concerns (Separazione delle responsabilità)}
+    Django segue il principio di separazione delle responsabilità attraverso l'architettura MVC, separando il modello, la vista e il controller.
+    \item \textbf{Separation of interface and implementation (Separazione dell'interfaccia e dell'implementazione)} 
+    Django supporta la separazione dell'interfaccia e dell'implementazione attraverso le view, che definiscono l'interfaccia utente, separate dal modello e dal controller.
+    \item \textbf{Coupling and cohesion (Coupling e coesione)}
+    Django promuove una bassa accoppiamento e alta coesione tra i componenti attraverso l'architettura MVC, il sistema di routing e l'organizzazione modulare delle applicazioni.
+    \item \textbf{Single point of reference (Singolo punto di riferimento)}
+    Django offre il concetto di URLconf, che funge da singolo punto di riferimento per le richieste HTTP e dirige il traffico verso le view appropriate.
+    \item \textbf{Divide and conquer (Dividere e conquistare)}
+    Questo principio di progettazione generale può essere applicato nel modo in cui viene organizzato il codice sia nel backend (Python e Django) che nel frontend (Bootstrap).
+
+
+\end{itemize}
+
