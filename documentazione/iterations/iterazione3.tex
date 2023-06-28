@@ -27,7 +27,7 @@ relative alle componenti implementate in questa iterazione,
 ovvero Amici e Discover (parte relativa all'algoritmo).
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.64]{component_diagram_ver5_5.png} 
+    \includegraphics[scale=0.62]{component_diagram_ver5_5.png} 
     \caption{UML Component Diagram}
     \label{fig-uml-component-diag_5}
 \end{figure}
@@ -410,7 +410,7 @@ suggerimento di utenti con gusti simili.
 Diagramma delle attività della terza parte dell'algoritmo.
 \begin{figure} [H]
     \centering
-    \includegraphics[scale=0.6]{images/flowchart_3_UML_ver2.png}
+    \includegraphics[scale=0.59]{images/flowchart_3_UML_ver2.png}
     \caption{UML Activity Diagram (parte III)}
     \label{fig-uml-ac-3}
 \end{figure}
@@ -579,7 +579,7 @@ Pylint è configurato tramite un file che contiene tutti parametri e le impostaz
 da noi scelti per diminuire la complessità del codice ed aumentarne la chiarezza.
 Il linting del progetto avviene tramite uno script e, oltre a warning ed errori, 
 nell'output è presente anche un singolo numero (su una scala da 1 a 10) che valuta il codice. 
-In particolare, alla fine di questa iterazione questo valore è pari a
+In particolare, alla fine di questa iterazione questo valore è pari a \textbf{9.18/10}
 
 
 \newpage
@@ -674,4 +674,10 @@ def test_email_account_correct(self):
 \subsection{Coverage}
 Coverage.py è uno strumento atto a misurare la copertura del codice per il linguaggio
 Python. È anche disponibile un output interattivo in HTML, il cui output per il codice di questa iterazione è visibile
-in figura (ref).
+in figura \ref{fig-coverage}.
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.22]{images/coverage.png}
+    \caption{Coverage.py results}
+    \label{fig-coverage}
+\end{figure}
