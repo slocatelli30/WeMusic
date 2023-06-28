@@ -1,0 +1,11 @@
+# in .coveragerc
+[report]
+exclude_lines =
+    @login_required
+    @derive_user_type
+    @require_ordinary_user
+    @require_artist
+    pragma: no cover
+
+[run]
+omit = decorators.py

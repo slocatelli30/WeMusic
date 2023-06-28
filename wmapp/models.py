@@ -7,9 +7,6 @@ from django.db import models
 # import def contains_number, pub_past, genre_valido into utility.py
 from .utility import contains_number, pub_past, genre_valido
 
-# classe Account
-
-
 class Account(models.Model):
     """
     Classe Account
@@ -122,6 +119,15 @@ class Account(models.Model):
             return True
         # altrimenti
         return False
+    
+    # account str correct
+    def account_str_correct(self):
+        """
+        Account str correct
+        """
+        if not self.__str__ :
+            return False
+        return True
 
 
 class OrdinaryUser(models.Model):
@@ -136,9 +142,6 @@ class OrdinaryUser(models.Model):
     def __str__(self):
         return f'utente: {self.account.user.username}'
 
-# classe Artist
-
-
 class Artist(models.Model):
     """
     Classe Artista
@@ -148,9 +151,20 @@ class Artist(models.Model):
 
     def __str__(self):
         return f'artista: {self.account.user.username}'
+        
+    def artist_name_correct(self):
+        """
+        Controllo sul nome
+        """
 
-# classe Album
-
+        # condizioni:
+        # se il nome dell'account è vuoto
+        # se il nome dell'account contiene un numero
+        if ((not self.account.name) or
+           (contains_number(self.account.name))):
+            return False
+        # altrimenti
+        return True
 
 class Album(models.Model):
     """
@@ -174,9 +188,6 @@ class Album(models.Model):
             return True
         return False
 
-# classe Song
-
-
 class Song(models.Model):
     """
     Classe Song
@@ -191,6 +202,20 @@ class Song(models.Model):
 
     def __str__(self):
         return self.title
+
+    # funzione per il controllo della
+    # validità del titolo del brano
+    def song_title_correct(self):
+        """
+        Funzione per il controllo della validità del titolo del brano
+        """
+        # condizioni:
+        # se il nome del brano è vuoto
+        if not self.title:
+            return False
+        # altrimenti
+        return True
+
 
     # funzione per il controllo della
     # validità di un genere musicale
@@ -218,9 +243,6 @@ class Song(models.Model):
             return True
         # altrimenti
         return False
-
-# classe Playlist
-
 
 class Playlist(models.Model):
     """

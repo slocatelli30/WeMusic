@@ -2,10 +2,10 @@
 Tests.py
 """
 
-# import TestCase
-from django.test import TestCase
 # import datetime
 import datetime
+# import TestCase
+from django.test import TestCase
 # import timezone
 from django.utils import timezone
 
@@ -22,6 +22,15 @@ class AccountModelTests(TestCase):
     """
     Test per la classe Account
     """
+
+    # test str account vuoto
+    def test_str_account_correct(self):
+        """
+        Test str account vuoto
+        """
+        str_fake = "account1"
+        account_fake = Account(name=str_fake)
+        self.assertIs(account_fake.account_str_correct() , True)
 
     # test nome account vuoto
     def test_name_account_empty(self):
@@ -154,6 +163,20 @@ class AccountModelTests(TestCase):
         account_fake = Account(sex=sex_test)
         self.assertIs(account_fake.sexbool(), False)
 
+class ArtistModelTests(TestCase):
+    """
+    Test per la classe Artista
+    """
+
+    # Test nome corretto Artista
+    def test_artist_account_name_correct(self):
+        """
+        Test nome corretto Artista
+        """
+        name_ok = "Micheal"
+        artist_fake = Account(name=name_ok)
+        self.assertIs(artist_fake.account_name_correct(), True)
+
 class AlbumModelTests(TestCase):
     """
     Test per la classe Album
@@ -176,6 +199,18 @@ class SongModelTests(TestCase):
     """
     Test per la classe Song
     """
+
+    # test title song corretto
+    def test_song_title_correct(self):
+        """
+        Se il titolo del brano non è vuoto ritorna True, 
+        altrimenti False
+        """
+        # titolo corretto
+        title_ok = "La primavera"
+        song_fake = Song(title=title_ok)
+        self.assertIs(song_fake.song_title_correct(), True)
+
     # test genre song corretto (genere inventato)
     def test_song_genre_correct(self):
         """
