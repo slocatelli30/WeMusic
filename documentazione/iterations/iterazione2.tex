@@ -9,10 +9,8 @@ un'analisi dettagliata al fine di specificare le seguenti informazioni:
     \item \textbf{Sequenza in caso di eccezioni:} specifica i casi d'eccezione possibili e a che passo della Base Sequence si viene riportati. 
 \end{itemize}
 
-Dopo aver analizzato nel dettaglio i casi d'uso si procede con la parte di Testing, 
-quindi analisi statica e dinamica tramite Electron. (...)
-
-
+Dopo aver analizzato nel dettaglio i casi d'uso, si procede con una modellazione più dettagliata 
+tramite UML Component Diagram ed infine si analizzano le API fornite dal sistema. 
 \newpage
 
 \section{Implementazione}
@@ -424,8 +422,24 @@ ancora disponibile per gli utenti regolari, ma il suo funzionamento
 
 \newpage
 \section{Documentazione API}
-Nel back-end sono stati realizzati gli endpoint visibili in tabella. Questi endpoint sono le fondamenta 
-per il funzionamento base della comunicazione tra utente e sistema.
+Nel back-end sono stati implementati gli endpoint elencati nella seguente tabella. 
+Questi endpoint costituiscono le fondamenta per il funzionamento di base della comunicazione tra l'utente e il sistema.
+La tabella mostra il metodo, l'endpoint e la funzione dell'API corrispondente.
+Questi endpoint consentono di interagire con il sistema per ottenere informazioni sugli 
+utenti, crearne di nuovi, aggiornare i loro dettagli e eliminarli. Sono elementi chiave per 
+la comunicazione e l'interazione tra l'utente e il back-end del sistema.
+I campi in tabella sono elencati di seguito:
+\begin{itemize}
+    \item \textbf{Metodo:} indica il tipo di operazione che può essere eseguita 
+        sull'endpoint specificato; quelli comuni e tradizionali includono i metodi HTTP (GET, POST, PUT e DELETE), 
+        ognuno dei quali con uno scopo ben specifico. Nel contesto specifico del presente sistema, sviluppato con Django, 
+        le logiche di backend che gestiscono le operazioni in questione hanno una numenclatura differente.
+    \item \textbf{Endpoint:} rappresenta l'URL specifico a cui è possibile accedere per eseguire un'operazione 
+        sulla risorsa corrispondente; essi sono parte dell'URL che segue il nome del dominio o l'indirizzo 
+        IP del server. 
+    \item \textbf{Funzione:} descrive brevemente l'obiettivo o la finalità dell'endpoint, cioè indica ciò 
+        che l'endpoint fa o quale operazione esegue quando viene richiamato.
+\end{itemize}
 \begin{table} [h!]
 \begin{center}
     \begin{tabular}{ |Sc|Sc|Sc| } 
@@ -439,24 +453,37 @@ per il funzionamento base della comunicazione tra utente e sistema.
      \hline
      \texttt{views.like\_song} & \makecell{\texttt{song/like/}\\ \texttt{<int:song\_id>}} & Like al brano \\ %16
      \hline
-     \texttt{views.unlike\_song} & \makecell{\texttt{song/unlike/} \\ \texttt{<int:song\_id>}} & Unlike Brano\\ %17
-     \hline
-     \texttt{views.album\_detail} & \makecell{\texttt{albums/} \\ \texttt{<int:album\_id>}} & \makecell{Visualizza \\dettagli album}\\ %18
-     \hline
-     \makecell{\texttt{views.add\_song}\\ \texttt{\_to\_playlist}} & \makecell{\texttt{playlist/addsong/}\\ \texttt{<int:song\_id>}} & \makecell{Aggiungi brano \\ a playlist}\\ %24
-     \hline
-     \texttt{views.add\_friends} & \makecell{\texttt{people/add/}\\ \texttt{<int:ordinaryuser\_id>}} & Aggiungi amico \\ %28
-     \hline
-     \texttt{views.remove\_friends} & \makecell{\texttt{friends/remove/} \\ \texttt{<int:ordinaryuser\_id>}} & Rimuovi amico \\ %31
-     \hline
-     \texttt{views.discover} & \texttt{discover} & Algoritmo Discover \\ %33
-     \hline
     \end{tabular}
 \end{center}
 \caption{API}
 \end{table}
 
+\newpage
+\begin{table} [h!]
+    \begin{center}
+        \begin{tabular}{ |Sc|Sc|Sc| } 
+         \hline
+         Metodo & Endpoint & Funzione \\ 
+         \hline
+         \hline
+         \texttt{views.unlike\_song} & \makecell{\texttt{song/unlike/} \\ \texttt{<int:song\_id>}} & Unlike Brano\\ %17
+         \hline
+         \texttt{views.album\_detail} & \makecell{\texttt{albums/} \\ \texttt{<int:album\_id>}} & \makecell{Visualizza \\dettagli album}\\ %18
+         \hline
+         \makecell{\texttt{views.add\_song}\\ \texttt{\_to\_playlist}} & \makecell{\texttt{playlist/addsong/}\\ \texttt{<int:song\_id>}} & \makecell{Aggiungi brano \\ a playlist}\\ %24
+         \hline
+         \texttt{views.add\_friends} & \makecell{\texttt{people/add/}\\ \texttt{<int:ordinaryuser\_id>}} & Aggiungi amico \\ %28
+         \hline
+         \texttt{views.remove\_friends} & \makecell{\texttt{friends/remove/} \\ \texttt{<int:ordinaryuser\_id>}} & Rimuovi amico \\ %31
+         \hline
+         \texttt{views.discover} & \texttt{discover} & Algoritmo Discover \\ %33
+         \hline
+        \end{tabular}
+    \end{center}
+    \caption{API}
+    \end{table}
 
+\newpage
 \section{UML Component Diagram}
 Dopo aver implementato i casi d'uso sopracitati e le relative interfacce, le API, la struttura del 
 sistema risulta come segue in \ref{fig-uml-component-diag_2} e \ref{fig-uml-component-diag_4}. Al fine di
