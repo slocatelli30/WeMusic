@@ -434,7 +434,7 @@ Pseudocodice dell'ultima parte dell'algoritmo.
 % pseudocodice 4
 \begin{algorithm}
 
-    \caption{Step 4 - Parametri di ritordno}
+    \caption{Step 4 - Parametri di ritorno}
     \SetAlgoLined
    
     \SetKwProg{myalg}{algoritmo}{ begin}{end}
@@ -579,44 +579,84 @@ Pylint è configurato tramite un file che contiene tutti parametri e le impostaz
 da noi scelti per diminuire la complessità del codice ed aumentarne la chiarezza.
 Il linting del progetto avviene tramite uno script e, oltre a warning ed errori, 
 nell'output è presente anche un singolo numero (su una scala da 1 a 10) che valuta il codice. 
-In particolare, alla fine di questa iterazione questo valore è pari a \textbf{9.18/10}
+In particolare, alla fine di questa iterazione questo valore è pari a \textbf{9.18/10}.
 
 
 \newpage
 \section{Analisi dinamica}
-\vspace{2pt}
 \subsection{Testing Backend}
 Durante la terza iterazione sono stati sviluppati dei test su specifici campi delle classi, organizzati nel file test.py. Per supportare l'esecuzione 
 dei test, sono state create funzioni ausiliarie raggruppate nel file utility.py.
 Di seguito vengono descritti i casi di test per i campi chiave delle classi Account, Album e Playlist.
 
 \vspace{3pt}
-\subparagraph{Test per la classe \textbf{Album:}} La classe Album gestisce le informazioni riguardanti un album musicale. È presente un caso di test che verifica la validità della data di pubblicazione.
-\vspace{2pt}
-\begin{itemize}
-    \item \textbf{isValidReleaseDate(const char* releaseDate):}
-    Questo test verifica che la data di pubblicazione immessa per l'album sia valida. Se la data non rispetta un formato o una logica valida, il test restituisce false, altrimenti restituisce true.
-\end{itemize}
+\subparagraph{Test per la classe \textbf{Account:}} La classe Account gestisce le informazioni dell'utente, come il nome e l'email. 
+Durante la fase di registrazione, sono presenti diversi casi di test che verificano la validità dei dati immessi.
+I test riportati di seguito verificano che il nome e l'email immessi durante la registrazione non siano vuoti. 
+Se il nome è vuoto o contiene un numero, o se la email non è stata dichiarata correttamente, i test restituiscono false, altrimenti restituiscono true.
 
-\vspace{2pt}
-\begin{lstlisting}[caption={class AlbumModelTests(TestCase)}, captionpos=b]
-def test_album_data_pub_correct(self):
-    time = timezone.now() +  datetime.timedelta(days=30)
-    future_album = Album(pub_date = time)
-    self.assertIs(future_album.album_pub_correct(), 
+\vspace{3pt}
+\begin{lstlisting}   
+def test_name_account_empty(self):
+    name_fake = ``''
+    account_fake = Account(name = name_fake)
+    self.assertIs(account_fake.account_name_correct(), 
                                                 False)
 \end{lstlisting} 
 
+\vspace{3pt}
+%\begin{lstlisting}[caption={class AccountModelTests(TestCase)}, captionpos=b]
+
+\begin{lstlisting}
+def test_name_account_number(self):
+    name_err = ``Luca''
+    account_err = Account(name = name_err)
+    self.assertIs(account_err.account_name_correct(), 
+                                                False)
+\end{lstlisting} 
+
+\vspace{3pt}
+\begin{lstlisting}
+def test_email_account_correct(self):
+    email_fake = ``pulcinopiowemusic.it''
+    account_fake = Account(email = email_fake)
+    self.assertIs(account_fake.account_email_correct(), 
+                                                False)
+\end{lstlisting}
+
 
 \newpage
-\subparagraph{Test per la classe \textbf{Playlist:}} La classe Playlist gestisce le informazioni di una playlist musicale. È presente un caso di test che verifica la validità del nome della playlist:
-\vspace{2pt}
-\begin{itemize}
-    \item \textbf{isValidPlaylistName(const char* playlistName):}
-    Questo test verifica che il nome immesso durante la creazione della playlist sia valido. Se il nome non rispetta determinati criteri o restrizioni, il test restituisce false, altrimenti restituisce true.
-\end{itemize}
-\vspace{2pt}
-\begin{lstlisting}[caption={PlaylistModelTests(TestCase)}, captionpos=b]
+\vspace{5pt}
+\subparagraph{Test per la classe \textbf{Song:}} La classe Song include le informazioni relative al brano. Di seguito sono riportati alcuni dei casi di test effettuati.
+I test riportati di seguito verificano che il nome e il genere immessi durante la creazione del brano siano validi. 
+Se i campi non rispettano determinati criteri o restrizioni, i test restituiscono false, altrimenti restituiscono true.
+\vspace{3pt}
+%\begin{lstlisting}[caption={class SongModelTests(TestCase)}, captionpos=b]
+
+\begin{lstlisting}
+    def test_song_title_correct(self):
+    title_ok =``La primavera''
+    song_fake = Song(title=title_ok)
+    self.assertIs(song_fake.song_title_correct(), True)
+\end{lstlisting} 
+\vspace{3pt}
+\begin{lstlisting}
+def test_song_genre_correct(self):
+    genre_err = ``arabasound''
+    genre_err = Song(genre=genre_err)
+    self.assertIs(genre_err.song_genre_correct(), 
+                                            False)
+\end{lstlisting}
+
+\vspace{5pt}
+\subparagraph{Test per la classe \textbf{Playlist:}} La classe Playlist include le informazioni di una playlist musicale. È presente un caso di test che verifica la validità del nome della playlist:
+I test riportati di seguito verificano che il nome e la data immessi durante la creazione della playlist siano validi. 
+Se il nome non rispetta determinati criteri o restrizioni, o se la data non rispetta un formato o una logica valida, i test restituiscono false, altrimenti restituiscono true.
+
+\vspace{3pt}
+%\begin{lstlisting}[caption={PlaylistModelTests(TestCase)}, captionpos=b]
+
+\begin{lstlisting}
 def test_playlist_name_correct(self):
     playlist_name_empty = ``"
     playlist_err = Playlist(name = playlist_name_empty)
@@ -624,51 +664,34 @@ def test_playlist_name_correct(self):
                                                 False)
 \end{lstlisting} 
 
-\vspace{10pt}
-\subparagraph{Test per la classe \textbf{Account:}} La classe Account gestisce le informazioni dell'utente, come il nome e l'email. 
-Durante la fase di registrazione, sono presenti tre casi di test che verificano la validità dei dati immessi:
-\vspace{2pt}
-\begin{itemize}
-    \item \textbf{isNameNotEmpty(const char* name)}
-    Questo test verifica che il nome immesso durante la registrazione non sia vuoto. Se il nome è vuoto, il test restituisce false, altrimenti restituisce true;
-\end{itemize}
-\vspace{2pt}
-\begin{lstlisting}[caption={class AccountModelTests(TestCase)}, captionpos=b]   
-def test_name_account_empty(self):
-    name_fake = ``"
-    account_fake = Account(name = name_fake)
-    self.assertIs(account_fake.account_name_correct(), 
-                                                False)
+\vspace{3pt}
+\begin{lstlisting}
+def {test_playlist_creation_date_correct(self)}:
+    playlist_creat_date_err = timezone.now() + 
+                        datetime.timedelta(days=30)
+    playlist_err = Playlist(creation_date=
+                            playlist_creat_date_err)
+    self.assertIs(playlist_err.playlist_creation_date_
+                                    correct(), False)
 \end{lstlisting} 
+
 
 
 \newpage
-\begin{itemize}    
-    \item \textbf{isNameWithoutNumbers(const char* name):}
-    Questo test verifica che il nome immesso durante la registrazione non contenga numeri. Se il nome contiene almeno un numero, il test restituisce false, altrimenti restituisce true.
-\end{itemize}
-\vspace{2pt}
-\begin{lstlisting}[caption={class AccountModelTests(TestCase)}, captionpos=b]
-def test_name_account_number(self):
-    name_err = ``Luca9"
-    account_err = Account(name = name_err)
-    self.assertIs(account_err.account_name_correct(), 
+\subparagraph{Test per la classe \textbf{Album:}} La classe Album include le informazioni riguardanti un album musicale. 
+Il test riportato di seguito verifica che la data di pubblicazione immessa per l'album sia valida. 
+Se la data non rispetta un formato o una logica valida, il test restituisce false, altrimenti restituisce true.
+\vspace{3pt}
+%\begin{lstlisting}[caption={class AlbumModelTests(TestCase)}, captionpos=b]
+
+\begin{lstlisting}
+def test_album_data_pub_correct(self):
+    time = timezone.now() +  datetime.timedelta
+                                            (days=30)
+    future_album = Album(pub_date = time)
+    self.assertIs(future_album.album_pub_correct(), 
                                                 False)
 \end{lstlisting} 
-\vspace{10pt}
-
-\begin{itemize}
-    \item \textbf{isValidEmail(const char* email):}
-    Questo test verifica che l'email immessa durante la registrazione sia valida. Se l'email non rispetta un formato valido, il test restituisce false, altrimenti restituisce true.
-\end{itemize}
-\vspace{2pt}
-\begin{lstlisting}[caption={class AccountModelTests(TestCase)}, captionpos=b]
-def test_email_account_correct(self):
-    email_fake = ``pulcinopiowemusic.it"
-    account_fake = Account(email = email_fake)
-    self.assertIs(account_fake.account_email_correct(), 
-                                                False)
-\end{lstlisting}
 
 \newpage
 \subsection{Coverage}
