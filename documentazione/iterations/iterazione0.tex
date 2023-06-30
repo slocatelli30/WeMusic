@@ -1,55 +1,72 @@
 \section{Requisiti}
 
-Si vuole realizzare un sistema software che offra un servizio di sharing musicale, integrato
-con le funzionalità tipiche di un social network. Durante la fase di registrazione, l'utente
-sarà tenuto ad 
-inserire una lista di generi musicali preferiti. L'algoritmo proporrà quindi all'utente i
-brani più popolari basati sulle sue preferenze e gli consetirà di esplorare le sue
-affinità musicali. Gli attori coinvolti sono i seguenti:
+Si vuole realizzare un sistema software completo che offrirà agli utenti un servizio di sharing musicale 
+integrato con le funzionalità di un social network. L'obiettivo principale è fornire agli utenti un'esperienza 
+musicale coinvolgente, consentendo loro di esplorare nuovi brani, condividere le proprie preferenze musicali e 
+connettersi con artisti e amici che condividono interessi simili.
+
+Durante la fase di registrazione, agli utenti verrà richiesto di inserire le proprie informazioni personali, 
+come nome, compleanno, e altri dettagli pertinenti. Queste informazioni saranno utilizzate per personalizzare 
+l'esperienza musicale di ciascun utente.
+
+Una volta registrati, l'algoritmo del sistema entrerà in azione. Utilizzando le informazioni fornite dagli utenti 
+durante la registrazione, l'algoritmo analizzerà le preferenze musicali e suggerirà loro i brani più popolari e 
+rilevanti basati su tali preferenze. Questo consentirà agli utenti di scoprire nuove canzoni e artisti che potrebbero interessarli.
+
+Oltre a suggerire brani, il sistema offrirà anche la possibilità di esplorare le affinità musicali. 
+Gli utenti potranno visualizzare le playlist e i gusti musicali dei propri amici e scoprire artisti 
+correlati in base alle preferenze comuni. Ciò favorirà l'interazione sociale tra gli utenti e creerà
+ un ambiente in cui gli appassionati di musica potranno connettersi, scoprire nuove tracce e condividere le proprie esperienze musicali.
+
+Nel sistema saranno coinvolti due principali attori:  
 \begin{itemize}
-      \item \textbf{Utenti:} coloro che desiderano ascoltare musica, conoscere e condividere le proprie
-            attività musicali con gli amici;
-      \item \textbf{Artisti:} sia indipendenti che non, per pubblicare e gestire la propria musica.
+      \item \textbf{Utenti:} coloro che desiderano ascoltare musica, conoscere nuovi artisti e condividere 
+      le proprie attività musicali con gli amici;
+      \item \textbf{Artisti:} sia indipendenti che facenti parte di case discografiche, che desiderano 
+      pubblicare e gestire la propria musica sul sistema.
 \end{itemize}
 
-Per poter usufruire dei servizi forniti dal sistema l'utente deve registrarsi e creare un proprio
-profilo personale. Una volta completata la registrazione, verrà indirizzato alla homepage del sistema 
-dove potrà visualizzare i brani più popolari appartenenti ai generi musicali di suo interesse, avrà la 
-possibilità di effettuare ricerche specifiche di brani e accedere alla sezione delle impostazioni personali e social. 
-Nel momento in cui viene selezionato un brano per il download, saranno fornite tutte le informazioni relative ad esso, 
-tra cui titolo, artista, album, anno di pubblicazione, genere di appartenenza, numero di ascolti, durata del brano e casa discografica
+In questo modo, gli artisti potranno raggiungere un pubblico più vasto e gli utenti avranno accesso a una vasta gamma 
+di brani provenienti da artisti diversi.
 
-Il software offre anche la possibilità di mettere ``like'' ai brani e di creare playlist
-personalizzate. Nella propria libreria musicale saranno quindi presenti le playlist dell'utente e
-la playlist dei brani preferiti. Inoltre l'interfaccia social permette di aggiungere gli
-amici e di chattare con essi.
+Complessivamente, il sistema software offrirà una piattaforma interattiva e coinvolgente per gli amanti della musica, 
+consentendo loro di esplorare, condividere e connettersi attraverso la passione comune per la musica.
 
-La funzionalità principale offerta dal servizio è l'algoritmo ``Discover'', che permette all'utente
-di trovare i brani più apprezzati dalle persone che ascoltano gli stessi generi musicali, 
-al fine di permettergli di scoprire sempre nuove canzoni. Inoltre, l'algoritmo è anche in grado di proporre
+Per poter accedere ai servizi offerti dal sistema, l'utente dovrà effettuare una registrazione e creare un proprio profilo personale. 
+Una volta completata la registrazione, l'utente verrà indirizzato alla homepage del sistema, dove avrà accesso a diverse funzionalità.
 
-L'artista, a differenza dell'utente ascoltatore, può caricare brani singoli e album
-inserendo i dati relativi alla propria produzione artistica.
+Sulla \textbf{homepage}, l'utente potrà visualizzare i brani che ha apprezzato e le proprie playlist personalizzate. 
+Avrà la possibilità di effettuare ricerche specifiche per trovare brani desiderati e potrà anche accedere alla 
+sezione delle impostazioni personali e social, per personalizzare il proprio profilo e le preferenze di condivisione.
 
-L'utente, per poter usufruire dei servizi forniti, deve registrarsi e creare un proprio
-profilo personale. Una volta iscritto, verrà indirizzato alla homepage che mostra i brani
-più popolari dei generi preferiti dall'utente, la possibilità di cercare un brano
-specifico e la sezione di impostazioni personali e social. Quando viene selezionato il
-brano da scaricare, vengono fornite tutte le informazioni relative (titolo, artista,
-album, anno di uscita, genere di appartenenza, numero di ascolti, durata del brano, casa
-discografica).
+Quando l'utente seleziona un brano per il \textbf{download}, il sistema fornirà tutte le informazioni relative ad esso, 
+come il titolo, l'artista, l'album e il genere di appartenenza. Questo permetterà all'utente di ottenere una panoramica 
+completa del brano prima di procedere al download.
 
-Il software offre anche la possibilità di mettere ``like'' ai brani e di creare playlist
-personalizzate. Nella propria libreria saranno quindi presenti le playlist dell'utente e
-la playlist dei brani preferiti. L'interfaccia social permette invece di aggiungere gli
-amici e di chattare con essi.
+Il software offre anche la possibilità di mettere \textbf{``like''} ai brani e creare playlist personalizzate. 
+Nella libreria musicale dell'utente saranno quindi presenti le sue playlist personali e una lista dei brani preferiti. 
+Questo consentirà all'utente di organizzare la propria musica in base ai propri gusti e preferenze.
 
-La funzionalità principale offerta dal servizio è l'algoritmo ``Discover'', che consente
-di trovare i brani più apprezzati dalle persone che ascoltano gli stessi generi musicali
-dell'utente così da permettergli di scoprire sempre nuove canzoni.
+Inoltre, l'interfaccia sociale del sistema permette all'utente di aggiungere \textbf{amici}. 
+Ciò consente di connettersi con altre persone che condividono interessi musicali simili e facilita 
+la condivisione di brani, playlist e esperienze musicali tra amici.
 
-L'artista, a differenza dell'utente ascoltatore, può caricare brani singoli e album
-inserendo i dati relativi alla propria produzione artistica.
+La funzionalità principale offerta dal servizio è l'\textbf{algoritmo ``Discover"}, progettato per consentire 
+agli utenti di trovare i brani più apprezzati da altre persone che condividono gli stessi generi musicali di interesse. 
+Questo algoritmo è fondamentale per permettere agli utenti di scoprire sempre nuove canzoni e ampliare il 
+loro repertorio musicale. Grazie all'algoritmo "Discover", gli utenti potranno esplorare un vasto catalogo musicale e 
+ricevere raccomandazioni personalizzate basate sui loro gusti musicali.
+
+Inoltre, l'algoritmo non solo suggerirà nuove canzoni, ma sarà anche in grado di proporre nuovi amici 
+con gusti musicali affini. Questo incoraggerà l'interazione sociale all'interno della piattaforma, consentendo 
+agli utenti di connettersi con altre persone che condividono le loro preferenze musicali e facilitando la scoperta e 
+la condivisione di brani e playlist tra amici.
+
+Per quanto riguarda gli artisti, il servizio offre loro la possibilità di caricare brani singoli e album. 
+Gli artisti potranno inserire i dati relativi alla propria produzione artistica, come titolo, artista, album e 
+altre informazioni pertinenti. Questo permetterà loro di pubblicare e gestire la propria musica all'interno 
+della piattaforma, raggiungendo un pubblico più vasto e offrendo agli utenti la possibilità di scoprire e ascoltare la loro musica.
+
 
 
 \vspace{1cm}
@@ -215,7 +232,7 @@ già precedentemente descritti mettendoli in correlazione con il corrispettivo a
 
 \begin{figure}[H]
       \centering
-      \includegraphics[scale=0.50]{UseCaseDiagram_ver3.jpg}
+      \includegraphics[scale=0.50]{UseCaseDiagram_ver4.jpg}
       \caption{UML Use Cases Diagram}
       \label{fig-uml-use-cases}
 \end{figure}
