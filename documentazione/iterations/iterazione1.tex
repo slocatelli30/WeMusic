@@ -1,7 +1,6 @@
 \section{Introduzione}
-
-L'iterazione 1 ha come scopo quello di identificare le componenti dal modello dei casi d'uso, 
-applicando le euristiche di early design: verrà perfezionata la specifica dei componenti 
+Durante la prima iterazione sono state identificate le componenti dal modello dei casi d'uso, 
+applicando le euristiche di early design: viene perfezionata la specifica dei componenti 
 progettati durante l'iterazione 0 al fine di da definire meglio l'architettura software. 
 È stato costruito lo scheletro dell'applicazione tramite la specifica delle differenti classi 
 popolate nelle seguenti iterazioni.
@@ -9,29 +8,26 @@ popolate nelle seguenti iterazioni.
 Inizialmente, durante lo sviluppo dell'iterazione 0, il sistema nella sua totalità è stato 
 visualizzato come una unica componente e sono stati 
 introdotti gli attori, ognuno dei quali definito come un'entità esterna. In seguito sono stati 
-sviluppati tutti i casi d'uso che riassumono il funzionamento del sistema, i quali verranno, 
-nell'Iterazione 1, raccolti e raggruppati secondo un preciso criterio e affinità. 
+sviluppati tutti i casi d'uso che riassumono il funzionamento del sistema, i quali vengono, 
+nella prima iterazione, raccolti e raggruppati secondo un preciso criterio e affinità. 
 
 Vengono inoltre introdotti componenti e sottocomponenti di controllo di ciascun gruppo, o 
-alternativamente componenti di dati; per ognuna di esse nascono parallelamente le classi 
+alternativamente componenti di dati; per ognuno di essi nascono parallelamente le classi 
 candidate e le relazioni che le legano. 
 
 Per ogni caso d'uso che ha una interazione diretta con un attore esterno viene introdotta 
 un'interfaccia per le operazioni visibili esternamente, ovvero le API, offerte o richieste 
 dal componente o sottocomponente corrispondente, in base alla direzione dell'interazione. 
 
-Ogni variabile input da un attore, specificata nella descrizione di un caso d'uso, 
-definisce un parametro di input dell'operazione dell'interfaccia corrispondente. 
-Ogni variabile output per un attore specificata nella descrizione di un caso d'uso 
-definisce un parametro di ritorno dell'operazione dell'interfaccia corrispondente 
-(se modalità sincrona) o un input di un'operazione dell'interfaccia di callback (se modalità asincrona) dell'attore. 
+Ogni variabile input/output da un attore, specificata nella descrizione di un caso d'uso, 
+definisce un parametro di input/di ritorno dell'operazione dell'interfaccia corrispondente. 
 
-Viene scomposto il sistema in sottosistemi e componenti, applicando pattern e 
+Viene quindi scomposto il sistema in sottosistemi e componenti, applicando pattern e 
 stili architetturali, per poi distribuire le componenti su nodi computazionali basati su 
 uno sviluppo fisico del sistema.
 
 
-E' necessario specificare che l'architettura di Django si basa sul design pattern MVC, acronimo di Model View 
+E' necessario specificare che l'architettura di Django si basa sul design pattern \textbf{MVC}, acronimo di Model View 
 Controller. Lo scopo di questa scelta di design è la suddivisione della logica in 
 tre parti fondamentali favorendo modularità, sviluppo collaborativo e riutilizzo del 
 codice oltre a rendere l'applicazione più flessibile e scalabile.
@@ -41,7 +37,7 @@ realtà il framework in sé, le View non scelgano come i dati vadano mostrati be
 dati mostrare e il come mostrarli viene in realtà deciso nei Template.
 
 Siccome la parte del Controller è gestita dal framework e la View è rappresentata dai Template, Django 
-utilizza un framework MTV, ovvero Model Template View.
+utilizza un framework MTV, ovvero \textbf{Model Template View}.
     
 \begin{comment}
 Per prima cosa quando viene effettuata una richiesta HTTP essa viene confrontata con gli URL, 
