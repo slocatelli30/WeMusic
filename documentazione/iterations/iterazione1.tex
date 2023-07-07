@@ -3,7 +3,7 @@ Durante la prima iterazione sono state identificate le componenti dal modello de
 applicando le euristiche di early design: viene perfezionata la specifica dei componenti 
 progettati durante l'iterazione 0 al fine di da definire meglio l'architettura software. 
 È stato costruito lo scheletro dell'applicazione tramite la specifica delle differenti classi 
-popolate nelle seguenti iterazioni.
+popolate nelle iterazioni successive.
 
 Inizialmente, durante lo sviluppo dell'iterazione 0, il sistema nella sua totalità è stato 
 visualizzato come una unica componente e sono stati 
@@ -27,17 +27,15 @@ stili architetturali, per poi distribuire le componenti su nodi computazionali b
 uno sviluppo fisico del sistema.
 
 
-E' necessario specificare che l'architettura di Django si basa sul design pattern \textbf{MVC}, acronimo di Model View 
-Controller. Lo scopo di questa scelta di design è la suddivisione della logica in 
+E' necessario specificare che l'architettura di Django 
+si basa sul design pattern MVT, ovvero \textbf{Model View Template}, molto simile
+al \textbf{MVC}. Lo scopo di questa scelta di design è la suddivisione della logica in 
 tre parti fondamentali favorendo modularità, sviluppo collaborativo e riutilizzo del 
-codice oltre a rendere l'applicazione più flessibile e scalabile.
-    
-Django interpreta il pattern MVC a modo suo, in modo tale che il Controller risulti in 
-realtà il framework in sé, le View non scelgano come i dati vadano mostrati bensì quali 
-dati mostrare e il come mostrarli viene in realtà deciso nei Template.
+codice oltre a rendere l'applicazione più flessibile e scalabile. 
+A differenza di quanto succede nel MVC, nel MVT il Controller è gestito
+dal framework, le View non scelgono come i dati vengono mostrati bensì quali 
+dati mostrare, di conseguenza il come mostrarli viene deciso nei Template.
 
-Siccome la parte del Controller è gestita dal framework e la View è rappresentata dai Template, Django 
-utilizza un framework MTV, ovvero \textbf{Model Template View}.
     
 \begin{comment}
 Per prima cosa quando viene effettuata una richiesta HTTP essa viene confrontata con gli URL, 
@@ -78,7 +76,7 @@ Di seguito un elenco dettagliato dei casi d'uso suddivisi come anticipato.
     \begin{itemize}
         \item \textbf{UC4:} Cerca brano
         \item \textbf{UC5:} Cerca album
-        \item \textbf{UC6:} Cerca Artista
+        \item \textbf{UC6:} Cerca artista
         \item \textbf{UC7:} Scarica brano
         \item \textbf{UC8:} Like al brano
         \item \textbf{UC19:} ``Discover'' 
@@ -135,8 +133,8 @@ le tre componenti già precedentemente analizzate, ovvero Account, Musica,
 Autenticazione e Discover.
 In questo caso viene rappresentato in unico diagramma il Data Class Diagram, 
 il quale descrive le classi che compongono la struttura dell'applicazione e le
-le entità presenti al suo interno, e il Package/IF Diagram, quindi sono stati
-inserite le funzioni implementate. 
+le entità presenti al suo interno, e il Package/IF Diagram, il quale rappresenta
+i package e le funzioni implementate. 
 nel sistema.
 \begin{figure}[H]
     \centering

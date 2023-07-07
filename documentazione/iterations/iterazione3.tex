@@ -1,7 +1,7 @@
 \section{Introduzione}
 Nella terza iterazione è stato approfondito e implementato l'algoritmo portante del sistema: l'algoritmo di Discover permette di ``Scoprire" nuova 
 musica e nuovi utenti in base alle preferenze dell'utente.
-In seguito si procede con la parte di Testing, quindi analisi statica (tramite Electron) e dinamica (sia di backend sia tramite Coverage.py).
+In seguito si procede con la parte di Testing, quindi analisi statica e dinamica.
 
 
 \section{Implementazione del caso d'uso}
@@ -534,7 +534,7 @@ dalla fase di costruzione dell'albero stesso.
 Alberi decisionali sono metodi di learning supervisionato non parametrici usati per la classificazione
 e la regressione. L'obiettivo è di creare un modello che preveda il valore di una variabile target tramite 
 apprendimento di semplici regole decisionali e dedotte dalle caratteristiche dei dati. Quindi 
-un albero può essere visto come una costantr approssimazione a tratti.
+un albero può essere visto come una costante approssimazione a tratti.
 
 
 La complessità dell'addestramento di un albero decisionale è influenzata 
@@ -553,9 +553,8 @@ consente di produrre un modello di regressione lineare, insieme alla funzione an
 precedentemente. 
 \vspace{0.5cm}
 
-
 In conclusione, la complessità dell'addestramento di un albero decisionale 
-con la funzione DecisionTreeClassifier e la regressione tramite fit 
+con la funzione DecisionTreeClassifier con l'utilizzo della regressione tramite fit 
 risulta $O(n * m * log(m))$.
 
 
@@ -566,10 +565,9 @@ risulta $O(n * m * log(m))$.
 \newpage
 \section{Analisi statica}
 \vspace{2pt}
-\subsection{Backend}
 Il testing statico dei campi è una pratica comune nel processo di sviluppo del software 
 per verificare che i dati immessi in determinati campi rispettino determinate regole o vincoli. 
-Per l'analisi statica del back-end è stato usato pylint, un linter configurabile per il 
+Per l'analisi statica del codice è stato usato pylint, un linter configurabile per il 
 linguaggio Python. Esso mette a disposizione varie funzionalità:
 \begin{itemize}
     \item imposizione di \textit{coding standard} e di \textit{code style};
@@ -586,7 +584,6 @@ In particolare, alla fine di questa iterazione questo valore è pari a \textbf{9
 
 \newpage
 \section{Analisi dinamica}
-\subsection{Testing Backend}
 Durante la terza iterazione sono stati sviluppati dei test su specifici campi delle classi, organizzati nel file test.py. Per supportare l'esecuzione 
 dei test, sono state create funzioni ausiliarie raggruppate nel file utility.py.
 Di seguito vengono descritti i casi di test per i campi chiave delle classi Account, Album e Playlist.
