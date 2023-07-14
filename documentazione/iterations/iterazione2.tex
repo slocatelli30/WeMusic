@@ -153,7 +153,6 @@ tramite precise parole chiave, al fine di selezionare un brano da lui pubblicato
     \begin{itemize}
         \item \textbf{1.} L'utente clicca sulla barra di ricerca apposita nell'interfaccia.
         \item \textbf{2.} L'utente digita delle parole chiave per cercare l'artista, ovvero il nome dell'artista.
-        artista.
         \item \textbf{3.} L'utente ha correttamente eseguito la ricerca: può navigare fra i risultati e selezionare l'artista desiderato.
     \end{itemize}
     \item \textbf{Exception Sequence:} Non esiste un artista che corrisponde ai criteri di ricerca o connessione fallita.
@@ -430,7 +429,7 @@ utenti, crearne di nuovi, aggiornare i loro dettagli e eliminarli.
 I campi in tabella sono elencati di seguito:
 \begin{itemize}
     \item \textbf{Metodo:} indica il tipo di operazione che può essere eseguita 
-        sull'endpoint specificato; quelli comuni e tradizionali includono i metodi HTTP (GET, POST, PUT e DELETE), 
+        sull'endpoint specificato; quelli comuni e tradizionali includono i metodi HTTP (get, post, put, delete), 
         ognuno dei quali con uno scopo ben specifico. Nel contesto specifico del presente sistema, sviluppato con Django, 
         le logiche di backend che gestiscono le operazioni in questione hanno una numenclatura differente.
     \item \textbf{Endpoint:} rappresenta l'URL specifico a cui è possibile accedere per eseguire un'operazione 
@@ -487,7 +486,7 @@ I campi in tabella sono elencati di seguito:
 Dopo aver implementato i casi d'uso sopracitati e le relative interfacce, le API, la struttura del 
 sistema risulta come segue in \ref{fig-uml-component-diag_2} e \ref{fig-uml-component-diag_4}. Al fine di
 facilitare la lettura e comprensione del grafico, la rappresentazione del sistema è stata divisa in due. 
-\subparagraph{Autenticazione, Account, Amici} In figura sono presenti tutte le interfacce
+\subparagraph{Autenticazione, Account} In figura sono presenti tutte le interfacce
 relative alle componenti di Autenticazione e Account, primi casi d'uso implementati.
 \begin{figure}[H]
     \centering

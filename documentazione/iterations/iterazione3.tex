@@ -63,7 +63,7 @@ da un dataset, filtrandoli secondo le variabili sopracitate. Al termine dell'ese
 Gli step di funzionamento dell'algoritmo possono essere così riassunti: 
 \begin{itemize}
     \item Inizialmente, viene creato un oggetto account contenente le informazioni relative all'account dell'utente loggato, che ci serviranno in seguito; 
-    viene passato il parametro \textbf{request} che è quello che contiene le informazioni di interesse, ovvero l'età e il sesso (1=maschio, 0=femmina). 
+    viene passato il parametro \textbf{request} che è quello che contiene le informazioni di interesse, ovvero l'età e il sesso. 
     In seguito viene utilizzato un training set (\textbf{utenti.csv}) sul quale allenare la stima, contenente le informazioni degli utenti 
     necessarie per estrapolare le variabili: quelle di input includono il sesso e l'età dell'utente, quella di output contiene solo 
     il genere preferito (ciò che suggerirà l'algoritmo). 
@@ -485,7 +485,7 @@ vengono eseguite e e viene analizzato come queste operazioni dipendono dalla dim
 Di seguito viene fornita una stima approssimativa della complessità temporale per ogni parte dell'algoritmo:
 
 \begin{itemize}
-    \item \textbf{Lettura del file CSV:} La lettura del file CSV tramite la funzione $read\_csv$ ha una 
+    \item \textbf{Lettura del dataset:} La lettura del file CSV tramite la funzione $read\_csv$ ha una 
     complessità temporale che dipende dalla dimensione del file, nello specifico dal numero di righe e colonne del file.
     Supponiamo che ci siano n righe e m colonne nel file. La lettura del file richiede un'operazione 
     per ogni cella nel file, di conseguenza la complessità è dell'ordine di ${O(n*m)}$.
@@ -633,7 +633,7 @@ Se i campi non rispettano determinati criteri o restrizioni, i test restituiscon
 %\begin{lstlisting}[caption={class SongModelTests(TestCase)}, captionpos=b]
 
 \begin{lstlisting}
-    def test_song_title_correct(self):
+def test_song_title_correct(self):
     title_ok =``La primavera''
     song_fake = Song(title=title_ok)
     self.assertIs(song_fake.song_title_correct(), True)
@@ -696,7 +696,7 @@ def test_album_data_pub_correct(self):
 \subsection{Coverage}
 Coverage.py è uno strumento atto a misurare la copertura del codice per il linguaggio
 Python. È anche disponibile un output interattivo in HTML, il cui output per il codice di questa iterazione è visibile
-in figura \ref{fig-coverage}.
+in figura \ref{fig-coverage}, con risultato \textbf{95\%} di copertura.
 \begin{figure} [H]
     \centering
     \includegraphics[scale=0.22]{images/coverage.png}
